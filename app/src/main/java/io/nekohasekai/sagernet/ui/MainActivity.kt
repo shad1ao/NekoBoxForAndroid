@@ -50,6 +50,9 @@ import io.nekohasekai.sagernet.ktx.readableMessage
 import io.nekohasekai.sagernet.ktx.runOnDefaultDispatcher
 import moe.matsuri.nb4a.utils.Util
 
+// Set true to show the drawer "推广" row on non-Play builds again.
+private const val showPromoteRow = false
+
 class MainActivity : ThemedActivity(),
     SagerConnection.Callback,
     OnPreferenceDataStoreChangeListener,
@@ -129,7 +132,7 @@ class MainActivity : ThemedActivity(),
     fun refreshNavMenu(clashApi: Boolean) {
         if (::navigation.isInitialized) {
             navigation.menu.findItem(R.id.nav_traffic)?.isVisible = clashApi
-            navigation.menu.findItem(R.id.nav_tuiguang)?.isVisible = !isPlay
+            navigation.menu.findItem(R.id.nav_tuiguang)?.isVisible = showPromoteRow && !isPlay
         }
     }
 

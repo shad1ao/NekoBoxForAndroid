@@ -36,6 +36,9 @@ import io.nekohasekai.sagernet.database.DataStore
 import moe.matsuri.nb4a.utils.Util
 import org.json.JSONObject
 
+// Set true to show the About "捐款" row again.
+private const val showDonateRow = false
+
 class AboutFragment : ToolbarFragment(R.layout.layout_about) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,17 +111,21 @@ class AboutFragment : ToolbarFragment(R.layout.layout_about) {
                                 .subText(Libcore.versionBox())
                                 .setOnClickAction { }
                                 .build())
-                        .addItem(
-                            MaterialAboutActionItem.Builder()
-                                .icon(R.drawable.ic_baseline_card_giftcard_24)
-                                .text(R.string.donate)
-                                .subText(R.string.donate_info)
-                                .setOnClickAction {
-                                    requireContext().launchCustomTab(
-                                        "https://matsuridayo.github.io/index_docs/#donate"
-                                    )
-                                }
-                                .build())
+                        .apply {
+                            if (showDonateRow) {
+                                addItem(
+                                    MaterialAboutActionItem.Builder()
+                                        .icon(R.drawable.ic_baseline_card_giftcard_24)
+                                        .text(R.string.donate)
+                                        .subText(R.string.donate_info)
+                                        .setOnClickAction {
+                                            requireContext().launchCustomTab(
+                                                "https://matsuridayo.github.io/index_docs/#donate"
+                                            )
+                                        }
+                                        .build())
+                            }
+                        }
                         .apply {
                             PackageCache.awaitLoadSync()
                             for ((_, pkg) in PackageCache.installedPluginPackages) {
