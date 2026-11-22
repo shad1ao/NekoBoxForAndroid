@@ -19,7 +19,7 @@ This build is `1.4.3.2` of the mbox core on shad1ao/NyaBox. The product name is 
 - App version: `1.4.3.2` (versionCode 280)
 - Speed and per-profile traffic use the core stats tracker. They do not require YACD. The YACD page is still the dashboard menu, and that menu stays hidden until Clash API is enabled.
 - Mieru server settings use the app's existing translations. Simplified Chinese follows the official mieru terms: 端口范围, 多路复用, 握手模式, 流量模式.
-- Username and password stay separate, matching mieru. The password is copied from the username only when they are already equal or the user turns that switch on. Saving Mieru settings stores the configuration name as the mieru profile. An imported profile name stays in place until that save.
+- Username and password stay separate, matching mieru. The password field is always shown and is not copied from the username. Saving Mieru settings stores the configuration name as the mieru profile. An imported profile name stays in place until that save.
 
 ## Share links
 

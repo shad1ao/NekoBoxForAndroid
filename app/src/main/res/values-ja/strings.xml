@@ -113,5 +113,4 @@
     <string name="mieru_handshake_default">デフォルト</string>
     <string name="mieru_handshake_standard">標準</string>
     <string name="mieru_handshake_no_wait">待たない</string>
-    <string name="mieru_password_same_as_username">パスワードをユーザー名と同じにする</string>
 </resources>

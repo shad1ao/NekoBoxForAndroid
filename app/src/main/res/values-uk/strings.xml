@@ -534,5 +534,4 @@
     <string name="mieru_handshake_default">За замовчуванням</string>
     <string name="mieru_handshake_standard">Стандартний</string>
     <string name="mieru_handshake_no_wait">Без очікування</string>
-    <string name="mieru_password_same_as_username">Пароль збігається з іменем</string>
 </resources>

@@ -511,5 +511,4 @@
     <string name="mieru_handshake_default">默认</string>
     <string name="mieru_handshake_standard">标准</string>
     <string name="mieru_handshake_no_wait">0-RTT</string>
-    <string name="mieru_password_same_as_username">密码与用户名相同</string>
 </resources>

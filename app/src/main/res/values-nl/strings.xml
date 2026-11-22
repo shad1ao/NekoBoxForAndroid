@@ -20,5 +20,4 @@
     <string name="mieru_handshake_default">Standaard</string>
     <string name="mieru_handshake_standard">Normaal</string>
     <string name="mieru_handshake_no_wait">Zonder wachten</string>
-    <string name="mieru_password_same_as_username">Wachtwoord gelijk aan gebruikersnaam</string>
 </resources>

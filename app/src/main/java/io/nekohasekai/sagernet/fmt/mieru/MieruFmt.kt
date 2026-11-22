@@ -96,16 +96,13 @@ fun MieruBean.toMierusLink(): String {
  * (https://github.com/enfein/mieru/blob/v3.28.0/docs/server-install.zh_CN.md).
  * The client profile does the same for `user.name` and `user.password`
  * (https://github.com/enfein/mieru/blob/v3.28.0/docs/client-install.zh_CN.md).
- * They are copied together only when the user asks, or when the stored values
- * are already equal. Saving the settings screen stores the display name as
- * the share-link `profile`. An imported bean keeps its stored profile until
- * that save, so an unedited config still exports the official value.
+ * The settings screen stores each field as entered. Saving the settings screen
+ * stores the display name as the share-link `profile`. An imported bean keeps
+ * its stored profile until that save, so an unedited config still exports the
+ * official value.
  */
 internal object MieruEditor {
-    fun passwordMatchesUsername(username: String, password: String): Boolean = username == password
-
-    fun passwordToStore(username: String, password: String, sameAsUsername: Boolean): String =
-        if (sameAsUsername) username else password
+    fun passwordToStore(password: String): String = password
 
     fun profileFromDisplayName(displayName: String): String = displayName.trim()
 }

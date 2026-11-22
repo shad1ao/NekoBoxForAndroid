@@ -22,7 +22,6 @@ package io.nekohasekai.sagernet.ui.profile
 import android.os.Bundle
 import androidx.preference.EditTextPreference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreference
 import io.nekohasekai.sagernet.Key
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.DataStore
@@ -43,8 +42,6 @@ class MieruSettingsActivity : ProfileSettingsActivity<MieruBean>() {
         DataStore.serverProtocol = protocol
         DataStore.serverUsername = username
         DataStore.serverPassword = password
-        DataStore.mieruPasswordSameAsUsername =
-            MieruEditor.passwordMatchesUsername(username, password)
         DataStore.serverPorts = serverPorts
         DataStore.serverMTU = mtu ?: 0
         DataStore.mieruMultiplexing = multiplexing.ifBlank { "MULTIPLEXING_DEFAULT" }
@@ -58,11 +55,7 @@ class MieruSettingsActivity : ProfileSettingsActivity<MieruBean>() {
         serverPort = DataStore.serverPort
         protocol = DataStore.serverProtocol
         username = DataStore.serverUsername
-        password = MieruEditor.passwordToStore(
-            DataStore.serverUsername,
-            DataStore.serverPassword,
-            DataStore.mieruPasswordSameAsUsername,
-        )
+        password = MieruEditor.passwordToStore(DataStore.serverPassword)
         serverPorts = DataStore.serverPorts
         mtu = DataStore.serverMTU.takeIf { it in 1280..1400 }
         profileName = MieruEditor.profileFromDisplayName(DataStore.profileName)
@@ -79,21 +72,7 @@ class MieruSettingsActivity : ProfileSettingsActivity<MieruBean>() {
         findPreference<EditTextPreference>(Key.SERVER_PORT)!!.apply {
             setOnBindEditTextListener(EditTextPreferenceModifiers.Port)
         }
-        val username = findPreference<EditTextPreference>(Key.SERVER_USERNAME)!!
-        val password = findPreference<EditTextPreference>(Key.SERVER_PASSWORD)!!
-        val samePassword = findPreference<SwitchPreference>(Key.MIERU_PASSWORD_SAME_AS_USERNAME)!!
-        password.summaryProvider = PasswordSummaryProvider
-        password.isVisible = !samePassword.isChecked
-        samePassword.setOnPreferenceChangeListener { _, newValue ->
-            val checked = newValue == true
-            password.isVisible = !checked
-            if (checked) password.text = username.text
-            true
-        }
-        username.setOnPreferenceChangeListener { _, newValue ->
-            if (samePassword.isChecked) password.text = newValue?.toString().orEmpty()
-            true
-        }
+        findPreference<EditTextPreference>(Key.SERVER_PASSWORD)!!.summaryProvider = PasswordSummaryProvider
         val protocol = findPreference<SimpleMenuPreference>(Key.SERVER_PROTOCOL)!!
         val mtu = findPreference<EditTextPreference>(Key.SERVER_MTU)!!
         mtu.isVisible = protocol.value.equals("UDP")

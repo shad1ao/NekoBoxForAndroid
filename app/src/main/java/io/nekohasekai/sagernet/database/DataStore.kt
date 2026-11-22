@@ -196,7 +196,6 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var serverALPN by profileCacheStore.string(Key.SERVER_ALPN)
     var serverCertificates by profileCacheStore.string(Key.SERVER_CERTIFICATES)
     var serverMTU by profileCacheStore.stringToInt(Key.SERVER_MTU)
-    var mieruPasswordSameAsUsername by profileCacheStore.boolean(Key.MIERU_PASSWORD_SAME_AS_USERNAME)
     var mieruMultiplexing by profileCacheStore.string(Key.MIERU_MULTIPLEXING)
     var mieruHandshakeMode by profileCacheStore.string(Key.MIERU_HANDSHAKE_MODE)
     var mieruTrafficPattern by profileCacheStore.string(Key.MIERU_TRAFFIC_PATTERN)

@@ -244,12 +244,29 @@ class MieruFmtTest {
     }
 
     @Test
-    fun editorCopiesPasswordOnlyWhenAsked() {
-        assertTrue(MieruEditor.passwordMatchesUsername("user-a", "user-a"))
-        assertTrue(MieruEditor.passwordMatchesUsername("", ""))
-        assertEquals(false, MieruEditor.passwordMatchesUsername("user-a", "other-value"))
-        assertEquals("user-a", MieruEditor.passwordToStore("user-a", "other-value", true))
-        assertEquals("other-value", MieruEditor.passwordToStore("user-a", "other-value", false))
+    fun editorStoresPasswordWithoutCopyingUsername() {
+        val distinct = credentialBean(
+            username = "user-a",
+            password = "other-value",
+            profile = "home",
+            name = "home",
+        )
+        distinct.password = MieruEditor.passwordToStore(distinct.password)
+        assertEquals("user-a", distinct.username)
+        assertEquals("other-value", distinct.password)
+        assertEquals(
+            "mierus://user-a:other-value@example.com?port=443&profile=home&protocol=TCP",
+            distinct.toMierusLink(),
+        )
+
+        val same = credentialBean(
+            username = "user-a",
+            password = "user-a",
+            profile = "home",
+            name = "home",
+        )
+        same.password = MieruEditor.passwordToStore(same.password)
+        assertEquals("user-a", same.password)
     }
 
     @Test

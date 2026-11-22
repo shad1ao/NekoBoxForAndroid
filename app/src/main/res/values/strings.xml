@@ -591,5 +591,4 @@
     <string name="mieru_handshake_default">Default</string>
     <string name="mieru_handshake_standard">Standard</string>
     <string name="mieru_handshake_no_wait">No wait</string>
-    <string name="mieru_password_same_as_username">Password same as username</string>
 </resources>
