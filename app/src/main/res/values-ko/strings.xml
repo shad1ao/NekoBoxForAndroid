@@ -17,4 +17,17 @@
     <string name="menu_about">대하여</string>
     <string name="menu_group">그룹</string>
     <string name="menu_configuration">구성</string>
+<string name="mieru_profile">Mieru 프로필</string>
+    <string name="mieru_multiplexing">다중화</string>
+    <string name="mieru_handshake_mode">핸드셰이크 모드</string>
+    <string name="mieru_traffic_pattern">트래픽 패턴</string>
+    <string name="server_port_range">포트 범위</string>
+    <string name="mieru_mux_default">기본값</string>
+    <string name="mieru_mux_off">끄기</string>
+    <string name="mieru_mux_low">낮음</string>
+    <string name="mieru_mux_middle">중간</string>
+    <string name="mieru_mux_high">높음</string>
+    <string name="mieru_handshake_default">기본값</string>
+    <string name="mieru_handshake_standard">표준</string>
+    <string name="mieru_handshake_no_wait">대기 없음</string>
 </resources>

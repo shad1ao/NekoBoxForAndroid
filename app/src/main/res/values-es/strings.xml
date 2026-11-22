@@ -449,4 +449,17 @@
  
     <string name="connection_test_delete_unavailable">Borrado no disponible</string> 
 
+<string name="mieru_profile">Perfil Mieru</string>
+    <string name="mieru_multiplexing">Multiplexación</string>
+    <string name="mieru_handshake_mode">Modo de handshake</string>
+    <string name="mieru_traffic_pattern">Patrón de tráfico</string>
+    <string name="server_port_range">Rango de puertos</string>
+    <string name="mieru_mux_default">Predeterminado</string>
+    <string name="mieru_mux_off">Desactivado</string>
+    <string name="mieru_mux_low">Bajo</string>
+    <string name="mieru_mux_middle">Medio</string>
+    <string name="mieru_mux_high">Alto</string>
+    <string name="mieru_handshake_default">Predeterminado</string>
+    <string name="mieru_handshake_standard">Estándar</string>
+    <string name="mieru_handshake_no_wait">Sin espera</string>
 </resources> 

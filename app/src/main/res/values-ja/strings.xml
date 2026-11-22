@@ -101,4 +101,17 @@
     <string name="key_opt">キー（オプション）</string>
     <string name="network">ネットワーク</string>
     <string name="speed_interval">速度通知のアップデート間隔</string>
+<string name="mieru_profile">Mieru プロファイル</string>
+    <string name="mieru_multiplexing">多重化</string>
+    <string name="mieru_handshake_mode">ハンドシェイクモード</string>
+    <string name="mieru_traffic_pattern">トラフィックパターン</string>
+    <string name="server_port_range">ポート範囲</string>
+    <string name="mieru_mux_default">デフォルト</string>
+    <string name="mieru_mux_off">オフ</string>
+    <string name="mieru_mux_low">低</string>
+    <string name="mieru_mux_middle">中</string>
+    <string name="mieru_mux_high">高</string>
+    <string name="mieru_handshake_default">デフォルト</string>
+    <string name="mieru_handshake_standard">標準</string>
+    <string name="mieru_handshake_no_wait">待たない</string>
 </resources>

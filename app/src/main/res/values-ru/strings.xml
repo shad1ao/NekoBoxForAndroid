@@ -491,4 +491,17 @@
 <string name="ws_path">Путь к WebSocket</string>
 <string name="xtls_flow">Flow (подпротокол VLESS)</string>
 <string name="yes">Да</string>
+<string name="mieru_profile">Профиль Mieru</string>
+    <string name="mieru_multiplexing">Мультиплексирование</string>
+    <string name="mieru_handshake_mode">Режим рукопожатия</string>
+    <string name="mieru_traffic_pattern">Шаблон трафика</string>
+    <string name="server_port_range">Диапазон портов</string>
+    <string name="mieru_mux_default">По умолчанию</string>
+    <string name="mieru_mux_off">Выкл.</string>
+    <string name="mieru_mux_low">Низкий</string>
+    <string name="mieru_mux_middle">Средний</string>
+    <string name="mieru_mux_high">Высокий</string>
+    <string name="mieru_handshake_default">По умолчанию</string>
+    <string name="mieru_handshake_standard">Стандартный</string>
+    <string name="mieru_handshake_no_wait">Без ожидания</string>
 </resources>

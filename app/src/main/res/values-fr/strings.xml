@@ -299,4 +299,17 @@
     <string name="backup_import_summary">L\'importation écrasera les données existantes.</string>
     <string name="tools_network">Réseaux</string>
     <string name="backup_importing">Importation…</string>
+<string name="mieru_profile">Profil Mieru</string>
+    <string name="mieru_multiplexing">Multiplexage</string>
+    <string name="mieru_handshake_mode">Mode de handshake</string>
+    <string name="mieru_traffic_pattern">Motif de trafic</string>
+    <string name="server_port_range">Plage de ports</string>
+    <string name="mieru_mux_default">Par défaut</string>
+    <string name="mieru_mux_off">Désactivé</string>
+    <string name="mieru_mux_low">Faible</string>
+    <string name="mieru_mux_middle">Moyen</string>
+    <string name="mieru_mux_high">Élevé</string>
+    <string name="mieru_handshake_default">Par défaut</string>
+    <string name="mieru_handshake_standard">Standard</string>
+    <string name="mieru_handshake_no_wait">Sans attente</string>
 </resources>

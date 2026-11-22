@@ -36,4 +36,17 @@
     <string name="list">Liste</string>
     <string name="random">Zufällig</string>
     <string name="enable_log_sum">Für Debugging-Zwecken</string>
+<string name="mieru_profile">Mieru-Profil</string>
+    <string name="mieru_multiplexing">Multiplexing</string>
+    <string name="mieru_handshake_mode">Handshake-Modus</string>
+    <string name="mieru_traffic_pattern">Verkehrsmuster</string>
+    <string name="server_port_range">Portbereich</string>
+    <string name="mieru_mux_default">Vorgabe</string>
+    <string name="mieru_mux_off">Aus</string>
+    <string name="mieru_mux_low">Niedrig</string>
+    <string name="mieru_mux_middle">Mittel</string>
+    <string name="mieru_mux_high">Hoch</string>
+    <string name="mieru_handshake_default">Vorgabe</string>
+    <string name="mieru_handshake_standard">Standard</string>
+    <string name="mieru_handshake_no_wait">Ohne Warten</string>
 </resources>

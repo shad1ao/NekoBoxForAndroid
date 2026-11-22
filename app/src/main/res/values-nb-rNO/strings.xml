@@ -370,4 +370,17 @@
     <string name="copy_package_name">Kopier pakkenavn</string>
     <string name="copy_label">Kopier navn</string>
     <string name="udp_connections">%d UDP-tilkoblinger</string>
+<string name="mieru_profile">Mieru-profil</string>
+    <string name="mieru_multiplexing">Multipleksing</string>
+    <string name="mieru_handshake_mode">Håndtrykkmodus</string>
+    <string name="mieru_traffic_pattern">Trafikkmønster</string>
+    <string name="server_port_range">Portområde</string>
+    <string name="mieru_mux_default">Standard</string>
+    <string name="mieru_mux_off">Av</string>
+    <string name="mieru_mux_low">Lav</string>
+    <string name="mieru_mux_middle">Middels</string>
+    <string name="mieru_mux_high">Høy</string>
+    <string name="mieru_handshake_default">Standard</string>
+    <string name="mieru_handshake_standard">Normal</string>
+    <string name="mieru_handshake_no_wait">Uten venting</string>
 </resources>

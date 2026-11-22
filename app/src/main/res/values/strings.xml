@@ -584,4 +584,12 @@
     <string name="mieru_handshake_mode">Handshake mode</string>
     <string name="mieru_traffic_pattern">Traffic pattern</string>
     <string name="server_port_range">Port range</string>
+    <string name="mieru_mux_default">Default</string>
+    <string name="mieru_mux_off">Off</string>
+    <string name="mieru_mux_low">Low</string>
+    <string name="mieru_mux_middle">Middle</string>
+    <string name="mieru_mux_high">High</string>
+    <string name="mieru_handshake_default">Default</string>
+    <string name="mieru_handshake_standard">Standard</string>
+    <string name="mieru_handshake_no_wait">No wait</string>
 </resources>

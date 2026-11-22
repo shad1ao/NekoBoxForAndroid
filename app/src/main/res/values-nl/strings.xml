@@ -8,4 +8,17 @@
     <string name="github">Broncode</string>
     <string name="project">Project</string>
     <string name="app_desc">De universele proxy-toolchain voor Android, geschreven in Kotlin.</string>
+<string name="mieru_profile">Mieru-profiel</string>
+    <string name="mieru_multiplexing">Multiplexing</string>
+    <string name="mieru_handshake_mode">Handshake-modus</string>
+    <string name="mieru_traffic_pattern">Verkeerspatroon</string>
+    <string name="server_port_range">Poortbereik</string>
+    <string name="mieru_mux_default">Standaard</string>
+    <string name="mieru_mux_off">Uit</string>
+    <string name="mieru_mux_low">Laag</string>
+    <string name="mieru_mux_middle">Midden</string>
+    <string name="mieru_mux_high">Hoog</string>
+    <string name="mieru_handshake_default">Standaard</string>
+    <string name="mieru_handshake_standard">Normaal</string>
+    <string name="mieru_handshake_no_wait">Zonder wachten</string>
 </resources>

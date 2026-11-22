@@ -108,4 +108,17 @@
     <string name="menu_about">Пра</string>
     <string name="menu_group">Група</string>
     <string name="menu_configuration">Канфігурацыя</string>
+<string name="mieru_profile">Профіль Mieru</string>
+    <string name="mieru_multiplexing">Мультыплексаванне</string>
+    <string name="mieru_handshake_mode">Рэжым поціску рукі</string>
+    <string name="mieru_traffic_pattern">Шаблон трафіку</string>
+    <string name="server_port_range">Дыяпазон партаў</string>
+    <string name="mieru_mux_default">Па змаўчанні</string>
+    <string name="mieru_mux_off">Выкл.</string>
+    <string name="mieru_mux_low">Нізкі</string>
+    <string name="mieru_mux_middle">Сярэдні</string>
+    <string name="mieru_mux_high">Высокі</string>
+    <string name="mieru_handshake_default">Па змаўчанні</string>
+    <string name="mieru_handshake_standard">Стандартны</string>
+    <string name="mieru_handshake_no_wait">Без чакання</string>
 </resources>

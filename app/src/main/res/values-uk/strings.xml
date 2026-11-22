@@ -522,4 +522,17 @@
     <string name="padding">Заповнення (Padding)</string>
     <string name="network_change_reset_connections">Скидати вихідні з\'єднання при зміні мережі</string>
     <string name="wake_reset_connections">Скидати вихідні з\'єднання при виході пристрою зі сну</string>
+<string name="mieru_profile">Профіль Mieru</string>
+    <string name="mieru_multiplexing">Мультиплексування</string>
+    <string name="mieru_handshake_mode">Режим рукостискання</string>
+    <string name="mieru_traffic_pattern">Шаблон трафіку</string>
+    <string name="server_port_range">Діапазон портів</string>
+    <string name="mieru_mux_default">За замовчуванням</string>
+    <string name="mieru_mux_off">Вимк.</string>
+    <string name="mieru_mux_low">Низький</string>
+    <string name="mieru_mux_middle">Середній</string>
+    <string name="mieru_mux_high">Високий</string>
+    <string name="mieru_handshake_default">За замовчуванням</string>
+    <string name="mieru_handshake_standard">Стандартний</string>
+    <string name="mieru_handshake_no_wait">Без очікування</string>
 </resources>

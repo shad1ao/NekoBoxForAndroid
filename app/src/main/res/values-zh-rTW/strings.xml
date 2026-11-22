@@ -413,4 +413,17 @@
     <string name="backup_summary">如果路由規則不與設定檔一起備份，則自訂出站將丟失。</string>
     <string name="backup_not_file">不是一個備份檔案，預計 .json，但 %s</string>
     <string name="packet_encoding">封包編碼</string>
+<string name="mieru_profile">Mieru 設定名</string>
+    <string name="mieru_multiplexing">多路復用</string>
+    <string name="mieru_handshake_mode">握手模式</string>
+    <string name="mieru_traffic_pattern">流量模式</string>
+    <string name="server_port_range">連接埠範圍</string>
+    <string name="mieru_mux_default">預設</string>
+    <string name="mieru_mux_off">關閉</string>
+    <string name="mieru_mux_low">低</string>
+    <string name="mieru_mux_middle">中</string>
+    <string name="mieru_mux_high">高</string>
+    <string name="mieru_handshake_default">預設</string>
+    <string name="mieru_handshake_standard">標準</string>
+    <string name="mieru_handshake_no_wait">0-RTT</string>
 </resources>

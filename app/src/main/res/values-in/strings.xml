@@ -199,4 +199,17 @@
     <string name="header_type">Jenis Tajuk</string>
     <string name="security">Enkripsi lapisan transportasi</string>
     <string name="alter_id">Ubah ID</string>
+<string name="mieru_profile">Profil Mieru</string>
+    <string name="mieru_multiplexing">Multipleks</string>
+    <string name="mieru_handshake_mode">Mode jabat tangan</string>
+    <string name="mieru_traffic_pattern">Pola lalu lintas</string>
+    <string name="server_port_range">Rentang port</string>
+    <string name="mieru_mux_default">Bawaan</string>
+    <string name="mieru_mux_off">Mati</string>
+    <string name="mieru_mux_low">Rendah</string>
+    <string name="mieru_mux_middle">Sedang</string>
+    <string name="mieru_mux_high">Tinggi</string>
+    <string name="mieru_handshake_default">Bawaan</string>
+    <string name="mieru_handshake_standard">Standar</string>
+    <string name="mieru_handshake_no_wait">Tanpa tunggu</string>
 </resources>
