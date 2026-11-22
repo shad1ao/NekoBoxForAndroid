@@ -530,9 +530,7 @@ private fun String.isIpAddress(): Boolean {
 private enum class EscapeMode { USER, QUERY, FRAGMENT }
 
 private fun goEscape(value: String, mode: EscapeMode): String {
-    // A space is %20 in userinfo, query, and fragment. Do not use form
-    // encoding's '+'. queryUnescape still accepts '+' so official QueryEscape
-    // links and older exports import as the same space.
+    // A space is %20 in userinfo, query, and fragment. A raw '+' is a plus.
     val bytes = value.toByteArray(Charsets.UTF_8)
     val out = StringBuilder(bytes.size)
     for (raw in bytes) {
@@ -592,14 +590,13 @@ private fun parseGoQuery(raw: String?): Map<String, List<String>> {
 }
 
 private fun queryUnescape(value: String): String {
-    val plus = value.replace("+", " ")
-    val bytes = ArrayList<Byte>(plus.length)
+    val bytes = ArrayList<Byte>(value.length)
     var i = 0
-    while (i < plus.length) {
-        val c = plus[i]
+    while (i < value.length) {
+        val c = value[i]
         if (c == '%') {
-            if (i + 2 >= plus.length) throw IllegalArgumentException("mieru link: invalid percent-encoding")
-            val hex = plus.substring(i + 1, i + 3)
+            if (i + 2 >= value.length) throw IllegalArgumentException("mieru link: invalid percent-encoding")
+            val hex = value.substring(i + 1, i + 3)
             val byte = hex.toIntOrNull(16) ?: throw IllegalArgumentException("mieru link: invalid percent-encoding")
             bytes.add(byte.toByte())
             i += 3

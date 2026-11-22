@@ -21,32 +21,32 @@ fun parseHysteria1(url: String): HysteriaBean {
         serverPorts = link.port.toString()
         name = link.fragment
 
-        link.queryParameter("mport")?.also {
+        link.linkQueryParameter("mport")?.also {
             serverPorts = it
         }
-        link.queryParameter("peer")?.also {
+        link.linkQueryParameter("peer")?.also {
             sni = it
         }
-        link.queryParameter("auth")?.takeIf { it.isNotBlank() }?.also {
+        link.linkQueryParameter("auth")?.takeIf { it.isNotBlank() }?.also {
             authPayloadType = HysteriaBean.TYPE_STRING
             authPayload = it
         }
-        link.queryParameter("insecure")?.also {
+        link.linkQueryParameter("insecure")?.also {
             allowInsecure = it == "1" || it == "true"
         }
-        link.queryParameter("upmbps")?.also {
+        link.linkQueryParameter("upmbps")?.also {
             uploadMbps = it.toIntOrNull() ?: uploadMbps
         }
-        link.queryParameter("downmbps")?.also {
+        link.linkQueryParameter("downmbps")?.also {
             downloadMbps = it.toIntOrNull() ?: downloadMbps
         }
-        link.queryParameter("alpn")?.also {
+        link.linkQueryParameter("alpn")?.also {
             alpn = it
         }
-        link.queryParameter("obfsParam")?.also {
+        link.linkQueryParameter("obfsParam")?.also {
             obfuscation = it
         }
-        link.queryParameter("protocol")?.also {
+        link.linkQueryParameter("protocol")?.also {
             when (it) {
                 "faketcp" -> {
                     protocol = HysteriaBean.PROTOCOL_FAKETCP
@@ -77,25 +77,25 @@ fun parseHysteria2(url: String): HysteriaBean {
         }
         name = link.fragment
 
-        link.queryParameter("mport")?.also {
+        link.linkQueryParameter("mport")?.also {
             serverPorts = it
         }
-        link.queryParameter("sni")?.also {
+        link.linkQueryParameter("sni")?.also {
             sni = it
         }
-        link.queryParameter("insecure")?.also {
+        link.linkQueryParameter("insecure")?.also {
             allowInsecure = it == "1" || it == "true"
         }
-//        link.queryParameter("upmbps")?.also {
+//        link.linkQueryParameter("upmbps")?.also {
 //            uploadMbps = it.toIntOrNull() ?: uploadMbps
 //        }
-//        link.queryParameter("downmbps")?.also {
+//        link.linkQueryParameter("downmbps")?.also {
 //            downloadMbps = it.toIntOrNull() ?: downloadMbps
 //        }
-        link.queryParameter("obfs-password")?.also {
+        link.linkQueryParameter("obfs-password")?.also {
             obfuscation = it
         }
-//        link.queryParameter("pinSHA256")?.also {
+//        link.linkQueryParameter("pinSHA256")?.also {
 //            // TODO your box do not support it
 //        }
     }

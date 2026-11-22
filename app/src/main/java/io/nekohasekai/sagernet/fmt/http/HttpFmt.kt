@@ -2,6 +2,7 @@ package io.nekohasekai.sagernet.fmt.http
 
 import io.nekohasekai.sagernet.fmt.v2ray.isTLS
 import io.nekohasekai.sagernet.fmt.v2ray.setTLS
+import io.nekohasekai.sagernet.ktx.linkQueryParameter
 import io.nekohasekai.sagernet.ktx.urlSafe
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -16,7 +17,7 @@ fun parseHttp(link: String): HttpBean {
         serverPort = httpUrl.port
         username = httpUrl.username
         password = httpUrl.password
-        sni = httpUrl.queryParameter("sni")
+        sni = httpUrl.linkQueryParameter("sni")
         name = httpUrl.fragment
         setTLS(httpUrl.scheme == "https")
     }

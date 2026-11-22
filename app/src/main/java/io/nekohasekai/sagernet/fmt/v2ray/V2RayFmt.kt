@@ -76,7 +76,7 @@ fun parseV2Ray(link: String): StandardV2RayBean {
             bean.security = "tls"
             protocol = protocol.substring(0, protocol.length - 4)
 
-            url.queryParameter("tlsServerName")?.let {
+            url.linkQueryParameter("tlsServerName")?.let {
                 if (it.isNotBlank()) {
                     bean.sni = it
                 }
@@ -85,44 +85,44 @@ fun parseV2Ray(link: String): StandardV2RayBean {
 
         when (protocol) {
 //            "tcp" -> {
-//                url.queryParameter("type")?.let { type ->
+//                url.linkQueryParameter("type")?.let { type ->
 //                    if (type == "http") {
 //                        bean.headerType = "http"
-//                        url.queryParameter("host")?.let {
+//                        url.linkQueryParameter("host")?.let {
 //                            bean.host = it
 //                        }
 //                    }
 //                }
 //            }
             "http" -> {
-                url.queryParameter("path")?.let {
+                url.linkQueryParameter("path")?.let {
                     bean.path = it
                 }
-                url.queryParameter("host")?.let {
+                url.linkQueryParameter("host")?.let {
                     bean.host = it.split("|").joinToString(",")
                 }
             }
 
             "ws" -> {
-                url.queryParameter("path")?.let {
+                url.linkQueryParameter("path")?.let {
                     bean.path = it
                 }
-                url.queryParameter("host")?.let {
+                url.linkQueryParameter("host")?.let {
                     bean.host = it
                 }
             }
 
             "grpc" -> {
-                url.queryParameter("serviceName")?.let {
+                url.linkQueryParameter("serviceName")?.let {
                     bean.path = it
                 }
             }
 
             "httpupgrade" -> {
-                url.queryParameter("path")?.let {
+                url.linkQueryParameter("path")?.let {
                     bean.path = it
                 }
-                url.queryParameter("host")?.let {
+                url.linkQueryParameter("host")?.let {
                     bean.host = it
                 }
             }
@@ -152,10 +152,10 @@ fun StandardV2RayBean.parseDuckSoft(url: HttpUrl) {
         path = url.pathSegments.joinToString("/")
     }
 
-    type = url.queryParameter("type") ?: "tcp"
-    if (type == "h2" || url.queryParameter("headerType") == "http") type = "http"
+    type = url.linkQueryParameter("type") ?: "tcp"
+    if (type == "h2" || url.linkQueryParameter("headerType") == "http") type = "http"
 
-    security = url.queryParameter("security")
+    security = url.linkQueryParameter("security")
     if (security.isNullOrBlank()) {
         security = if (this is TrojanBean) "tls" else "none"
     }
@@ -163,25 +163,25 @@ fun StandardV2RayBean.parseDuckSoft(url: HttpUrl) {
     when (security) {
         "tls", "reality" -> {
             security = "tls"
-            url.queryParameter("allowInsecure")?.let {
+            url.linkQueryParameter("allowInsecure")?.let {
                 allowInsecure = it == "1" || it == "true"
             }
-            url.queryParameter("sni")?.let {
+            url.linkQueryParameter("sni")?.let {
                 sni = it
             }
-            url.queryParameter("host")?.let {
+            url.linkQueryParameter("host")?.let {
                 if (sni.isNullOrBlank()) sni = it
             }
-            url.queryParameter("alpn")?.let {
+            url.linkQueryParameter("alpn")?.let {
                 alpn = it
             }
-            url.queryParameter("cert")?.let {
+            url.linkQueryParameter("cert")?.let {
                 certificates = it
             }
-            url.queryParameter("pbk")?.let {
+            url.linkQueryParameter("pbk")?.let {
                 realityPubKey = it
             }
-            url.queryParameter("sid")?.let {
+            url.linkQueryParameter("sid")?.let {
                 realityShortId = it
             }
         }
@@ -189,41 +189,41 @@ fun StandardV2RayBean.parseDuckSoft(url: HttpUrl) {
 
     when (type) {
         "http" -> {
-            url.queryParameter("host")?.let {
+            url.linkQueryParameter("host")?.let {
                 host = it
             }
-            url.queryParameter("path")?.let {
+            url.linkQueryParameter("path")?.let {
                 path = it
             }
         }
 
         "ws" -> {
-            url.queryParameter("host")?.let {
+            url.linkQueryParameter("host")?.let {
                 host = it
             }
-            url.queryParameter("path")?.let {
+            url.linkQueryParameter("path")?.let {
                 path = it
             }
-            url.queryParameter("ed")?.let { ed ->
+            url.linkQueryParameter("ed")?.let { ed ->
                 wsMaxEarlyData = ed.toInt()
 
-                url.queryParameter("eh")?.let {
+                url.linkQueryParameter("eh")?.let {
                     earlyDataHeaderName = it
                 }
             }
         }
 
         "grpc" -> {
-            url.queryParameter("serviceName")?.let {
+            url.linkQueryParameter("serviceName")?.let {
                 path = it
             }
         }
 
         "httpupgrade" -> {
-            url.queryParameter("host")?.let {
+            url.linkQueryParameter("host")?.let {
                 host = it
             }
-            url.queryParameter("path")?.let {
+            url.linkQueryParameter("path")?.let {
                 path = it
             }
         }
@@ -231,25 +231,25 @@ fun StandardV2RayBean.parseDuckSoft(url: HttpUrl) {
 
     // maybe from matsuri vmess exoprt
     if (this is VMessBean && !isVLESS) {
-        url.queryParameter("encryption")?.let {
+        url.linkQueryParameter("encryption")?.let {
             encryption = it
         }
     }
 
-    url.queryParameter("packetEncoding")?.let {
+    url.linkQueryParameter("packetEncoding")?.let {
         when (it) {
             "packet" -> packetEncoding = 1
             "xudp" -> packetEncoding = 2
         }
     }
 
-    url.queryParameter("flow")?.let {
+    url.linkQueryParameter("flow")?.let {
         if (isVLESS) {
             encryption = it.removeSuffix("-udp443")
         }
     }
 
-    url.queryParameter("fp")?.let {
+    url.linkQueryParameter("fp")?.let {
         utlsFingerprint = it
     }
 }
@@ -284,16 +284,16 @@ private fun tryResolveVmess4Kitsunebi(server: String): VMessBean {
         if (indexSplit < 0) return@apply
 
         val url = ("https://localhost/path?" + server.substringAfter("?")).toHttpUrl()
-        url.queryParameter("remarks")?.apply { name = this }
-        url.queryParameter("alterId")?.apply { alterId = this.toInt() }
-        url.queryParameter("path")?.apply { path = this }
-        url.queryParameter("tls")?.apply { security = "tls" }
-        url.queryParameter("allowInsecure")
+        url.linkQueryParameter("remarks")?.apply { name = this }
+        url.linkQueryParameter("alterId")?.apply { alterId = this.toInt() }
+        url.linkQueryParameter("path")?.apply { path = this }
+        url.linkQueryParameter("tls")?.apply { security = "tls" }
+        url.linkQueryParameter("allowInsecure")
             ?.apply { if (this == "1" || this == "true") allowInsecure = true }
-        url.queryParameter("obfs")?.apply {
+        url.linkQueryParameter("obfs")?.apply {
             type = this.replace("websocket", "ws").replace("none", "tcp")
             if (type == "ws") {
-                url.queryParameter("obfsParam")?.apply {
+                url.linkQueryParameter("obfsParam")?.apply {
                     if (this.startsWith("{")) {
                         host = JSONObject(this).getStr("Host")
                     } else if (security == "tls") {

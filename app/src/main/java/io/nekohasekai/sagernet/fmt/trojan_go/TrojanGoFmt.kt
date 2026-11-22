@@ -17,18 +17,18 @@ fun parseTrojanGo(server: String): TrojanGoBean {
         serverAddress = link.host
         serverPort = link.port
         password = link.username
-        link.queryParameter("sni")?.let {
+        link.linkQueryParameter("sni")?.let {
             sni = it
         }
-        link.queryParameter("type")?.let { lType ->
+        link.linkQueryParameter("type")?.let { lType ->
             type = lType
 
             when (type) {
                 "ws" -> {
-                    link.queryParameter("host")?.let {
+                    link.linkQueryParameter("host")?.let {
                         host = it
                     }
-                    link.queryParameter("path")?.let {
+                    link.linkQueryParameter("path")?.let {
                         path = it
                     }
                 }
@@ -36,10 +36,10 @@ fun parseTrojanGo(server: String): TrojanGoBean {
                 }
             }
         }
-        link.queryParameter("encryption")?.let {
+        link.linkQueryParameter("encryption")?.let {
             encryption = it
         }
-        link.queryParameter("plugin")?.let {
+        link.linkQueryParameter("plugin")?.let {
             plugin = it
         }
         link.fragment.takeIf { !it.isNullOrBlank() }?.let {

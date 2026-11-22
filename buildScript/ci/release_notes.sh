@@ -12,6 +12,36 @@ out="$2"
 root=$(cd "$(dirname "$0")/../.." && pwd)
 cp "$root/docs/MBOX_RELEASE.md" "$out"
 
+# Changes are the commit subjects since the previous tag. The version being
+# published is not tagged yet, so describe points at that previous release.
+git -C "$root" fetch --tags --force origin >/dev/null 2>&1 || true
+prev=$(git -C "$root" describe --tags --abbrev=0 2>/dev/null || true)
+if [ -z "$prev" ]; then
+  echo "release notes: no previous tag; refusing to invent a changelog" >&2
+  exit 1
+fi
+if [ "$(git -C "$root" rev-parse HEAD)" = "$(git -C "$root" rev-parse "${prev}^{}")" ]; then
+  echo "release notes: HEAD is already ${prev}; refusing to publish without changes" >&2
+  exit 1
+fi
+mapfile -t subjects < <(git -C "$root" log --no-merges --pretty=format:%s "${prev}..HEAD")
+if [ "${#subjects[@]}" -eq 0 ]; then
+  mapfile -t subjects < <(git -C "$root" log --pretty=format:%s "${prev}..HEAD")
+fi
+if [ "${#subjects[@]}" -eq 0 ]; then
+  echo "release notes: no commits since ${prev}" >&2
+  exit 1
+fi
+{
+  echo
+  echo "## Changes since ${prev}"
+  echo
+  for subject in "${subjects[@]}"; do
+    [ -n "$subject" ] || continue
+    echo "- ${subject}"
+  done
+} >> "$out"
+
 {
   echo
   echo "## Architectures"

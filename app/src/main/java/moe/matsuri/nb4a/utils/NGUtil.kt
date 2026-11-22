@@ -8,7 +8,6 @@ import android.net.Uri
 import android.text.Editable
 import android.util.Base64
 import io.nekohasekai.sagernet.ktx.Logs
-import java.net.URLDecoder
 import java.net.URLEncoder
 import java.util.*
 
@@ -196,9 +195,32 @@ object NGUtil {
         }
     }
 
+    /**
+     * Percent-decode a share-link component. A raw '+' stays a plus.
+     * A space is only '%20'. An incomplete or non-hex '%' sequence is left as text.
+     */
+    fun percentDecode(value: String): String {
+        val bytes = ArrayList<Byte>(value.length)
+        var i = 0
+        while (i < value.length) {
+            val c = value[i]
+            if (c == '%' && i + 2 < value.length) {
+                val byte = value.substring(i + 1, i + 3).toIntOrNull(16)
+                if (byte != null) {
+                    bytes.add(byte.toByte())
+                    i += 3
+                    continue
+                }
+            }
+            c.toString().toByteArray(Charsets.UTF_8).forEach { bytes.add(it) }
+            i++
+        }
+        return bytes.toByteArray().toString(Charsets.UTF_8)
+    }
+
     fun urlDecode(url: String): String {
         return try {
-            URLDecoder.decode(url, "UTF-8")
+            percentDecode(url)
         } catch (e: Exception) {
             url
         }

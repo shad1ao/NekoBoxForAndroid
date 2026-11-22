@@ -35,7 +35,7 @@ fun parseShadowsocks(url: String): ShadowsocksBean {
                 serverPort = link.port
                 method = link.username
                 password = link.password
-                plugin = link.queryParameter("plugin") ?: ""
+                plugin = link.linkQueryParameter("plugin") ?: ""
                 name = link.fragment
                 fixPluginName()
             }
@@ -48,7 +48,7 @@ fun parseShadowsocks(url: String): ShadowsocksBean {
             serverPort = link.port
             method = methodAndPswd.substringBefore(":")
             password = methodAndPswd.substringAfter(":")
-            plugin = link.queryParameter("plugin") ?: ""
+            plugin = link.linkQueryParameter("plugin") ?: ""
             name = link.fragment
             fixPluginName()
         }

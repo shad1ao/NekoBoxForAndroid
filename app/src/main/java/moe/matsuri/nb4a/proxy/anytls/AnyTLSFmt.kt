@@ -1,6 +1,7 @@
 package moe.matsuri.nb4a.proxy.anytls
 
 import io.nekohasekai.sagernet.ktx.blankAsNull
+import io.nekohasekai.sagernet.ktx.linkQueryParameter
 import io.nekohasekai.sagernet.ktx.linkBuilder
 import io.nekohasekai.sagernet.ktx.toLink
 import io.nekohasekai.sagernet.ktx.urlSafe
@@ -70,11 +71,11 @@ fun parseAnytls(url: String): AnyTLSBean {
         serverPort = link.port
         name = link.fragment
         password = link.username
-        sni = link.queryParameter("sni") ?: ""
-        link.queryParameter("insecure")?.also {
+        sni = link.linkQueryParameter("sni") ?: ""
+        link.linkQueryParameter("insecure")?.also {
             allowInsecure = it == "1" || it == "true"
         }
-        link.queryParameter("fp")?.let {
+        link.linkQueryParameter("fp")?.let {
             utlsFingerprint = it
         }
     }

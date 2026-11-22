@@ -117,11 +117,11 @@ class MieruFmtTest {
     }
 
     @Test
-    fun legacyQueryPlusAndPercentEncodingsBothRoundTrip() {
-        val spacePlus = "mierus://user:pass@example.com?port=443&profile=def+ault&protocol=TCP"
+    fun queryPlusStaysPlusAndPercent20IsTheOnlySpace() {
+        val rawPlus = "mierus://user:pass@example.com?port=443&profile=def+ault&protocol=TCP"
         val spacePct = "mierus://user:pass@example.com?port=443&profile=def%20ault&protocol=TCP"
         val literalPlus = "mierus://user:pass@example.com?port=443&profile=def%2Bault&protocol=TCP"
-        assertEquals("def ault", parseMieruLinks(spacePlus).single().profileName)
+        assertEquals("def+ault", parseMieruLinks(rawPlus).single().profileName)
         assertEquals("def ault", parseMieruLinks(spacePct).single().profileName)
         assertEquals("def+ault", parseMieruLinks(literalPlus).single().profileName)
 

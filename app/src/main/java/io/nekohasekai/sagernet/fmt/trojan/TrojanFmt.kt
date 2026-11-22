@@ -1,6 +1,7 @@
 package io.nekohasekai.sagernet.fmt.trojan
 
 import io.nekohasekai.sagernet.fmt.v2ray.parseDuckSoft
+import io.nekohasekai.sagernet.ktx.linkQueryParameter
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 
 fun parseTrojan(server: String): TrojanBean {
@@ -10,9 +11,9 @@ fun parseTrojan(server: String): TrojanBean {
 
     return TrojanBean().apply {
         parseDuckSoft(link)
-        link.queryParameter("allowInsecure")
+        link.linkQueryParameter("allowInsecure")
             ?.apply { if (this == "1" || this == "true") allowInsecure = true }
-        link.queryParameter("peer")?.apply { if (this.isNotBlank()) sni = this }
+        link.linkQueryParameter("peer")?.apply { if (this.isNotBlank()) sni = this }
     }
 
 }

@@ -2,6 +2,7 @@ package io.nekohasekai.sagernet.fmt.tuic
 
 import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.ktx.linkBuilder
+import io.nekohasekai.sagernet.ktx.linkQueryParameter
 import io.nekohasekai.sagernet.ktx.toLink
 import io.nekohasekai.sagernet.ktx.urlSafe
 import moe.matsuri.nb4a.SingBoxOptions
@@ -32,22 +33,22 @@ fun parseTuic(url: String): TuicBean {
             token = rawPass
         }
 
-        link.queryParameter("sni")?.let {
+        link.linkQueryParameter("sni")?.let {
             sni = it
         }
-        link.queryParameter("congestion_control")?.let {
+        link.linkQueryParameter("congestion_control")?.let {
             congestionController = it
         }
-        link.queryParameter("udp_relay_mode")?.let {
+        link.linkQueryParameter("udp_relay_mode")?.let {
             udpRelayMode = it
         }
-        link.queryParameter("alpn")?.let {
+        link.linkQueryParameter("alpn")?.let {
             alpn = it
         }
-        link.queryParameter("allow_insecure")?.let {
+        link.linkQueryParameter("allow_insecure")?.let {
             if (it == "1") allowInsecure = true
         }
-        link.queryParameter("disable_sni")?.let {
+        link.linkQueryParameter("disable_sni")?.let {
             if (it == "1") disableSNI = true
         }
     }

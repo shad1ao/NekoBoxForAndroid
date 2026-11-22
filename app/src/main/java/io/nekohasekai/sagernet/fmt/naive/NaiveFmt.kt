@@ -17,10 +17,10 @@ fun parseNaive(link: String): NaiveBean {
         serverPort = url.port
         username = url.username
         password = url.password
-        sni = url.queryParameter("sni")
-        certificates = url.queryParameter("cert")
-        extraHeaders = url.queryParameter("extra-headers")?.unUrlSafe()?.replace("\r\n", "\n")
-        insecureConcurrency = url.queryParameter("insecure-concurrency")?.toIntOrNull()
+        sni = url.linkQueryParameter("sni")
+        certificates = url.linkQueryParameter("cert")
+        extraHeaders = url.linkQueryParameter("extra-headers")?.unUrlSafe()?.replace("\r\n", "\n")
+        insecureConcurrency = url.linkQueryParameter("insecure-concurrency")?.toIntOrNull()
         name = url.fragment
         initializeDefaultValues()
     }

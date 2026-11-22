@@ -11,6 +11,19 @@ import java.net.Socket
 
 fun linkBuilder() = HttpUrl.Builder().scheme("https")
 
+/** Query value from a proxy share link. '+' is a plus, not a space. */
+fun HttpUrl.linkQueryParameter(name: String): String? {
+    val raw = encodedQuery ?: return null
+    for (part in raw.split('&')) {
+        if (part.isEmpty()) continue
+        val eq = part.indexOf('=')
+        val key = NGUtil.percentDecode(if (eq < 0) part else part.substring(0, eq))
+        if (key != name) continue
+        return NGUtil.percentDecode(if (eq < 0) "" else part.substring(eq + 1))
+    }
+    return null
+}
+
 fun HttpUrl.Builder.toLink(scheme: String, appendDefaultPort: Boolean = true): String {
     var url = build()
     val defaultPort = HttpUrl.defaultPort(url.scheme)
