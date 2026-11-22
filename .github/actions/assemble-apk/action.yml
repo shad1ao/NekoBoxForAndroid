@@ -1,5 +1,5 @@
-name: Assemble one debug APK
-description: Build the oss debug APK set and keep only the split whose libgojni.so matches the requested ABI.
+name: Assemble one release APK
+description: Build the oss release APK set and keep only the split whose libgojni.so matches the requested ABI.
 inputs:
   abi:
     description: Android ABI directory name, such as arm64-v8a
@@ -19,27 +19,38 @@ runs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
       run: bash buildScript/lib/assets.sh
-    - name: Assemble oss debug
+    - name: Assemble oss release
       shell: bash
       env:
         BUILD_PLUGIN: none
       run: |
+        set -euo pipefail
+        missing=0
+        for name in NYABOX_KEYSTORE_FILE NYABOX_KEYSTORE_PASSWORD NYABOX_KEY_ALIAS NYABOX_KEY_PASSWORD; do
+          if [ -z "${!name:-}" ]; then
+            echo "::error::$name is not set"
+            missing=1
+          fi
+        done
+        test "$missing" -eq 0
+        test -s "$NYABOX_KEYSTORE_FILE"
         echo "sdk.dir=${ANDROID_HOME}" > local.properties
         echo "ndk.dir=${ANDROID_HOME}/ndk/25.0.8775105" >> local.properties
         chmod +x ./gradlew
-        ./gradlew :app:assembleOssDebug --stacktrace
+        ./gradlew :app:assembleOssRelease --stacktrace
     - name: Keep only the verified ${{ inputs.abi }} APK
       shell: bash
-      run: bash buildScript/ci/verify_apk_abi.sh "${{ inputs.abi }}" app/build/outputs/apk/oss/debug dist-apks
-    - name: Require package moe.nyabox
+      run: bash buildScript/ci/verify_apk_abi.sh "${{ inputs.abi }}" app/build/outputs/apk/oss/release dist-apks
+    - name: Require package moe.nyabox and the release certificate
       shell: bash
       run: |
+        set -euo pipefail
         aapt="$ANDROID_HOME/build-tools/35.0.1/aapt"
         version=$(sed -n 's/^VERSION_NAME=//p' nb4a.properties)
+        bash buildScript/ci/verify_release_cert.sh dist-apks
         for apk in dist-apks/*.apk; do
           badging=$("$aapt" dump badging "$apk")
           echo "$badging" | grep -q "package: name='moe.nyabox' "
           echo "$badging" | grep -q "versionName='$version'"
           echo "$badging" | grep -q "application-label:'NyaBox'"
-          echo "$badging" | grep -q "application-debuggable"
         done

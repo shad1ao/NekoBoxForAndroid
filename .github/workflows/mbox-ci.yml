@@ -59,6 +59,10 @@ jobs:
     timeout-minutes: 60
     needs: libcore
     continue-on-error: ${{ matrix.optional }}
+    env:
+      NYABOX_KEYSTORE_PASSWORD: ${{ secrets.NYABOX_KEYSTORE_PASSWORD }}
+      NYABOX_KEY_ALIAS: ${{ secrets.NYABOX_KEY_ALIAS }}
+      NYABOX_KEY_PASSWORD: ${{ secrets.NYABOX_KEY_PASSWORD }}
     strategy:
       fail-fast: false
       matrix:
@@ -73,6 +77,27 @@ jobs:
             optional: true
     steps:
       - uses: actions/checkout@v4
+      - name: Require NyaBox signing secrets
+        env:
+          NYABOX_KEYSTORE_BASE64: ${{ secrets.NYABOX_KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          missing=0
+          for name in NYABOX_KEYSTORE_BASE64 NYABOX_KEYSTORE_PASSWORD NYABOX_KEY_ALIAS NYABOX_KEY_PASSWORD; do
+            if [ -z "${!name:-}" ]; then
+              echo "::error::$name is not set"
+              missing=1
+            fi
+          done
+          test "$missing" -eq 0
+          keystore="${RUNNER_TEMP}/nyabox-release.p12"
+          umask 077
+          printf '%s' "$NYABOX_KEYSTORE_BASE64" | base64 -d > "$keystore"
+          if [ ! -s "$keystore" ]; then
+            echo "::error::Decoded keystore is empty"
+            exit 1
+          fi
+          echo "NYABOX_KEYSTORE_FILE=${keystore}" >> "$GITHUB_ENV"
       - uses: actions/download-artifact@v4
         with:
           name: libcore-${{ matrix.abi }}
@@ -80,6 +105,10 @@ jobs:
       - uses: ./.github/actions/assemble-apk
         with:
           abi: ${{ matrix.abi }}
+        env:
+          NYABOX_KEYSTORE_PASSWORD: ${{ secrets.NYABOX_KEYSTORE_PASSWORD }}
+          NYABOX_KEY_ALIAS: ${{ secrets.NYABOX_KEY_ALIAS }}
+          NYABOX_KEY_PASSWORD: ${{ secrets.NYABOX_KEY_PASSWORD }}
       - uses: actions/upload-artifact@v4
         with:
           name: apk-${{ matrix.abi }}
@@ -88,7 +117,7 @@ jobs:
           retention-days: 14
 
   release:
-    name: publish debug prerelease
+    name: publish release
     runs-on: ubuntu-latest
     needs: apk
     if: >
@@ -106,8 +135,11 @@ jobs:
         with:
           pattern: apk-*
           path: artifacts
+      - name: Install Android SDK and NDK 25.0.8775105
+        run: bash buildScript/ci/setup_android_sdk.sh
       - name: Collect verified APKs and notes
         run: |
+          set -euo pipefail
           mkdir -p apks
           find artifacts -type f -name '*.apk' -exec cp {} apks/ \;
           for apk in apks/*.apk; do
@@ -121,8 +153,9 @@ jobs:
             esac
             unzip -l "$apk" | grep -q "lib/${abi}/libgojni.so"
           done
+          bash buildScript/ci/verify_release_cert.sh apks
           bash buildScript/ci/release_notes.sh apks release-notes.md
-      - name: Publish prerelease
+      - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -136,6 +169,6 @@ jobs:
             --repo "${{ github.repository }}" \
             --target "${{ github.sha }}" \
             --prerelease \
-            --title "$tag debug-signed test build" \
+            --title "$tag" \
             --notes-file release-notes.md \
             apks/*.apk apks/SHA256SUMS

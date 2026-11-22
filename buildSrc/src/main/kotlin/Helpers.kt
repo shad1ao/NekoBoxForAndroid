@@ -114,18 +114,31 @@ fun Project.setupAppCommon() {
     setupCommon()
 
     val lp = requireLocalProperties()
-    val keystorePwd = lp.getProperty("KEYSTORE_PASS") ?: System.getenv("KEYSTORE_PASS")
-    val alias = lp.getProperty("ALIAS_NAME") ?: System.getenv("ALIAS_NAME")
-    val pwd = lp.getProperty("ALIAS_PASS") ?: System.getenv("ALIAS_PASS")
+    val nyaboxStore = System.getenv("NYABOX_KEYSTORE_FILE")?.takeIf { it.isNotBlank() }
+    val keystorePwd = System.getenv("NYABOX_KEYSTORE_PASSWORD")?.takeIf { it.isNotBlank() }
+        ?: lp.getProperty("KEYSTORE_PASS")
+        ?: System.getenv("KEYSTORE_PASS")
+    val alias = System.getenv("NYABOX_KEY_ALIAS")?.takeIf { it.isNotBlank() }
+        ?: lp.getProperty("ALIAS_NAME")
+        ?: System.getenv("ALIAS_NAME")
+    val pwd = System.getenv("NYABOX_KEY_PASSWORD")?.takeIf { it.isNotBlank() }
+        ?: lp.getProperty("ALIAS_PASS")
+        ?: System.getenv("ALIAS_PASS")
 
     android.apply {
-        if (keystorePwd != null) {
+        if (nyaboxStore != null && (keystorePwd.isNullOrBlank() || alias.isNullOrBlank() || pwd.isNullOrBlank())) {
+            error("NyaBox release signing is incomplete")
+        }
+        if (!keystorePwd.isNullOrBlank()) {
             signingConfigs {
                 create("release") {
-                    storeFile = rootProject.file("release.keystore")
+                    storeFile = if (nyaboxStore != null) file(nyaboxStore) else rootProject.file("release.keystore")
                     storePassword = keystorePwd
                     keyAlias = alias
                     keyPassword = pwd
+                    if (nyaboxStore != null) {
+                        storeType = "PKCS12"
+                    }
                 }
             }
         }
