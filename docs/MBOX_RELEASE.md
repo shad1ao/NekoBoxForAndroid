@@ -1,12 +1,13 @@
-# NyaBox 1.4.3.2
+# NyaBox 1.4.3.3
 
-This build is `1.4.3.2` of the mbox core on shad1ao/NyaBox. The product name is NyaBox. It is not signed with an upstream or Play release key. The launcher name is `NyaBox`. The repository is https://github.com/shad1ao/NyaBox.
+This build is `1.4.3.3` of the mbox core on shad1ao/NyaBox. The product name is NyaBox. It is not signed with an upstream or Play release key. The launcher name is `NyaBox`. The repository is https://github.com/shad1ao/NyaBox.
 
 ## Install and signature
 
 - Package id: `moe.nyabox`.
 - This application id does not replace `moe.nb4a.mbox`, official `moe.nb4a`, or `moe.nb4a.debug`. Uninstall those packages yourself if you no longer want them.
-- `1.4.3` and `1.4.3.1` were debug-signed. This APK cannot replace either of those installs. Uninstall `moe.nyabox` once before installing this build.
+- `1.4.3` and `1.4.3.1` were debug-signed. This APK cannot replace either of those installs. Uninstall `moe.nyabox` once before installing this build if you still have one of those.
+- `1.4.3.2` uses this same release certificate, so this build can replace a `1.4.3.2` install.
 - Signature: one PKCS12 release key supplied to CI as GitHub Actions secrets. The keystore is not in this repository. All four ABI APKs use that same certificate. CI does not publish an APK whose certificate differs.
 - Installing a different ABI over this package uses the same certificate.
 - minSdk 21. Pick the APK whose ABI matches the device. `arm64-v8a` is the phone ABI. `x86_64` and `x86` are emulator ABIs. `armeabi-v7a` is 32-bit ARM.
@@ -16,7 +17,8 @@ This build is `1.4.3.2` of the mbox core on shad1ao/NyaBox. The product name is 
 - Runtime: [enfein/mbox](https://github.com/enfein/mbox) tag `v1.12.23-m.3.28.0`, commit `2ced282af6a415fbd4b6cb62aa764e79a2450141`
 - mieru library: `github.com/enfein/mieru/v3` `v3.28.0`
 - Reported core version: `1.12.23-m.3.28.0`
-- App version: `1.4.3.2` (versionCode 280)
+- App version: `1.4.3.3` (versionCode 285)
+- The drawer 推广 row and the About 捐款 row are hidden. Their strings remain in the app.
 - Speed and per-profile traffic use the core stats tracker. They do not require YACD. The YACD page is still the dashboard menu, and that menu stays hidden until Clash API is enabled.
 - Mieru server settings use the app's existing translations. Simplified Chinese follows the official mieru terms: 端口范围, 多路复用, 握手模式, 流量模式.
 - Username and password stay separate, matching mieru. The password field is always shown and is not copied from the username. Saving Mieru settings stores the configuration name as the mieru profile. An imported profile name stays in place until that save.
