@@ -299,7 +299,6 @@
     <string name="backup_import_summary">L\'importation écrasera les données existantes.</string>
     <string name="tools_network">Réseaux</string>
     <string name="backup_importing">Importation…</string>
-<string name="mieru_profile">Profil Mieru</string>
     <string name="mieru_multiplexing">Multiplexage</string>
     <string name="mieru_handshake_mode">Mode de handshake</string>
     <string name="mieru_traffic_pattern">Motif de trafic</string>
@@ -313,5 +312,4 @@
     <string name="mieru_handshake_standard">Standard</string>
     <string name="mieru_handshake_no_wait">Sans attente</string>
     <string name="mieru_password_same_as_username">Mot de passe identique au nom</string>
-    <string name="mieru_separate_profile">Nom de profil Mieru distinct</string>
 </resources>

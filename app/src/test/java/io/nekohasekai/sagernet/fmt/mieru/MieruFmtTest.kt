@@ -244,20 +244,30 @@ class MieruFmtTest {
     }
 
     @Test
-    fun editorCopiesPasswordOnlyWhenAskedAndKeepsADifferentProfile() {
+    fun editorCopiesPasswordOnlyWhenAsked() {
         assertTrue(MieruEditor.passwordMatchesUsername("user-a", "user-a"))
         assertTrue(MieruEditor.passwordMatchesUsername("", ""))
         assertEquals(false, MieruEditor.passwordMatchesUsername("user-a", "other-value"))
         assertEquals("user-a", MieruEditor.passwordToStore("user-a", "other-value", true))
         assertEquals("other-value", MieruEditor.passwordToStore("user-a", "other-value", false))
+    }
 
-        assertEquals(false, MieruEditor.separateProfile("node", "node"))
-        assertEquals(false, MieruEditor.separateProfile("node", ""))
-        assertEquals(false, MieruEditor.separateProfile("node", "  node  "))
-        assertEquals(true, MieruEditor.separateProfile("node", "default"))
-        assertEquals("node", MieruEditor.profileToStore("node", "default", false))
-        assertEquals("default", MieruEditor.profileToStore("node", "default", true))
-        assertEquals("node", MieruEditor.profileToStore("node", "  ", true))
+    @Test
+    fun editorSaveUsesDisplayNameAsMieruProfile() {
+        assertEquals("home", MieruEditor.profileFromDisplayName(" home "))
+        assertEquals("", MieruEditor.profileFromDisplayName("   "))
+        val edited = credentialBean(
+            username = "user-a",
+            password = "other-value",
+            profile = "default",
+            name = "node",
+        )
+        edited.profileName = MieruEditor.profileFromDisplayName(edited.name)
+        assertEquals(
+            "mierus://user-a:other-value@example.com?port=443&profile=node&protocol=TCP",
+            edited.toMierusLink(),
+        )
+        assertEquals("other-value", edited.password)
     }
 
     private fun credentialBean(

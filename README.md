@@ -11,9 +11,9 @@ NyaBox 是这个分支的 Android 应用。启动器名称是 NyaBox，包名是
 
 [GitHub Releases](https://github.com/shad1ao/NyaBox/releases)
 
-The version series is `1.4.3`. The current tag is `1.4.3`.
+The version series is `1.4.3`. The current tag is `1.4.3.1`.
 
-版本号从 `1.4.3` 起。当前标签是 `1.4.3`。
+版本号从 `1.4.3` 起。当前标签是 `1.4.3.1`。
 
 **Google Play 版本自 2024 年 5 月起已被第三方控制，为非开源版本，请不要下载。**
 

@@ -17,7 +17,6 @@
     <string name="menu_about">대하여</string>
     <string name="menu_group">그룹</string>
     <string name="menu_configuration">구성</string>
-<string name="mieru_profile">Mieru 프로필</string>
     <string name="mieru_multiplexing">다중화</string>
     <string name="mieru_handshake_mode">핸드셰이크 모드</string>
     <string name="mieru_traffic_pattern">트래픽 패턴</string>
@@ -31,5 +30,4 @@
     <string name="mieru_handshake_standard">표준</string>
     <string name="mieru_handshake_no_wait">대기 없음</string>
     <string name="mieru_password_same_as_username">비밀번호를 사용자 이름과 같게</string>
-    <string name="mieru_separate_profile">별도의 Mieru 프로필 이름</string>
 </resources>

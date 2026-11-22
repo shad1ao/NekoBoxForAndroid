@@ -531,7 +531,6 @@
     <string name="global_allow_insecure">به اتصال محافظت‌نشده همیشه اجازه داده شود.</string>
     <string name="network_change_reset_connections">بازنشانی اتصال خروجی، هنگام تغییر شبکه</string>
     <string name="wake_reset_connections">بازنشانی اتصال خروجی، هنگام روشن‌شدن صفحه موبایل</string>
-<string name="mieru_profile">نمایه Mieru</string>
     <string name="mieru_multiplexing">چندگانه‌سازی</string>
     <string name="mieru_handshake_mode">حالت دست‌دادن</string>
     <string name="mieru_traffic_pattern">الگوی ترافیک</string>
@@ -545,5 +544,4 @@
     <string name="mieru_handshake_standard">استاندارد</string>
     <string name="mieru_handshake_no_wait">بدون انتظار</string>
     <string name="mieru_password_same_as_username">رمز عبور همان نام کاربری است</string>
-    <string name="mieru_separate_profile">نام نمایه جداگانه Mieru</string>
 </resources>

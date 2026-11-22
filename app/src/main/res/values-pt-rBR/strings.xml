@@ -17,7 +17,6 @@
     <string name="app_desc">Um conjunto de ferramentas de proxy universal para Android, escrito em Kotlin.</string>
     <string name="group_subscription_link">Link de inscrição</string>
     <string name="group_update">Atualizar</string>
-<string name="mieru_profile">Perfil Mieru</string>
     <string name="mieru_multiplexing">Multiplexação</string>
     <string name="mieru_handshake_mode">Modo de handshake</string>
     <string name="mieru_traffic_pattern">Padrão de tráfego</string>
@@ -31,5 +30,4 @@
     <string name="mieru_handshake_standard">Normal</string>
     <string name="mieru_handshake_no_wait">Sem espera</string>
     <string name="mieru_password_same_as_username">Senha igual ao usuário</string>
-    <string name="mieru_separate_profile">Nome de perfil Mieru separado</string>
 </resources>

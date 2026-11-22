@@ -378,7 +378,6 @@
     <string name="ssh_private_key">مفتاح خاص</string>
     <string name="ssh_public_key">المفتاح العمومي</string>
     <string name="ssh_auth_type_none">لا شيء</string>
-<string name="mieru_profile">ملف Mieru</string>
     <string name="mieru_multiplexing">تعدد الإرسال</string>
     <string name="mieru_handshake_mode">وضع المصافحة</string>
     <string name="mieru_traffic_pattern">نمط حركة المرور</string>
@@ -392,5 +391,4 @@
     <string name="mieru_handshake_standard">قياسي</string>
     <string name="mieru_handshake_no_wait">دون انتظار</string>
     <string name="mieru_password_same_as_username">كلمة المرور مثل اسم المستخدم</string>
-    <string name="mieru_separate_profile">اسم ملف Mieru منفصل</string>
 </resources>

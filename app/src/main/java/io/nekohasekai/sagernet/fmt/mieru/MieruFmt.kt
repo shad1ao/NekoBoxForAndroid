@@ -97,9 +97,9 @@ fun MieruBean.toMierusLink(): String {
  * The client profile does the same for `user.name` and `user.password`
  * (https://github.com/enfein/mieru/blob/v3.28.0/docs/client-install.zh_CN.md).
  * They are copied together only when the user asks, or when the stored values
- * are already equal. The share-link `profile` is the mieru profile name. This
- * app's display name is the URL fragment and is used as `profile` when the
- * stored profile name is blank or the user does not keep a separate one.
+ * are already equal. Saving the settings screen stores the display name as
+ * the share-link `profile`. An imported bean keeps its stored profile until
+ * that save, so an unedited config still exports the official value.
  */
 internal object MieruEditor {
     fun passwordMatchesUsername(username: String, password: String): Boolean = username == password
@@ -107,16 +107,7 @@ internal object MieruEditor {
     fun passwordToStore(username: String, password: String, sameAsUsername: Boolean): String =
         if (sameAsUsername) username else password
 
-    fun separateProfile(displayName: String, profileName: String): Boolean {
-        val profile = profileName.trim()
-        return profile.isNotEmpty() && profile != displayName.trim()
-    }
-
-    fun profileToStore(displayName: String, explicitProfile: String, separateProfile: Boolean): String {
-        val display = displayName.trim()
-        if (!separateProfile) return display
-        return explicitProfile.trim().ifBlank { display }
-    }
+    fun profileFromDisplayName(displayName: String): String = displayName.trim()
 }
 
 fun buildSingBoxOutboundMieruBean(bean: MieruBean): SingBoxOptions.Outbound_MieruOptions {

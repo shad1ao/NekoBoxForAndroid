@@ -8,7 +8,6 @@
     <string name="github">Codice sorgente</string>
     <string name="project">Progetto</string>
     <string name="app_desc">La toolchain proxy universale per Android, scritta in Kotlin.</string>
-<string name="mieru_profile">Profilo Mieru</string>
     <string name="mieru_multiplexing">Multiplazione</string>
     <string name="mieru_handshake_mode">Modalità di handshake</string>
     <string name="mieru_traffic_pattern">Modello di traffico</string>
@@ -22,5 +21,4 @@
     <string name="mieru_handshake_standard">Standard</string>
     <string name="mieru_handshake_no_wait">Senza attesa</string>
     <string name="mieru_password_same_as_username">Password uguale al nome utente</string>
-    <string name="mieru_separate_profile">Nome profilo Mieru separato</string>
 </resources>

@@ -72,15 +72,4 @@
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/mieru_profile">
-        <SwitchPreference
-            app:key="mieruSeparateProfile"
-            app:title="@string/mieru_separate_profile" />
-        <EditTextPreference
-            app:icon="@drawable/ic_social_emoji_symbols"
-            app:key="mieruProfile"
-            app:title="@string/mieru_profile"
-            app:useSimpleSummaryProvider="true" />
-    </PreferenceCategory>
-
 </PreferenceScreen>

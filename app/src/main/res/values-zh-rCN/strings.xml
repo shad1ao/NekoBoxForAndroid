@@ -499,7 +499,6 @@
     <string name="minimize">最小化</string>
     <string name="app_list_permission_denied">无法读取已安装的应用。\n这通常是由于系统限制了应用的读取权限（例如某些中国厂商系统）。\n请在系统设置中授予权限。</string>
     <string name="open_app_settings">打开系统设置</string>
-<string name="mieru_profile">Mieru 配置名</string>
     <string name="mieru_multiplexing">多路复用</string>
     <string name="mieru_handshake_mode">握手模式</string>
     <string name="mieru_traffic_pattern">流量模式</string>
@@ -513,5 +512,4 @@
     <string name="mieru_handshake_standard">标准</string>
     <string name="mieru_handshake_no_wait">0-RTT</string>
     <string name="mieru_password_same_as_username">密码与用户名相同</string>
-    <string name="mieru_separate_profile">单独的 Mieru 配置名</string>
 </resources>

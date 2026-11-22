@@ -370,7 +370,6 @@
     <string name="copy_package_name">Kopier pakkenavn</string>
     <string name="copy_label">Kopier navn</string>
     <string name="udp_connections">%d UDP-tilkoblinger</string>
-<string name="mieru_profile">Mieru-profil</string>
     <string name="mieru_multiplexing">Multipleksing</string>
     <string name="mieru_handshake_mode">Håndtrykkmodus</string>
     <string name="mieru_traffic_pattern">Trafikkmønster</string>
@@ -384,5 +383,4 @@
     <string name="mieru_handshake_standard">Normal</string>
     <string name="mieru_handshake_no_wait">Uten venting</string>
     <string name="mieru_password_same_as_username">Passord likt brukernavn</string>
-    <string name="mieru_separate_profile">Eget Mieru-profilnavn</string>
 </resources>
