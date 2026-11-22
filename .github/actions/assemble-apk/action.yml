@@ -30,7 +30,20 @@ runs:
         echo "sdk.dir=${ANDROID_HOME}" > local.properties
         echo "ndk.dir=${ANDROID_HOME}/ndk/25.0.8775105" >> local.properties
         chmod +x ./gradlew
-        ./gradlew :app:assembleOssRelease --stacktrace
+        # Maven Central occasionally returns 429 while four ABI jobs resolve
+        # the same Gradle plugins. Retry the assemble before giving up.
+        assemble_once() {
+          ./gradlew :app:assembleOssRelease --stacktrace
+        }
+        if ! assemble_once; then
+          echo "assemble failed; retrying after a pause"
+          sleep 45
+          if ! assemble_once; then
+            echo "assemble failed again; retrying after a longer pause"
+            sleep 90
+            assemble_once
+          fi
+        fi
     - name: Keep only the verified ${{ inputs.abi }} APK
       shell: bash
       run: bash buildScript/ci/verify_apk_abi.sh "${{ inputs.abi }}" app/build/outputs/apk/oss/release dist-apks
