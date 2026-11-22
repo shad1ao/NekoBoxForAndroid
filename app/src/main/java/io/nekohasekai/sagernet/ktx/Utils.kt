@@ -162,8 +162,7 @@ fun DialogFragment.showAllowingStateLoss(fragmentManager: FragmentManager, tag: 
 }
 
 fun String.pathSafe(): String {
-    // " " encoded as +
-    return URLEncoder.encode(this, "UTF-8")
+    return urlSafe()
 }
 
 fun String.urlSafe(): String {

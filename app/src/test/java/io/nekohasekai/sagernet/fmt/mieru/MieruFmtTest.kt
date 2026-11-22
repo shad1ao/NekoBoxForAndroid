@@ -1,6 +1,7 @@
 package io.nekohasekai.sagernet.fmt.mieru
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
@@ -70,7 +71,7 @@ class MieruFmtTest {
         assertEquals(
             "mierus://user%20name:p%40ss%3Aword%2F%E6%B5%8B%E8%AF%95@[2001:db8::1]" +
                 "?handshake-mode=HANDSHAKE_NO_WAIT&mtu=1400&multiplexing=MULTIPLEXING_HIGH" +
-                "&port=6666&profile=def+ault&protocol=TCP" +
+                "&port=6666&profile=def%20ault&protocol=TCP" +
                 "&traffic-pattern=CCoQARoECAEQCiIYCAMQASoIMDAwMTAyMDMqCDA0MDUwNjA3" +
                 "#my%20node",
             bean.toMierusLink(),
@@ -82,6 +83,61 @@ class MieruFmtTest {
         assertEquals("def ault", parsed.profileName)
         assertEquals("my node", parsed.name)
         assertEquals("CCoQARoECAEQCiIYCAMQASoIMDAwMTAyMDMqCDA0MDUwNjA3", parsed.trafficPattern)
+        assertFalse(bean.toMierusLink().contains("profile=def+ault"))
+        assertFalse(bean.toMierusLink().contains("%2520"))
+    }
+
+    @Test
+    fun querySpacesArePercentEncodedAndPlusStaysPlus() {
+        val bean = MieruBean().apply {
+            name = "节点 A+B"
+            profileName = "配置 名+称"
+            serverAddress = "example.com"
+            serverPort = 443
+            protocol = "TCP"
+            username = "名 字"
+            password = "密 码+plus"
+            initializeDefaultValues()
+        }
+        val link = bean.toMierusLink()
+        val profile = link.substringAfter("profile=").substringBefore("&").substringBefore("#")
+        assertFalse(profile.contains("+"))
+        assertTrue(profile.contains("%20"))
+        assertTrue(profile.contains("%2B"))
+        assertTrue(link.substringAfter("mierus://").substringBefore("@").contains("%20"))
+        assertTrue(link.contains("#"))
+        assertTrue(link.substringAfter("#").contains("%20"))
+        assertFalse(link.contains("%2520"))
+        assertFalse(link.contains("%252B"))
+        val parsed = parseMieruLinks(link).single()
+        assertEquals("配置 名+称", parsed.profileName)
+        assertEquals("节点 A+B", parsed.name)
+        assertEquals("名 字", parsed.username)
+        assertEquals("密 码+plus", parsed.password)
+    }
+
+    @Test
+    fun legacyQueryPlusAndPercentEncodingsBothRoundTrip() {
+        val spacePlus = "mierus://user:pass@example.com?port=443&profile=def+ault&protocol=TCP"
+        val spacePct = "mierus://user:pass@example.com?port=443&profile=def%20ault&protocol=TCP"
+        val literalPlus = "mierus://user:pass@example.com?port=443&profile=def%2Bault&protocol=TCP"
+        assertEquals("def ault", parseMieruLinks(spacePlus).single().profileName)
+        assertEquals("def ault", parseMieruLinks(spacePct).single().profileName)
+        assertEquals("def+ault", parseMieruLinks(literalPlus).single().profileName)
+
+        val exported = MieruBean().apply {
+            name = "def+ault"
+            profileName = "def+ault"
+            serverAddress = "example.com"
+            serverPort = 443
+            protocol = "TCP"
+            username = "user"
+            password = "pass"
+            initializeDefaultValues()
+        }.toMierusLink()
+        assertTrue(exported.contains("profile=def%2Bault"))
+        assertFalse(exported.contains("profile=def+ault"))
+        assertEquals("def+ault", parseMieruLinks(exported).single().profileName)
     }
 
     @Test

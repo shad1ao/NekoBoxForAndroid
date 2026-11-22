@@ -530,13 +530,14 @@ private fun String.isIpAddress(): Boolean {
 private enum class EscapeMode { USER, QUERY, FRAGMENT }
 
 private fun goEscape(value: String, mode: EscapeMode): String {
+    // A space is %20 in userinfo, query, and fragment. Do not use form
+    // encoding's '+'. queryUnescape still accepts '+' so official QueryEscape
+    // links and older exports import as the same space.
     val bytes = value.toByteArray(Charsets.UTF_8)
     val out = StringBuilder(bytes.size)
     for (raw in bytes) {
         val c = raw.toInt() and 0xFF
-        if (c == ' '.code && mode == EscapeMode.QUERY) {
-            out.append('+')
-        } else if (shouldEscape(c, mode)) {
+        if (shouldEscape(c, mode)) {
             out.append('%')
             out.append(HEX[c ushr 4])
             out.append(HEX[c and 0x0F])
