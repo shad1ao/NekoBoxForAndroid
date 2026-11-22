@@ -1,3 +1,5 @@
+# Historical manual release path. mbox prereleases are built by mbox-ci.yml,
+# which keeps only APKs that contain libgojni.so for the ABI in the file name.
 name: Release Build
 on:
   workflow_dispatch:

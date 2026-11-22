@@ -1,0 +1,49 @@
+name: Bind mbox libcore
+description: Install the Android NDK, fetch the pinned mbox tree, and gomobile-bind one ABI.
+inputs:
+  go_target:
+    description: gomobile -target value, such as android/arm64
+    required: true
+  abi:
+    description: Android ABI directory name, such as arm64-v8a
+    required: true
+  go_test:
+    description: Run the libcore mieru Go tests before binding
+    required: true
+    default: "false"
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: "21"
+    - uses: actions/setup-go@v5
+      with:
+        go-version: "1.25.x"
+    - name: Install Android SDK and NDK 25.0.8775105
+      shell: bash
+      run: bash buildScript/ci/setup_android_sdk.sh
+    - name: Fetch mbox and install gomobile
+      shell: bash
+      env:
+        GOTOOLCHAIN: local
+      run: bash buildScript/lib/core/init.sh
+    - name: libcore Go tests
+      if: inputs.go_test == 'true'
+      shell: bash
+      env:
+        GOTOOLCHAIN: local
+      run: |
+        cd libcore
+        go test -tags='with_conntrack,with_gvisor,with_quic,with_wireguard,with_utls,with_clash_api' -count=1 -timeout 20m -run 'TestEmbeddedCoreIsMbox|TestMieruOutboundOptionsKeepShareFields|TestStandardMieruLinkFixtureMatchesProtobuf' .
+    - name: Bind ${{ inputs.go_target }}
+      shell: bash
+      env:
+        GOTOOLCHAIN: local
+        GOMAXPROCS: "2"
+        GOMOBILE_TARGET: ${{ inputs.go_target }}
+      run: bash buildScript/lib/core/build.sh
+    - name: Require libgojni.so in the AAR
+      shell: bash
+      run: unzip -l app/libs/libcore.aar | grep -F "jni/${{ inputs.abi }}/libgojni.so"

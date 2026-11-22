@@ -1,0 +1,31 @@
+name: Assemble one debug APK
+description: Build the oss debug APK set and keep only the split whose libgojni.so matches the requested ABI.
+inputs:
+  abi:
+    description: Android ABI directory name, such as arm64-v8a
+    required: true
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: "21"
+    - name: Install Android SDK and NDK 25.0.8775105
+      shell: bash
+      run: bash buildScript/ci/setup_android_sdk.sh
+    - name: Download geo assets
+      shell: bash
+      run: bash buildScript/lib/assets.sh
+    - name: Assemble oss debug
+      shell: bash
+      env:
+        BUILD_PLUGIN: none
+      run: |
+        echo "sdk.dir=${ANDROID_HOME}" > local.properties
+        echo "ndk.dir=${ANDROID_HOME}/ndk/25.0.8775105" >> local.properties
+        chmod +x ./gradlew
+        ./gradlew :app:assembleOssDebug --stacktrace
+    - name: Keep only the verified ${{ inputs.abi }} APK
+      shell: bash
+      run: bash buildScript/ci/verify_apk_abi.sh "${{ inputs.abi }}" app/build/outputs/apk/oss/debug dist-apks
