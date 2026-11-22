@@ -23,7 +23,7 @@ This build is `1.4.3.2` of the mbox core on shad1ao/NyaBox. The product name is 
 
 ## Share links
 
-Import accepts official `mierus://` and `mieru://` links from clipboard, QR, share intents, and subscriptions, plus mihomo `type: mieru` and sing-box `"type": "mieru"` outbounds. Export writes `mierus://`. Field rules and rejected input are in [docs/MBOX.md](docs/MBOX.md).
+Import accepts official `mierus://` and `mieru://` links from clipboard, QR, share intents, and subscriptions, plus mihomo `type: mieru` and sing-box `"type": "mieru"` outbounds. Export writes `mierus://`.
 
 ## Known limitations
 

@@ -90,7 +90,7 @@ XMR
 
 Core:
 
-- [enfein/mbox](https://github.com/enfein/mbox) `v1.12.23-m.3.28.0` (the embedded sing-box runtime; see [docs/MBOX.md](docs/MBOX.md))
+- [enfein/mbox](https://github.com/enfein/mbox) `v1.12.23-m.3.28.0`
 - [enfein/mieru](https://github.com/enfein/mieru) (mieru protocol and share-link format)
 - [SagerNet/sing-box](https://github.com/SagerNet/sing-box)
 
