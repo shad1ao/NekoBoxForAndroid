@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Confirm the CI keystore can be unlocked. Prints no secret values.
-# If the key entry uses the keystore password, export that as NYABOX_KEY_PASSWORD.
+# Confirm the CI PKCS12 can be unlocked. Prints no secret values.
+# Gradle passes the key password separately. Java PKCS12 entries are often
+# protected by the keystore password, so fall back to that when it unlocks the key.
 set -euo pipefail
 
 trim_secret() {
@@ -25,35 +26,59 @@ NYABOX_KEY_ALIAS=$(trim_secret "$NYABOX_KEY_ALIAS")
 NYABOX_KEY_PASSWORD=$(trim_secret "$NYABOX_KEY_PASSWORD")
 export NYABOX_KEYSTORE_PASSWORD NYABOX_KEY_ALIAS NYABOX_KEY_PASSWORD
 
-unlocks() {
-  local keypass="$1"
-  local dest
-  dest=$(mktemp)
-  if keytool -noprompt -importkeystore \
-      -srckeystore "$NYABOX_KEYSTORE_FILE" \
-      -srcstoretype PKCS12 \
-      -srcstorepass "$NYABOX_KEYSTORE_PASSWORD" \
-      -srcalias "$NYABOX_KEY_ALIAS" \
-      -srckeypass "$keypass" \
-      -destkeystore "$dest" \
-      -deststoretype PKCS12 \
-      -deststorepass "$NYABOX_KEYSTORE_PASSWORD" \
-      -destkeypass "$keypass" \
-      >/dev/null 2>&1; then
-    rm -f "$dest"
-    return 0
-  fi
-  rm -f "$dest"
-  return 1
-}
+probe_dir=$(mktemp -d)
+cat > "$probe_dir/Probe.java" <<'EOF'
+import java.io.FileInputStream;
+import java.security.KeyStore;
+import java.security.UnrecoverableKeyException;
 
-if unlocks "$NYABOX_KEY_PASSWORD"; then
-  echo "PKCS12 key entry unlocks"
-elif unlocks "$NYABOX_KEYSTORE_PASSWORD"; then
-  NYABOX_KEY_PASSWORD="$NYABOX_KEYSTORE_PASSWORD"
-  export NYABOX_KEY_PASSWORD
-  echo "PKCS12 key entry unlocks with the keystore password"
-else
-  echo "::error::Could not unlock the PKCS12 key entry"
-  exit 1
-fi
+public class Probe {
+    public static void main(String[] args) throws Exception {
+        String file = args[0];
+        String alias = System.getenv("NYABOX_KEY_ALIAS");
+        char[] store = System.getenv("NYABOX_KEYSTORE_PASSWORD").toCharArray();
+        char[] key = System.getenv("NYABOX_KEY_PASSWORD").toCharArray();
+        KeyStore ks = KeyStore.getInstance("PKCS12");
+        try (FileInputStream in = new FileInputStream(file)) {
+            ks.load(in, store);
+        } catch (Exception e) {
+            System.out.println("STORE_FAIL");
+            return;
+        }
+        try {
+            if (ks.getKey(alias, key) == null) {
+                System.out.println("NO_KEY");
+                return;
+            }
+            System.out.println("KEY_OK");
+        } catch (UnrecoverableKeyException e) {
+            try {
+                if (ks.getKey(alias, store) == null) {
+                    System.out.println("NO_KEY");
+                    return;
+                }
+                System.out.println("STORE_OK");
+            } catch (UnrecoverableKeyException e2) {
+                System.out.println("LOCKED");
+            }
+        }
+    }
+}
+EOF
+javac "$probe_dir/Probe.java"
+result=$(java -cp "$probe_dir" Probe "$NYABOX_KEYSTORE_FILE")
+rm -rf "$probe_dir"
+case "$result" in
+  KEY_OK)
+    echo "PKCS12 key entry unlocks"
+    ;;
+  STORE_OK)
+    NYABOX_KEY_PASSWORD="$NYABOX_KEYSTORE_PASSWORD"
+    export NYABOX_KEY_PASSWORD
+    echo "PKCS12 key entry unlocks with the keystore password"
+    ;;
+  *)
+    echo "::error::Could not unlock the PKCS12 key entry"
+    exit 1
+    ;;
+esac
