@@ -36,7 +36,7 @@ var mainInstance *BoxInstance
 
 func VersionBox() string {
 	version := []string{
-		"sing-box: " + constant.Version,
+		"mbox: " + constant.Version,
 		runtime.Version() + "@" + runtime.GOOS + "/" + runtime.GOARCH,
 	}
 

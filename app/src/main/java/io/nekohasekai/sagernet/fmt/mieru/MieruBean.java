@@ -33,7 +33,19 @@ public class MieruBean extends AbstractBean {
     public String protocol;
     public String username;
     public String password;
+    /**
+     * UDP egress MTU from the official profile. Null when the share link omitted it.
+     * Official clients accept 1280-1400; mieru's own default is 1400.
+     */
     public Integer mtu;
+    /** Official port range (for example 9998-9999). Empty when {@link #serverPort} is a single port. */
+    public String serverPorts;
+    /** Official `profile` query. Empty until export, which then uses "default". */
+    public String profileName;
+    public String multiplexing;
+    public String handshakeMode;
+    /** Standard-base64 protobuf blob from `traffic-pattern`. Not a password. */
+    public String trafficPattern;
 
     @Override
     public void initializeDefaultValues() {
@@ -41,19 +53,26 @@ public class MieruBean extends AbstractBean {
         if (protocol == null) protocol = "TCP";
         if (username == null) username = "";
         if (password == null) password = "";
-        if (mtu == null) mtu = 1400;
+        if (serverPorts == null) serverPorts = "";
+        if (profileName == null) profileName = "";
+        if (multiplexing == null) multiplexing = "";
+        if (handshakeMode == null) handshakeMode = "";
+        if (trafficPattern == null) trafficPattern = "";
     }
 
     @Override
     public void serialize(ByteBufferOutput output) {
-        output.writeInt(0);
+        output.writeInt(1);
         super.serialize(output);
         output.writeString(protocol);
         output.writeString(username);
         output.writeString(password);
-        if (protocol.equals("UDP")) {
-            output.writeInt(mtu);
-        }
+        output.writeInt(mtu == null ? 0 : mtu);
+        output.writeString(serverPorts);
+        output.writeString(profileName);
+        output.writeString(multiplexing);
+        output.writeString(handshakeMode);
+        output.writeString(trafficPattern);
     }
 
     @Override
@@ -63,7 +82,15 @@ public class MieruBean extends AbstractBean {
         protocol = input.readString();
         username = input.readString();
         password = input.readString();
-        if (protocol.equals("UDP")) {
+        if (version >= 1) {
+            int mtuValue = input.readInt();
+            mtu = mtuValue == 0 ? null : mtuValue;
+            serverPorts = input.readString();
+            profileName = input.readString();
+            multiplexing = input.readString();
+            handshakeMode = input.readString();
+            trafficPattern = input.readString();
+        } else if ("UDP".equals(protocol)) {
             mtu = input.readInt();
         }
     }

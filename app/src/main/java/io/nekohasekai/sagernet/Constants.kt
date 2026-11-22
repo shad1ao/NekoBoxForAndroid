@@ -90,6 +90,10 @@ object Key {
     const val SERVER_ALPN = "serverALPN"
     const val SERVER_CERTIFICATES = "serverCertificates"
     const val SERVER_MTU = "serverMTU"
+    const val MIERU_PROFILE = "mieruProfile"
+    const val MIERU_MULTIPLEXING = "mieruMultiplexing"
+    const val MIERU_HANDSHAKE_MODE = "mieruHandshakeMode"
+    const val MIERU_TRAFFIC_PATTERN = "mieruTrafficPattern"
 
     const val SERVER_CONFIG = "serverConfig"
     const val SERVER_CUSTOM = "serverCustom"

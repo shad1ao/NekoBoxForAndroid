@@ -337,6 +337,31 @@
         <item>UDP</item>
     </string-array>
 
+    <string-array name="mieru_multiplexing_entry">
+        <item>Default</item>
+        <item>Off</item>
+        <item>Low</item>
+        <item>Middle</item>
+        <item>High</item>
+    </string-array>
+    <string-array name="mieru_multiplexing_value">
+        <item>MULTIPLEXING_DEFAULT</item>
+        <item>MULTIPLEXING_OFF</item>
+        <item>MULTIPLEXING_LOW</item>
+        <item>MULTIPLEXING_MIDDLE</item>
+        <item>MULTIPLEXING_HIGH</item>
+    </string-array>
+    <string-array name="mieru_handshake_entry">
+        <item>Default</item>
+        <item>Standard</item>
+        <item>No wait</item>
+    </string-array>
+    <string-array name="mieru_handshake_value">
+        <item>HANDSHAKE_DEFAULT</item>
+        <item>HANDSHAKE_STANDARD</item>
+        <item>HANDSHAKE_NO_WAIT</item>
+    </string-array>
+
     <string-array name="naive_proto_entry">
         <item>HTTPS</item>
         <item>QUIC</item>

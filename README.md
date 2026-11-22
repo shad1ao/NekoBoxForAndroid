@@ -43,7 +43,7 @@ https://matsuridayo.github.io
 * WireGuard
 * Trojan-Go (trojan-go-plugin)
 * NaïveProxy (naive-plugin)
-* Mieru (mieru-plugin)
+* Mieru (`mierus://` and `mieru://` share links, mbox outbound)
 
 请到[这里](https://matsuridayo.github.io/nb4a-plugin/)下载插件以获得完整的代理支持.
 
@@ -89,6 +89,8 @@ XMR
 
 Core:
 
+- [enfein/mbox](https://github.com/enfein/mbox) `v1.12.23-m.3.28.0` (the embedded sing-box runtime; see [docs/MBOX.md](docs/MBOX.md))
+- [enfein/mieru](https://github.com/enfein/mieru) (mieru protocol and share-link format)
 - [SagerNet/sing-box](https://github.com/SagerNet/sing-box)
 
 Android GUI:

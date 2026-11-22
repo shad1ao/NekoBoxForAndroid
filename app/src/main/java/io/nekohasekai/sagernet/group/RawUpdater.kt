@@ -7,6 +7,8 @@ import io.nekohasekai.sagernet.fmt.AbstractBean
 import io.nekohasekai.sagernet.fmt.http.HttpBean
 import io.nekohasekai.sagernet.fmt.hysteria.HysteriaBean
 import io.nekohasekai.sagernet.fmt.hysteria.parseHysteria1Json
+import io.nekohasekai.sagernet.fmt.mieru.parseClashMieru
+import io.nekohasekai.sagernet.fmt.mieru.parseSingBoxMieruOutbound
 import io.nekohasekai.sagernet.fmt.shadowsocks.ShadowsocksBean
 import io.nekohasekai.sagernet.fmt.shadowsocks.parseShadowsocks
 import io.nekohasekai.sagernet.fmt.socks.SOCKSBean
@@ -491,6 +493,10 @@ object RawUpdater : GroupUpdater() {
                             proxies.add(bean)
                         }
 
+                        "mieru" -> {
+                            proxies.add(parseClashMieru(proxy))
+                        }
+
                         "anytls" -> {
                             val bean = AnyTLSBean()
                             for (opt in proxy) {
@@ -777,12 +783,16 @@ object RawUpdater : GroupUpdater() {
                             } else {
                                 it
                             }
-                        }.map {
-                            ConfigBean().apply {
-                                applyDefaultValues()
-                                type = 1
-                                config = it.toStringPretty()
-                                name = it.getStr("tag")
+                        }.flatMap {
+                            if (it.optString("type") == "mieru") {
+                                parseSingBoxMieruOutbound(it)
+                            } else {
+                                listOf(ConfigBean().apply {
+                                    applyDefaultValues()
+                                    type = 1
+                                    config = it.toStringPretty()
+                                    name = it.getStr("tag")
+                                })
                             }
                         }
                 }

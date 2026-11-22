@@ -41,7 +41,12 @@ class MieruSettingsActivity : ProfileSettingsActivity<MieruBean>() {
         DataStore.serverProtocol = protocol
         DataStore.serverUsername = username
         DataStore.serverPassword = password
-        DataStore.serverMTU = mtu
+        DataStore.serverPorts = serverPorts
+        DataStore.serverMTU = mtu ?: 0
+        DataStore.mieruProfile = profileName
+        DataStore.mieruMultiplexing = multiplexing.ifBlank { "MULTIPLEXING_DEFAULT" }
+        DataStore.mieruHandshakeMode = handshakeMode.ifBlank { "HANDSHAKE_DEFAULT" }
+        DataStore.mieruTrafficPattern = trafficPattern
     }
 
     override fun MieruBean.serialize() {
@@ -51,7 +56,12 @@ class MieruSettingsActivity : ProfileSettingsActivity<MieruBean>() {
         protocol = DataStore.serverProtocol
         username = DataStore.serverUsername
         password = DataStore.serverPassword
-        mtu = DataStore.serverMTU
+        serverPorts = DataStore.serverPorts
+        mtu = DataStore.serverMTU.takeIf { it in 1280..1400 }
+        profileName = DataStore.mieruProfile
+        multiplexing = DataStore.mieruMultiplexing
+        handshakeMode = DataStore.mieruHandshakeMode
+        trafficPattern = DataStore.mieruTrafficPattern
     }
 
     override fun PreferenceFragmentCompat.createPreferences(

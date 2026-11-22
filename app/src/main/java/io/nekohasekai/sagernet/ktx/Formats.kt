@@ -6,6 +6,7 @@ import io.nekohasekai.sagernet.fmt.Serializable
 import io.nekohasekai.sagernet.fmt.http.parseHttp
 import io.nekohasekai.sagernet.fmt.hysteria.parseHysteria1
 import io.nekohasekai.sagernet.fmt.hysteria.parseHysteria2
+import io.nekohasekai.sagernet.fmt.mieru.parseMieruLinks
 import io.nekohasekai.sagernet.fmt.naive.parseNaive
 import io.nekohasekai.sagernet.fmt.parseUniversal
 import io.nekohasekai.sagernet.fmt.shadowsocks.parseShadowsocks
@@ -216,6 +217,13 @@ suspend fun parseProxies(text: String): List<AbstractBean> {
                 entities.add(parseAnytls(this))
             }.onFailure {
                 Logs.w(it)
+            }
+        } else if (startsWith("mierus://") || startsWith("mieru://")) {
+            // Do not log the link. mieru URLs carry the username and password.
+            runCatching {
+                entities.addAll(parseMieruLinks(this))
+            }.onFailure {
+                Logs.w("mieru link rejected: ${it.message}")
             }
         }
     }

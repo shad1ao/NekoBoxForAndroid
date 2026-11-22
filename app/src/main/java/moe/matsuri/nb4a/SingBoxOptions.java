@@ -3582,6 +3582,30 @@ public class SingBoxOptions {
 
     }
 
+    public static class Outbound_MieruOptions extends Outbound {
+
+        public String server;
+
+        public Integer server_port;
+
+        public List<String> server_ports;
+
+        public String transport;
+
+        public String username;
+
+        public String password;
+
+        public String multiplexing;
+
+        public String traffic_pattern;
+
+        public Integer mtu;
+
+        public String handshake_mode;
+
+    }
+
     public static class Outbound_SocksOptions extends Outbound {
 
         // Generate note: nested type DialerOptions
