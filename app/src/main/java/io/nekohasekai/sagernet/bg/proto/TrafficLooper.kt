@@ -84,7 +84,8 @@ class TrafficLooper
         val delayMs = DataStore.speedInterval.toLong()
         val showDirectSpeed = DataStore.showDirectSpeed
         val profileTrafficStatistics = DataStore.profileTrafficStatistics
-        if (delayMs == 0L) return
+        // 0 is the explicit "Disable" choice. Clash API / YACD is not required.
+        if (!shouldPollTraffic(delayMs.toInt())) return
 
         var trafficUpdater: TrafficUpdater? = null
         var proxy: ProxyInstance?

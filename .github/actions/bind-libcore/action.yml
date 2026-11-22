@@ -36,7 +36,7 @@ runs:
         GOTOOLCHAIN: local
       run: |
         cd libcore
-        go test -tags='with_conntrack,with_gvisor,with_quic,with_wireguard,with_utls,with_clash_api' -count=1 -timeout 20m -run 'TestEmbeddedCoreIsMbox|TestMieruOutboundOptionsKeepShareFields|TestStandardMieruLinkFixtureMatchesProtobuf' .
+        go test -tags='with_conntrack,with_gvisor,with_quic,with_wireguard,with_utls,with_clash_api' -count=1 -timeout 20m -run 'TestEmbeddedCoreIsMbox|TestMieruOutboundOptionsKeepShareFields|TestStandardMieruLinkFixtureMatchesProtobuf|TestTrafficStatsCountWithoutClashAPI' .
     - name: Bind ${{ inputs.go_target }}
       shell: bash
       env:

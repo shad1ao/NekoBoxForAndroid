@@ -9,6 +9,7 @@ import io.nekohasekai.sagernet.Key
 import io.nekohasekai.sagernet.TunImplementation
 import io.nekohasekai.sagernet.bg.BaseService
 import io.nekohasekai.sagernet.bg.VpnService
+import io.nekohasekai.sagernet.bg.proto.DEFAULT_SPEED_INTERVAL_MS
 import io.nekohasekai.sagernet.database.preference.OnPreferenceDataStoreChangeListener
 import io.nekohasekai.sagernet.database.preference.PublicDatabase
 import io.nekohasekai.sagernet.database.preference.RoomPreferenceDataStore
@@ -108,7 +109,7 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var bypassLanInCore by configurationStore.boolean(Key.BYPASS_LAN_IN_CORE)
 
     var allowAccess by configurationStore.boolean(Key.ALLOW_ACCESS)
-    var speedInterval by configurationStore.stringToInt(Key.SPEED_INTERVAL)
+    var speedInterval by configurationStore.stringToInt(Key.SPEED_INTERVAL) { DEFAULT_SPEED_INTERVAL_MS }
     var showGroupInNotification by configurationStore.boolean("showGroupInNotification")
 
     var globalCustomConfig by configurationStore.string(Key.GLOBAL_CUSTOM_CONFIG) { "" }
