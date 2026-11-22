@@ -92,7 +92,7 @@ From the repository root, with Go 1.23.6 or newer as the `go` on `PATH`, the And
 
 GitHub Actions workflow `.github/workflows/mbox-ci.yml` runs on pushes to `main`. It binds each ABI separately, runs the mieru share-link unit tests and the libcore Go tests, and builds an oss debug APK. A split is uploaded only when `lib/<abi>/libgojni.so` is inside the APK whose name contains that ABI. `arm64-v8a` is required. The other ABIs are attempted and omitted from the prerelease when their bind or APK check fails.
 
-The prerelease tag is `1.4.2-mbox.1`. There is no `release.keystore` in this repository. The workflow does not read signing secrets. Debug APKs use the runner debug keystore and the application id `moe.nb4a.debug`, so they install beside a release-signed `moe.nb4a` package. A later runner can mint a different debug key; uninstall the previous prerelease if Android reports a signature conflict. Notes for that prerelease are in [MBOX_RELEASE.md](MBOX_RELEASE.md).
+The current prerelease tag is `1.4.2-mbox.2`. There is no `release.keystore` in this repository. The workflow does not read signing secrets. Debug APKs use the runner debug keystore. The application id is `moe.nb4a.mbox` and the launcher label is `NekoBox mbox`, so this build installs beside official `moe.nb4a` and beside the older `moe.nb4a.debug` prerelease. Android does not update `moe.nb4a.debug` in place. Each ABI can be signed by a different runner debug key. Notes are in [MBOX_RELEASE.md](MBOX_RELEASE.md).
 
 Host check of the embedded core, after `get_source.sh`:
 

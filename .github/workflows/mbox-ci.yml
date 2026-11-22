@@ -153,7 +153,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          tag=1.4.2-mbox.1
+          tag=$(sed -n 's/^VERSION_NAME=//p' nb4a.properties)
+          test -n "$tag"
           if gh release view "$tag" >/dev/null 2>&1; then
             echo "Release $tag already exists; leaving it unchanged."
             exit 0
@@ -162,6 +163,6 @@ jobs:
             --repo "${{ github.repository }}" \
             --target "${{ github.sha }}" \
             --prerelease \
-            --title "1.4.2-mbox.1 debug-signed test build" \
+            --title "$tag debug-signed test build" \
             --notes-file release-notes.md \
             apks/*.apk apks/SHA256SUMS
