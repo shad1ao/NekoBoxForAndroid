@@ -1,14 +1,13 @@
-# NyaBox 1.4.2-mbox.7 (debug-signed test prerelease)
+# NyaBox 1.4.3 (debug-signed test build)
 
-This build is a test prerelease of the mbox core on shad1ao/NyaBox. The product name is NyaBox. The version series stays `1.4.2-mbox.N`. It is not signed with an upstream or Play release key. The launcher name is `NyaBox`. The repository is https://github.com/shad1ao/NyaBox. The previous name redirects.
+This build is the first `1.4.3` release of the mbox core on shad1ao/NyaBox. The product name is NyaBox. It is not signed with an upstream or Play release key. The launcher name is `NyaBox`. The repository is https://github.com/shad1ao/NyaBox.
 
 ## Install and signature
 
-- Package id: `moe.nb4a.mbox`.
-- It installs beside official `moe.nb4a` and beside the previous prerelease `moe.nb4a.debug` (`1.4.2-mbox.1`). Android will not update either of those in place. Uninstall `moe.nb4a.debug` yourself if you no longer want that test build.
-- `1.4.2-mbox.2` through `1.4.2-mbox.6` use this same package id, but each CI run signs with a new debug certificate. The same application id does not mean this APK can replace `1.4.2-mbox.5` or `1.4.2-mbox.6`. If Android reports a signature conflict, uninstall `moe.nb4a.mbox` and install this APK.
+- Package id: `moe.nyabox`.
+- This is a new application id. It does not replace `moe.nb4a.mbox` (`1.4.2-mbox.1` through `1.4.2-mbox.7`), official `moe.nb4a`, or `moe.nb4a.debug`. Uninstall those packages yourself if you no longer want them.
 - Signature: Android debug keystore created on the GitHub-hosted runner. This repository has no `release.keystore`. The workflow does not read `LOCAL_PROPERTIES`, `KEYSTORE_PASS`, `ALIAS_NAME`, or `ALIAS_PASS`.
-- Each ABI is built on its own runner, so the four APKs do not share one debug certificate. Installing a different ABI over this package can report a signature conflict. Uninstall `moe.nb4a.mbox` and install the APK again.
+- Each ABI is built on its own runner, so the four APKs do not share one debug certificate. Installing a different ABI over `moe.nyabox` can report a signature conflict. Uninstall `moe.nyabox` and install the APK again.
 - minSdk 21. Pick the APK whose ABI matches the device. `arm64-v8a` is the phone ABI. `x86_64` and `x86` are emulator ABIs. `armeabi-v7a` is 32-bit ARM.
 
 ## Core
@@ -16,9 +15,8 @@ This build is a test prerelease of the mbox core on shad1ao/NyaBox. The product 
 - Runtime: [enfein/mbox](https://github.com/enfein/mbox) tag `v1.12.23-m.3.28.0`, commit `2ced282af6a415fbd4b6cb62aa764e79a2450141`
 - mieru library: `github.com/enfein/mieru/v3` `v3.28.0`
 - Reported core version: `1.12.23-m.3.28.0`
-- App version: `1.4.2-mbox.7` (versionCode 265)
+- App version: `1.4.3` (versionCode 270)
 - Speed and per-profile traffic use the core stats tracker. They do not require YACD. The YACD page is still the dashboard menu, and that menu stays hidden until Clash API is enabled.
-- `1.4.2-mbox.4` stays published from commit `419cda57de716aeb07420373b4bb7a9e22376ce1` and has no armeabi-v7a APK. Use this tag for the 32-bit ARM build.
 - Mieru server settings use the app's existing translations. Simplified Chinese follows the official mieru terms: 端口范围, Mieru 配置名, 多路复用, 握手模式, 流量模式.
 - Username and password stay separate, matching mieru. The password is copied from the username only when they are already equal or the user turns that switch on. The Mieru profile field is hidden when it matches the display name.
 

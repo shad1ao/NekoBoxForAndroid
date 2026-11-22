@@ -31,14 +31,14 @@ runs:
     - name: Keep only the verified ${{ inputs.abi }} APK
       shell: bash
       run: bash buildScript/ci/verify_apk_abi.sh "${{ inputs.abi }}" app/build/outputs/apk/oss/debug dist-apks
-    - name: Require package moe.nb4a.mbox
+    - name: Require package moe.nyabox
       shell: bash
       run: |
         aapt="$ANDROID_HOME/build-tools/35.0.1/aapt"
         version=$(sed -n 's/^VERSION_NAME=//p' nb4a.properties)
         for apk in dist-apks/*.apk; do
           badging=$("$aapt" dump badging "$apk")
-          echo "$badging" | grep -q "package: name='moe.nb4a.mbox' "
+          echo "$badging" | grep -q "package: name='moe.nyabox' "
           echo "$badging" | grep -q "versionName='$version'"
           echo "$badging" | grep -q "application-label:'NyaBox'"
           echo "$badging" | grep -q "application-debuggable"
