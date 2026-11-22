@@ -25,4 +25,7 @@ if [ ! -f "$GOPATH/bin/gomobile-matsuri" ]; then
     mv "$GOPATH/bin/gobind" "$GOPATH/bin/gobind-matsuri"
 fi
 
-GOBIND=gobind-matsuri gomobile-matsuri init
+# `gomobile bind` looks up $GOBIND and requires $GOPATH/pkg/gomobile to exist.
+# `gomobile init` also runs `go install golang.org/x/mobile/cmd/gobind@latest`,
+# which is not the Matsuri gobind and now requires a newer Go than CI pins.
+mkdir -p "$GOPATH/pkg/gomobile"
