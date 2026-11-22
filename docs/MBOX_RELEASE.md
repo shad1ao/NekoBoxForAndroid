@@ -1,4 +1,4 @@
-# NekoBox 1.4.2-mbox.4 (debug-signed test prerelease)
+# NekoBox 1.4.2-mbox.5 (debug-signed test prerelease)
 
 This build is a test prerelease of the mbox core on shad1ao/NekoBoxForAndroid. It is not signed with an upstream or Play release key. The launcher name is `NekoBox mbox`.
 
@@ -16,7 +16,8 @@ This build is a test prerelease of the mbox core on shad1ao/NekoBoxForAndroid. I
 - Runtime: [enfein/mbox](https://github.com/enfein/mbox) tag `v1.12.23-m.3.28.0`, commit `2ced282af6a415fbd4b6cb62aa764e79a2450141`
 - mieru library: `github.com/enfein/mieru/v3` `v3.28.0`
 - Reported core version: `1.12.23-m.3.28.0`
-- App version: `1.4.2-mbox.4` (versionCode 250)
+- App version: `1.4.2-mbox.5` (versionCode 255)
+- `1.4.2-mbox.4` stays published from commit `419cda57de716aeb07420373b4bb7a9e22376ce1` and has no armeabi-v7a APK. Use this tag for the 32-bit ARM build.
 - Mieru server settings use the app's existing translations. Simplified Chinese follows the official mieru terms: 端口范围, Mieru 配置名, 多路复用, 握手模式, 流量模式.
 - Username and password stay separate, matching mieru. The password is copied from the username only when they are already equal or the user turns that switch on. The Mieru profile field is hidden when it matches the display name.
 
@@ -26,7 +27,7 @@ Import accepts official `mierus://` and `mieru://` links from clipboard, QR, sha
 
 ## Known limitations
 
-- Only APKs that contain `lib/<abi>/libgojni.so` for the ABI in the file name are attached. An ABI missing from this release did not produce a verified library.
+- Only APKs that contain `lib/<abi>/libgojni.so` for the ABI in the file name are attached. This release is published only when all four ABIs passed that check.
 - UDP to a domain name is rejected by mbox. TCP to a domain is supported.
 - `mieru://` is import-only. Share/QR export is `mierus://`.
 - One profile has one transport. A link with several port bindings becomes several profiles.

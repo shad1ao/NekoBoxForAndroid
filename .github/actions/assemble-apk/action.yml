@@ -16,6 +16,8 @@ runs:
       run: bash buildScript/ci/setup_android_sdk.sh
     - name: Download geo assets
       shell: bash
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
       run: bash buildScript/lib/assets.sh
     - name: Assemble oss debug
       shell: bash

@@ -46,10 +46,12 @@ for abi in arm64-v8a armeabi-v7a x86_64 x86; do
   fi
 done
 
-if [ "$included" -eq 0 ] || [ -z "${found_by_abi[arm64-v8a]:-}" ]; then
-  echo "refusing to publish without a verified arm64-v8a APK" >&2
-  exit 1
-fi
+for abi in arm64-v8a armeabi-v7a x86_64 x86; do
+  if [ -z "${found_by_abi[$abi]:-}" ]; then
+    echo "refusing to publish without a verified ${abi} APK" >&2
+    exit 1
+  fi
+done
 
 sums=$(mktemp)
 (
