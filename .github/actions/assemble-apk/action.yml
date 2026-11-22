@@ -25,15 +25,8 @@ runs:
         BUILD_PLUGIN: none
       run: |
         set -euo pipefail
-        missing=0
-        for name in NYABOX_KEYSTORE_FILE NYABOX_KEYSTORE_PASSWORD NYABOX_KEY_ALIAS NYABOX_KEY_PASSWORD; do
-          if [ -z "${!name:-}" ]; then
-            echo "::error::$name is not set"
-            missing=1
-          fi
-        done
-        test "$missing" -eq 0
-        test -s "$NYABOX_KEYSTORE_FILE"
+        # shellcheck disable=SC1091
+        source buildScript/ci/prepare_release_keystore.sh
         echo "sdk.dir=${ANDROID_HOME}" > local.properties
         echo "ndk.dir=${ANDROID_HOME}/ndk/25.0.8775105" >> local.properties
         chmod +x ./gradlew
