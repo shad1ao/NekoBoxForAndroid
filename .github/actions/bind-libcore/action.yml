@@ -20,7 +20,7 @@ runs:
         java-version: "21"
     - uses: actions/setup-go@v5
       with:
-        go-version: "1.25.x"
+        go-version: "1.27.4"
     - name: Install Android SDK and NDK 25.0.8775105
       shell: bash
       run: bash buildScript/ci/setup_android_sdk.sh

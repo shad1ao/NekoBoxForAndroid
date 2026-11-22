@@ -39,7 +39,8 @@ yes | "$sdkmanager" --sdk_root="$ANDROID_HOME" --licenses >/dev/null || true
 "$sdkmanager" --sdk_root="$ANDROID_HOME" \
   "ndk;25.0.8775105" \
   "platforms;android-35" \
-  "build-tools;35.0.1"
+  "build-tools;35.0.1" \
+  "build-tools;36.0.0"
 test -f "$ANDROID_HOME/ndk/25.0.8775105/source.properties"
 
 if [ -n "${GITHUB_ENV:-}" ]; then

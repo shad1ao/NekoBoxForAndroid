@@ -1,16 +1,16 @@
 import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.gradle.AbstractAppExtension
-import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.getByName
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import java.util.Base64
 import java.util.Properties
 import kotlin.system.exitProcess
 
 private val Project.android get() = extensions.getByName<ApplicationExtension>("android")
+
+private val Project.androidComponents
+    get() = extensions.getByName<ApplicationAndroidComponentsExtension>("androidComponents")
 
 private lateinit var metadata: Properties
 private lateinit var localProperties: Properties
@@ -41,7 +41,7 @@ fun Project.requireLocalProperties(): Properties {
 
 fun Project.setupCommon() {
     android.apply {
-        buildToolsVersion = "35.0.1"
+        buildToolsVersion = "36.0.0"
         compileSdk = 35
         defaultConfig {
             minSdk = 21
@@ -55,9 +55,6 @@ fun Project.setupCommon() {
         compileOptions {
             sourceCompatibility = JavaVersion.VERSION_1_8
             targetCompatibility = JavaVersion.VERSION_1_8
-        }
-        (android as ExtensionAware).extensions.getByName<KotlinJvmOptions>("kotlinOptions").apply {
-            jvmTarget = JavaVersion.VERSION_1_8.toString()
         }
         lint {
             showAll = true
@@ -84,27 +81,17 @@ fun Project.setupCommon() {
                 )
             )
         }
-        (this as? AbstractAppExtension)?.apply {
-            buildTypes {
-                getByName("release") {
-                    isShrinkResources = true
-                    if (System.getenv("nkmr_minify") == "0") {
-                        isShrinkResources = false
-                        isMinifyEnabled = false
-                    }
-                }
-                getByName("debug") {
-                    debuggable(true)
-                    jniDebuggable(true)
+        buildTypes {
+            getByName("release") {
+                isShrinkResources = true
+                if (System.getenv("nkmr_minify") == "0") {
+                    isShrinkResources = false
+                    isMinifyEnabled = false
                 }
             }
-            applicationVariants.forEach { variant ->
-                variant.outputs.forEach {
-                    it as BaseVariantOutputImpl
-                    it.outputFileName = it.outputFileName.replace(
-                        "app", "${project.name}-" + variant.versionName
-                    ).replace("-release", "").replace("-oss", "")
-                }
+            getByName("debug") {
+                isDebuggable = true
+                isJniDebuggable = true
             }
         }
     }
@@ -155,6 +142,7 @@ fun Project.setupAppCommon() {
 fun Project.setupApp() {
     val pkgName = requireMetadata().getProperty("PACKAGE_NAME")
     val verName = requireMetadata().getProperty("VERSION_NAME")
+    val preVersion = requireMetadata().getProperty("PRE_VERSION_NAME")
     val verCode = (requireMetadata().getProperty("VERSION_CODE").toInt()) * 5
     android.apply {
         defaultConfig {
@@ -167,8 +155,6 @@ fun Project.setupApp() {
     setupAppCommon()
 
     android.apply {
-        this as AbstractAppExtension
-
         buildTypes {
             getByName("release") {
                 proguardFiles(
@@ -202,23 +188,6 @@ fun Project.setupApp() {
             }
         }
 
-        applicationVariants.all {
-            outputs.all {
-                this as BaseVariantOutputImpl
-                val isPreview = outputFileName.contains("-preview")
-                outputFileName = if (isPreview) {
-                    outputFileName.replace(
-                        project.name,
-                        "NyaBox-" + requireMetadata().getProperty("PRE_VERSION_NAME")
-                    ).replace("-preview", "")
-                } else {
-                    outputFileName.replace(project.name, "NyaBox-$versionName")
-                        .replace("-release", "")
-                        .replace("-oss", "")
-                }
-            }
-        }
-
         for (abi in listOf("Arm64", "Arm", "X64", "X86")) {
             tasks.create("assemble" + abi + "FdroidRelease") {
                 dependsOn("assembleFdroidRelease")
@@ -227,6 +196,15 @@ fun Project.setupApp() {
 
         sourceSets.getByName("main").apply {
             jniLibs.srcDir("executableSo")
+        }
+    }
+
+    androidComponents.onVariants { variant ->
+        val isPreview = variant.productFlavors.any { it.second == "preview" }
+        val baseName = if (isPreview) "NyaBox-$preVersion" else "NyaBox-$verName"
+        variant.outputs.forEach { output ->
+            val abi = output.filters.firstOrNull { it.filterType.name == "ABI" }?.identifier
+            output.outputFileName.set(if (abi.isNullOrEmpty()) "$baseName.apk" else "$baseName-$abi.apk")
         }
     }
 }

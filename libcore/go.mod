@@ -1,10 +1,9 @@
 module libcore
 
-go 1.23.1
-
-toolchain go1.23.6
+go 1.27.4
 
 require (
+	github.com/enfein/mieru/v3 v3.28.0
 	github.com/matsuridayo/libneko v1.0.0 // replaced
 	github.com/miekg/dns v1.1.67
 	github.com/oschwald/maxminddb-golang v1.13.1
@@ -15,10 +14,6 @@ require (
 	github.com/ulikunitz/xz v0.5.15
 	golang.org/x/mobile v0.0.0-20231108233038-35478a0c49da
 	golang.org/x/sys v0.35.0
-)
-
-require (
-	github.com/enfein/mieru/v3 v3.28.0
 	google.golang.org/protobuf v1.36.6
 )
 
