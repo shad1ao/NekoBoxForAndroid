@@ -196,6 +196,86 @@ class MieruFmtTest {
         }
     }
 
+    @Test
+    fun identicalCredentialsStayEqualAndDistinctCredentialsStayDistinct() {
+        val same = credentialBean(username = "user-a", password = "user-a", profile = "home", name = "home")
+        val sameLink = same.toMierusLink()
+        assertEquals(
+            "mierus://user-a:user-a@example.com?port=443&profile=home&protocol=TCP",
+            sameLink,
+        )
+        val sameParsed = parseMieruLinks(sameLink).single()
+        assertEquals("user-a", sameParsed.username)
+        assertEquals("user-a", sameParsed.password)
+        assertEquals("home", sameParsed.profileName)
+        assertEquals("home", sameParsed.name)
+
+        val distinct = credentialBean(
+            username = "user-a",
+            password = "other-value",
+            profile = "default",
+            name = "node",
+        )
+        val distinctLink = distinct.toMierusLink()
+        assertTrue(distinctLink.endsWith("#node"))
+        val distinctParsed = parseMieruLinks(distinctLink).single()
+        assertEquals("user-a", distinctParsed.username)
+        assertEquals("other-value", distinctParsed.password)
+        assertEquals("default", distinctParsed.profileName)
+        assertEquals("node", distinctParsed.name)
+    }
+
+    @Test
+    fun emptyProfileExportsDisplayNameWithoutDroppingADistinctPassword() {
+        val bean = credentialBean(
+            username = "user-a",
+            password = "other-value",
+            profile = "",
+            name = "home",
+        )
+        assertEquals(
+            "mierus://user-a:other-value@example.com?port=443&profile=home&protocol=TCP",
+            bean.toMierusLink(),
+        )
+        val parsed = parseMieruLinks(bean.toMierusLink()).single()
+        assertEquals("other-value", parsed.password)
+        assertEquals("home", parsed.profileName)
+        assertEquals("home", parsed.name)
+    }
+
+    @Test
+    fun editorCopiesPasswordOnlyWhenAskedAndKeepsADifferentProfile() {
+        assertTrue(MieruEditor.passwordMatchesUsername("user-a", "user-a"))
+        assertTrue(MieruEditor.passwordMatchesUsername("", ""))
+        assertEquals(false, MieruEditor.passwordMatchesUsername("user-a", "other-value"))
+        assertEquals("user-a", MieruEditor.passwordToStore("user-a", "other-value", true))
+        assertEquals("other-value", MieruEditor.passwordToStore("user-a", "other-value", false))
+
+        assertEquals(false, MieruEditor.separateProfile("node", "node"))
+        assertEquals(false, MieruEditor.separateProfile("node", ""))
+        assertEquals(false, MieruEditor.separateProfile("node", "  node  "))
+        assertEquals(true, MieruEditor.separateProfile("node", "default"))
+        assertEquals("node", MieruEditor.profileToStore("node", "default", false))
+        assertEquals("default", MieruEditor.profileToStore("node", "default", true))
+        assertEquals("node", MieruEditor.profileToStore("node", "  ", true))
+    }
+
+    private fun credentialBean(
+        username: String,
+        password: String,
+        profile: String,
+        name: String,
+    ) = MieruBean().apply {
+        serverAddress = "example.com"
+        serverPort = 443
+        protocol = "TCP"
+        this.username = username
+        this.password = password
+        profileName = profile
+        this.name = name
+        initializeDefaultValues()
+    }
+
     private fun MieruBean.portToken(): String = serverPorts.ifBlank { serverPort.toString() }
 
     companion object {

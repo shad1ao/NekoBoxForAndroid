@@ -57,7 +57,9 @@ fun MieruBean.toMierusLink(): String {
     if (serverAddress.isBlank()) throw IllegalArgumentException("mieru link: server is empty")
     if (username.isBlank()) throw IllegalArgumentException("mieru link: username is empty")
     if (password.isBlank()) throw IllegalArgumentException("mieru link: password is empty")
-    val profile = profileName.ifBlank { "default" }
+    // Official share links require `profile`. An empty stored profile follows the
+    // display name; "default" is only the fallback when that name is empty too.
+    val profile = profileName.trim().ifBlank { name.trim() }.ifBlank { "default" }
     val portValue = serverPorts.ifBlank { serverPort?.toString().orEmpty() }
     if (portValue.isBlank()) throw IllegalArgumentException("mieru link: port is empty")
     validatePortToken(portValue)
@@ -84,6 +86,36 @@ fun MieruBean.toMierusLink(): String {
         url + "#" + goEscape(name, EscapeMode.FRAGMENT)
     } else {
         url
+    }
+}
+
+/**
+ * Editor rules for the Mieru settings screen.
+ *
+ * mita stores `users.name` and `users.password` as independent fields
+ * (https://github.com/enfein/mieru/blob/v3.28.0/docs/server-install.zh_CN.md).
+ * The client profile does the same for `user.name` and `user.password`
+ * (https://github.com/enfein/mieru/blob/v3.28.0/docs/client-install.zh_CN.md).
+ * They are copied together only when the user asks, or when the stored values
+ * are already equal. The share-link `profile` is the mieru profile name. This
+ * app's display name is the URL fragment and is used as `profile` when the
+ * stored profile name is blank or the user does not keep a separate one.
+ */
+internal object MieruEditor {
+    fun passwordMatchesUsername(username: String, password: String): Boolean = username == password
+
+    fun passwordToStore(username: String, password: String, sameAsUsername: Boolean): String =
+        if (sameAsUsername) username else password
+
+    fun separateProfile(displayName: String, profileName: String): Boolean {
+        val profile = profileName.trim()
+        return profile.isNotEmpty() && profile != displayName.trim()
+    }
+
+    fun profileToStore(displayName: String, explicitProfile: String, separateProfile: Boolean): String {
+        val display = displayName.trim()
+        if (!separateProfile) return display
+        return explicitProfile.trim().ifBlank { display }
     }
 }
 

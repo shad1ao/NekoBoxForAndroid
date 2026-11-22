@@ -30,4 +30,6 @@
     <string name="mieru_handshake_default">기본값</string>
     <string name="mieru_handshake_standard">표준</string>
     <string name="mieru_handshake_no_wait">대기 없음</string>
+    <string name="mieru_password_same_as_username">비밀번호를 사용자 이름과 같게</string>
+    <string name="mieru_separate_profile">별도의 Mieru 프로필 이름</string>
 </resources>

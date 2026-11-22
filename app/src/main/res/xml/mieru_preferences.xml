@@ -31,6 +31,9 @@
             app:key="serverUsername"
             app:title="@string/username"
             app:useSimpleSummaryProvider="true" />
+        <SwitchPreference
+            app:key="mieruPasswordSameAsUsername"
+            app:title="@string/mieru_password_same_as_username" />
         <EditTextPreference
             app:dialogLayout="@layout/layout_password_dialog"
             app:icon="@drawable/ic_settings_password"
@@ -45,11 +48,6 @@
             app:icon="@drawable/baseline_public_24"
             app:key="serverMTU"
             app:title="@string/mtu"
-            app:useSimpleSummaryProvider="true" />
-        <EditTextPreference
-            app:icon="@drawable/ic_social_emoji_symbols"
-            app:key="mieruProfile"
-            app:title="@string/mieru_profile"
             app:useSimpleSummaryProvider="true" />
         <moe.matsuri.nb4a.ui.SimpleMenuPreference
             app:defaultValue="MULTIPLEXING_DEFAULT"
@@ -71,6 +69,17 @@
             app:icon="@drawable/ic_settings_password"
             app:key="mieruTrafficPattern"
             app:title="@string/mieru_traffic_pattern"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/mieru_profile">
+        <SwitchPreference
+            app:key="mieruSeparateProfile"
+            app:title="@string/mieru_separate_profile" />
+        <EditTextPreference
+            app:icon="@drawable/ic_social_emoji_symbols"
+            app:key="mieruProfile"
+            app:title="@string/mieru_profile"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 

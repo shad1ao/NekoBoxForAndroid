@@ -462,4 +462,6 @@
     <string name="mieru_handshake_default">Predeterminado</string>
     <string name="mieru_handshake_standard">Estándar</string>
     <string name="mieru_handshake_no_wait">Sin espera</string>
+    <string name="mieru_password_same_as_username">Contraseña igual que el usuario</string>
+    <string name="mieru_separate_profile">Nombre de perfil Mieru distinto</string>
 </resources> 

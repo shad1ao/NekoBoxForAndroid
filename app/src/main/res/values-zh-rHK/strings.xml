@@ -107,4 +107,6 @@
     <string name="mieru_handshake_default">預設</string>
     <string name="mieru_handshake_standard">標準</string>
     <string name="mieru_handshake_no_wait">0-RTT</string>
+    <string name="mieru_password_same_as_username">密碼與用户名相同</string>
+    <string name="mieru_separate_profile">單獨的 Mieru 配置名</string>
 </resources>

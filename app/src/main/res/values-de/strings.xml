@@ -49,4 +49,6 @@
     <string name="mieru_handshake_default">Vorgabe</string>
     <string name="mieru_handshake_standard">Standard</string>
     <string name="mieru_handshake_no_wait">Ohne Warten</string>
+    <string name="mieru_password_same_as_username">Passwort gleich Benutzername</string>
+    <string name="mieru_separate_profile">Eigener Mieru-Profilname</string>
 </resources>

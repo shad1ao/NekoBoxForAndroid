@@ -22,11 +22,13 @@ package io.nekohasekai.sagernet.ui.profile
 import android.os.Bundle
 import androidx.preference.EditTextPreference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import io.nekohasekai.sagernet.Key
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.database.preference.EditTextPreferenceModifiers
 import io.nekohasekai.sagernet.fmt.mieru.MieruBean
+import io.nekohasekai.sagernet.fmt.mieru.MieruEditor
 import io.nekohasekai.sagernet.ktx.applyDefaultValues
 import moe.matsuri.nb4a.ui.SimpleMenuPreference
 
@@ -41,9 +43,12 @@ class MieruSettingsActivity : ProfileSettingsActivity<MieruBean>() {
         DataStore.serverProtocol = protocol
         DataStore.serverUsername = username
         DataStore.serverPassword = password
+        DataStore.mieruPasswordSameAsUsername =
+            MieruEditor.passwordMatchesUsername(username, password)
         DataStore.serverPorts = serverPorts
         DataStore.serverMTU = mtu ?: 0
         DataStore.mieruProfile = profileName
+        DataStore.mieruSeparateProfile = MieruEditor.separateProfile(name, profileName)
         DataStore.mieruMultiplexing = multiplexing.ifBlank { "MULTIPLEXING_DEFAULT" }
         DataStore.mieruHandshakeMode = handshakeMode.ifBlank { "HANDSHAKE_DEFAULT" }
         DataStore.mieruTrafficPattern = trafficPattern
@@ -55,10 +60,18 @@ class MieruSettingsActivity : ProfileSettingsActivity<MieruBean>() {
         serverPort = DataStore.serverPort
         protocol = DataStore.serverProtocol
         username = DataStore.serverUsername
-        password = DataStore.serverPassword
+        password = MieruEditor.passwordToStore(
+            DataStore.serverUsername,
+            DataStore.serverPassword,
+            DataStore.mieruPasswordSameAsUsername,
+        )
         serverPorts = DataStore.serverPorts
         mtu = DataStore.serverMTU.takeIf { it in 1280..1400 }
-        profileName = DataStore.mieruProfile
+        profileName = MieruEditor.profileToStore(
+            DataStore.profileName,
+            DataStore.mieruProfile,
+            DataStore.mieruSeparateProfile,
+        )
         multiplexing = DataStore.mieruMultiplexing
         handshakeMode = DataStore.mieruHandshakeMode
         trafficPattern = DataStore.mieruTrafficPattern
@@ -72,8 +85,31 @@ class MieruSettingsActivity : ProfileSettingsActivity<MieruBean>() {
         findPreference<EditTextPreference>(Key.SERVER_PORT)!!.apply {
             setOnBindEditTextListener(EditTextPreferenceModifiers.Port)
         }
-        findPreference<EditTextPreference>(Key.SERVER_PASSWORD)!!.apply {
-            summaryProvider = PasswordSummaryProvider
+        val username = findPreference<EditTextPreference>(Key.SERVER_USERNAME)!!
+        val password = findPreference<EditTextPreference>(Key.SERVER_PASSWORD)!!
+        val samePassword = findPreference<SwitchPreference>(Key.MIERU_PASSWORD_SAME_AS_USERNAME)!!
+        password.summaryProvider = PasswordSummaryProvider
+        password.isVisible = !samePassword.isChecked
+        samePassword.setOnPreferenceChangeListener { _, newValue ->
+            val checked = newValue == true
+            password.isVisible = !checked
+            if (checked) password.text = username.text
+            true
+        }
+        username.setOnPreferenceChangeListener { _, newValue ->
+            if (samePassword.isChecked) password.text = newValue?.toString().orEmpty()
+            true
+        }
+        val profile = findPreference<EditTextPreference>(Key.MIERU_PROFILE)!!
+        val separateProfile = findPreference<SwitchPreference>(Key.MIERU_SEPARATE_PROFILE)!!
+        profile.isVisible = separateProfile.isChecked
+        separateProfile.setOnPreferenceChangeListener { _, newValue ->
+            val checked = newValue == true
+            profile.isVisible = checked
+            if (checked && profile.text.isNullOrBlank()) {
+                profile.text = findPreference<EditTextPreference>(Key.PROFILE_NAME)?.text.orEmpty()
+            }
+            true
         }
         val protocol = findPreference<SimpleMenuPreference>(Key.SERVER_PROTOCOL)!!
         val mtu = findPreference<EditTextPreference>(Key.SERVER_MTU)!!

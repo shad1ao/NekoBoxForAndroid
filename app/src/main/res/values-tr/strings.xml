@@ -401,4 +401,6 @@
     <string name="mieru_handshake_default">Varsayılan</string>
     <string name="mieru_handshake_standard">Standart</string>
     <string name="mieru_handshake_no_wait">Beklemesiz</string>
+    <string name="mieru_password_same_as_username">Parola kullanıcı adıyla aynı</string>
+    <string name="mieru_separate_profile">Ayrı Mieru profil adı</string>
 </resources>
