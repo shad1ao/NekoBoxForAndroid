@@ -1,18 +1,19 @@
-# NekoBox for Android
+# NyaBox
 
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
-[![Releases](https://img.shields.io/github/v/release/MatsuriDayo/NekoBoxForAndroid)](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases)
 [![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-orange.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-sing-box / universal proxy toolchain for Android.
+NyaBox is this fork's Android app. The launcher name is NyaBox. The application id stays `moe.nb4a.mbox`. The GitHub repository is still [shad1ao/NekoBoxForAndroid](https://github.com/shad1ao/NekoBoxForAndroid). It is a fork of [MatsuriDayo/NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid); that upstream repository is not modified here. The runtime is enfein/mbox.
 
-一款使用 sing-box 的 Android 通用代理软件.
+NyaBox 是这个分支的 Android 应用。启动器名称是 NyaBox，包名保持 `moe.nb4a.mbox`。GitHub 仓库仍是 [shad1ao/NekoBoxForAndroid](https://github.com/shad1ao/NekoBoxForAndroid)，上游 [MatsuriDayo/NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid) 不会被修改。运行时是 enfein/mbox。
 
 ## 下载 / Downloads
 
-[![GitHub All Releases](https://img.shields.io/github/downloads/Matsuridayo/NekoBoxForAndroid/total?label=downloads-total&logo=github&style=flat-square)](https://github.com/Matsuridayo/NekoBoxForAndroid/releases)
+[GitHub Releases](https://github.com/shad1ao/NekoBoxForAndroid/releases)
 
-[GitHub Releases 下载](https://github.com/Matsuridayo/NekoBoxForAndroid/releases)
+The version series stays `1.4.2-mbox.N`. The current tag is `1.4.2-mbox.6`.
+
+版本号仍使用 `1.4.2-mbox.N`。当前标签是 `1.4.2-mbox.6`。
 
 **Google Play 版本自 2024 年 5 月起已被第三方控制，为非开源版本，请不要下载。**
 

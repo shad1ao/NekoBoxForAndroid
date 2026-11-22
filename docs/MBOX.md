@@ -1,6 +1,6 @@
 # Embedded mbox core
 
-NekoBox's `libcore` module builds [enfein/mbox](https://github.com/enfein/mbox) and binds it with MatsuriDayo's gomobile fork. mbox is the runtime. The previous MatsuriDayo sing-box checkout is not cloned and is not linked.
+NyaBox's `libcore` module builds [enfein/mbox](https://github.com/enfein/mbox) and binds it with MatsuriDayo's gomobile fork. mbox is the runtime. The previous MatsuriDayo sing-box checkout is not cloned and is not linked. The launcher name is NyaBox. The application id stays `moe.nb4a.mbox`.
 
 ## Pin
 
@@ -47,7 +47,7 @@ Clipboard, QR, the share intent, and subscription text all go through `parseProx
 - `mierus://username:password@host?profile=&port=&protocol=`
   - `port` and `protocol` repeat together. `protocol` is exactly `TCP` or `UDP`.
   - `port` is `1`–`65535` or `begin-end` with `begin <= end`.
-  - One NekoBox profile per port binding. A link with several bindings is imported as several profiles, named `profile:port/protocol` (or `fragment:port/protocol` when a fragment is present). mihomo does the same split because one outbound has one transport.
+  - One NyaBox profile per port binding. A link with several bindings is imported as several profiles, named `profile:port/protocol` (or `fragment:port/protocol` when a fragment is present). mihomo does the same split because one outbound has one transport.
   - `profile` is required once. `mtu`, `multiplexing`, `handshake-mode`, and `traffic-pattern` are optional and may appear once.
   - Multiplexing: `MULTIPLEXING_DEFAULT`, `MULTIPLEXING_OFF`, `MULTIPLEXING_LOW`, `MULTIPLEXING_MIDDLE`, `MULTIPLEXING_HIGH`.
   - Handshake: `HANDSHAKE_DEFAULT`, `HANDSHAKE_STANDARD`, `HANDSHAKE_NO_WAIT`.
@@ -76,7 +76,7 @@ Malformed links throw `IllegalArgumentException` whose message names the problem
 ### Not supported
 
 - Export of `mieru://`. That link is a full client config. A proxy profile does not have the SOCKS port, RPC port, or logging settings the exporter writes.
-- One NekoBox profile with mixed TCP and UDP bindings. mbox's outbound has a single `transport`. Mixed links become multiple profiles.
+- One NyaBox profile with mixed TCP and UDP bindings. mbox's outbound has a single `transport`. Mixed links become multiple profiles.
 - UDP to a domain name. mbox returns an error for that combination (`UDP outbound can't use domain name as server address`). The outbound builder reports it before start. TCP to a domain is supported.
 - IPv6 zone identifiers.
 - The external `mieru-plugin` process. Profiles run inside mbox.
@@ -94,7 +94,7 @@ From the repository root, with Go 1.23.6 or newer as the `go` on `PATH`, the And
 
 GitHub Actions workflow `.github/workflows/mbox-ci.yml` runs on pushes to `main`. It binds each ABI separately, runs the mieru share-link unit tests and the libcore Go tests, and builds an oss debug APK. A split is uploaded only when `lib/<abi>/libgojni.so` is inside the APK whose name contains that ABI. The prerelease is created only when all four of `arm64-v8a`, `armeabi-v7a`, `x86_64`, and `x86` passed that check. An existing tag is not replaced, so a partial set is not published.
 
-The current prerelease tag is `1.4.2-mbox.5`. `1.4.2-mbox.4` was left as published; its armeabi-v7a job stopped before assembly because the geoip release tag came back empty. There is no `release.keystore` in this repository. The workflow does not read signing secrets. Debug APKs use the runner debug keystore. The application id is `moe.nb4a.mbox` and the launcher label is `NekoBox mbox`, so this build installs beside official `moe.nb4a` and beside the older `moe.nb4a.debug` prerelease. Android does not update `moe.nb4a.debug` in place. Each ABI can be signed by a different runner debug key. Notes are in [MBOX_RELEASE.md](MBOX_RELEASE.md).
+The current prerelease tag is `1.4.2-mbox.6`. The product name is NyaBox, and the version series stays `1.4.2-mbox.N` so it stays comparable with `1.4.2-mbox.5`. `1.4.2-mbox.4` was left as published; its armeabi-v7a job stopped before assembly because the geoip release tag came back empty. There is no `release.keystore` in this repository. The workflow does not read signing secrets. Debug APKs use the runner debug keystore. The application id is `moe.nb4a.mbox` and the launcher label is `NyaBox`, so this build installs beside official `moe.nb4a` and beside the older `moe.nb4a.debug` prerelease. Android does not update `moe.nb4a.debug` in place. The same application id does not let this APK replace `1.4.2-mbox.5`: each CI run signs with a new debug certificate. Each ABI can be signed by a different runner debug key. Notes are in [MBOX_RELEASE.md](MBOX_RELEASE.md). The GitHub repository slug is still `shad1ao/NekoBoxForAndroid`.
 
 Host check of the embedded core, after `get_source.sh`:
 

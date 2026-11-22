@@ -40,7 +40,7 @@ import java.util.Base64
  * - mieru://BASE64  (standard, protobuf ClientConfig from mieru v3)
  *
  * Export uses mierus:// only. A full mieru:// link is a client config (socks port, RPC port,
- * logging) which a proxy profile does not have. Each NekoBox profile is one port binding,
+ * logging) which a proxy profile does not have. Each NyaBox profile is one port binding,
  * because mbox's mieru outbound has a single transport for every port.
  */
 fun parseMieruLinks(link: String): List<MieruBean> {

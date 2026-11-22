@@ -40,6 +40,6 @@ runs:
           badging=$("$aapt" dump badging "$apk")
           echo "$badging" | grep -q "package: name='moe.nb4a.mbox' "
           echo "$badging" | grep -q "versionName='$version'"
-          echo "$badging" | grep -q "application-label:'NekoBox mbox'"
+          echo "$badging" | grep -q "application-label:'NyaBox'"
           echo "$badging" | grep -q "application-debuggable"
         done
