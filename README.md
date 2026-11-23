@@ -61,7 +61,7 @@ GOMOBILE_TARGET=android/arm64 bash buildScript/lib/core/build.sh
 内核：
 
 - [enfein/mbox](https://github.com/enfein/mbox) `v1.12.23-m.3.28.0`
-- [enfein/mieru](https://github.com/enfein/mieru)（mieru 协议和分享链接）
+- [enfein/mieru](https://github.com/enfein/mieru)
 - [SagerNet/sing-box](https://github.com/SagerNet/sing-box)
 
 Android 界面来自 [MatsuriDayo/NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid)，并继承自：
