@@ -43,23 +43,14 @@ Trojan-Go 和 NaïveProxy 不在内核里，运行前需要安装上游插件。
 
 ## 从源码构建
 
-需要 JDK 21、Go 1.26.11，以及 Android SDK。CI 安装的组件是 `platforms;android-35`、`build-tools;36.0.0`、`build-tools;35.0.1` 和 NDK `25.0.8775105`，见 [buildScript/ci/setup_android_sdk.sh](buildScript/ci/setup_android_sdk.sh)。Gradle 使用仓库里的 wrapper（9.7.0）。设置 `ANDROID_HOME`。Go 使用本机工具链（`GOTOOLCHAIN=local`）。
+需要 JDK 21、Go 1.26.11 和 Android SDK。设置 `ANDROID_HOME`，`GOTOOLCHAIN=local`。
 
 ```bash
+export GOTOOLCHAIN=local
 bash buildScript/lib/core/init.sh
 GOMOBILE_TARGET=android/arm64 bash buildScript/lib/core/build.sh
 ./gradlew :app:assembleOssDebug
 ```
-
-`init.sh` 会检出固定的 mbox 提交，并安装本仓库使用的 gomobile / gobind。不要另外执行 `gomobile init`。`build.sh` 生成 `app/libs/libcore.aar`。不设置 `GOMOBILE_TARGET` 时会编译全部四个 ABI。
-
-调试包出现在 `app/build/outputs/apk/oss/debug/`，文件名是 `NyaBox-<版本>-<abi>.apk`。调试构建不需要发布签名。Android 单元测试：
-
-```bash
-./gradlew :app:testOssDebugUnitTest
-```
-
-推送到 `main` 时，[`.github/workflows/mbox-ci.yml`](.github/workflows/mbox-ci.yml) 会绑定 libcore 并组装四个 ABI 的发布包。已经存在的版本标签不会被重新发布。
 
 ## 许可证
 
