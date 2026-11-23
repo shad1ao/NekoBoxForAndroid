@@ -10,7 +10,12 @@ fi
 apk_dir="$1"
 out="$2"
 root=$(cd "$(dirname "$0")/../.." && pwd)
-cp "$root/docs/MBOX_RELEASE.md" "$out"
+version=$(sed -n 's/^VERSION_NAME=//p' "$root/nb4a.properties")
+if [ -z "$version" ]; then
+  echo "release notes: VERSION_NAME is missing from nb4a.properties" >&2
+  exit 1
+fi
+echo "# NyaBox ${version}" > "$out"
 
 # Changes are the commit subjects since the previous tag. The version being
 # published is not tagged yet, so describe points at that previous release.

@@ -7,7 +7,7 @@
 
 ## 下载与安装
 
-安装包在 [GitHub Releases](https://github.com/shad1ao/NyaBox/releases)。写作本文时，已发布的最新标签是 `1.4.3.3`（APK 的 versionCode 是 285）。每个标签附带四个 ABI，文件名形如 `NyaBox-1.4.3.3-arm64-v8a.apk`：
+安装包在 [GitHub Releases](https://github.com/shad1ao/NyaBox/releases)。每个标签附带四个 ABI，文件名形如 `NyaBox-<版本>-<abi>.apk`：
 
 | ABI | 适用 |
 | --- | --- |
@@ -17,13 +17,6 @@
 | `x86` | 32 位模拟器 |
 
 最低系统版本是 Android 5.0（API 21）。请选择与设备 ABI 一致的 APK。
-
-- 包名是 `moe.nyabox`。它不能替换 `moe.nb4a`、`moe.nb4a.debug` 或 `moe.nb4a.mbox`。
-- `1.4.3` 和 `1.4.3.1` 使用调试证书签名。`1.4.3.3` 不能覆盖安装这两个版本，需要先卸载 `moe.nyabox`。
-- `1.4.3.2` 与 `1.4.3.3` 使用同一张发布证书，可以互相覆盖安装。四个 ABI 的发布包使用同一张证书。
-- 本仓库不在 Google Play 发布。旧的 NekoBox Play 版本自 2024 年 5 月起已由第三方控制，而且不是开源构建，不是本仓库的安装包。
-
-`1.4.3.3` 的安装说明、签名范围和已知限制见 [docs/MBOX_RELEASE.md](docs/MBOX_RELEASE.md)。
 
 ## 能做什么
 
@@ -36,8 +29,6 @@ NyaBox 在 Android 上管理代理配置，并通过 mbox 建立连接。配置�
 - VMess、VLESS、Trojan、AnyTLS、TUIC
 - Hysteria 1 / 2（UDP）、WireGuard
 - Mieru
-
-分享链接包括 `socks://`、`socks4://`、`socks4a://`、`socks5://`、`http://`、`https://`、`ss://`、`vmess://`、`vless://`、`trojan://`、`hysteria://`、`hysteria2://`、`hy2://`、`tuic://`、`anytls://`，以及本应用自己的 `sn://`。Mieru 可以导入官方的 `mierus://` 和 `mieru://`；导出使用 `mierus://`。链接里的空格写成 `%20`。
 
 订阅还可以解析：
 
@@ -53,8 +44,6 @@ Trojan-Go 和 NaïveProxy 不在内核里，运行前需要安装上游插件。
 ## 从源码构建
 
 需要 JDK 21、Go 1.26.11，以及 Android SDK。CI 安装的组件是 `platforms;android-35`、`build-tools;36.0.0`、`build-tools;35.0.1` 和 NDK `25.0.8775105`，见 [buildScript/ci/setup_android_sdk.sh](buildScript/ci/setup_android_sdk.sh)。Gradle 使用仓库里的 wrapper（9.7.0）。设置 `ANDROID_HOME`。Go 使用本机工具链（`GOTOOLCHAIN=local`）。
-
-核心源码会放到仓库的上一级目录，而不是仓库里面。`mbox` 和 `libneko` 因此与本仓库并列。
 
 ```bash
 bash buildScript/lib/core/init.sh
