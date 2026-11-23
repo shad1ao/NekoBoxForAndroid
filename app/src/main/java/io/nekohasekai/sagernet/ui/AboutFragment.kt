@@ -10,7 +10,6 @@ import android.os.PowerManager
 import android.provider.Settings
 import android.text.util.Linkify
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.component1
 import androidx.activity.result.component2
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,6 +21,7 @@ import com.danielstone.materialaboutlibrary.model.MaterialAboutCard
 import com.danielstone.materialaboutlibrary.model.MaterialAboutList
 import io.nekohasekai.sagernet.BuildConfig
 import io.nekohasekai.sagernet.R
+import io.nekohasekai.sagernet.SagerNet
 import io.nekohasekai.sagernet.databinding.LayoutAboutBinding
 import io.nekohasekai.sagernet.ktx.*
 import io.nekohasekai.sagernet.plugin.PluginManager.loadString
@@ -30,11 +30,10 @@ import io.nekohasekai.sagernet.widget.ListListener
 import libcore.Libcore
 import moe.matsuri.nb4a.plugin.Plugins
 import androidx.core.net.toUri
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import io.nekohasekai.sagernet.SagerNet
 import io.nekohasekai.sagernet.database.DataStore
-import moe.matsuri.nb4a.utils.Util
-import org.json.JSONObject
+import io.nekohasekai.sagernet.update.AppUpdate
+import io.nekohasekai.sagernet.update.AppUpdatePrompt
+import io.nekohasekai.sagernet.update.NyaBoxUpdateClient
 
 // Set true to show the About "捐款" row again.
 private const val showDonateRow = false
@@ -220,63 +219,18 @@ class AboutFragment : ToolbarFragment(R.layout.layout_about) {
 
         fun checkUpdate(checkPreview: Boolean) {
             runOnIoDispatcher {
-                try {
-                    val client = Libcore.newHttpClient().apply {
-                        modernTLS()
-                        trySocks5(DataStore.mixedPort)
-                    }
-                    val response = client.newRequest().apply {
-                        if (checkPreview) {
-                            setURL("https://api.github.com/repos/shad1ao/NyaBox/releases/tags/preview")
-                        } else {
-                            setURL("https://api.github.com/repos/shad1ao/NyaBox/releases/latest")
-                        }
-                    }.execute()
-                    val release = JSONObject(Util.getStringBox(response.contentString))
-                    val releaseName = release.getString("name")
-                    val releaseUrl = release.getString("html_url")
-                    var haveUpdate = releaseName.isNotBlank()
-                    haveUpdate = if (isPreview) {
-                        if (checkPreview) {
-                            haveUpdate && releaseName != BuildConfig.PRE_VERSION_NAME
-                        } else {
-                            // User: 1.3.9 pre-1.4.0 Stable: 1.3.9 -> No update
-                            haveUpdate && releaseName != BuildConfig.VERSION_NAME
-                        }
-                    } else {
-                        // User: 1.4.0 Preview: pre-1.4.0 -> No update
-                        // User: 1.4.0 Preview: pre-1.4.1 -> Update
-                        // User: 1.4.0 Stable: 1.4.0 -> No update
-                        // User: 1.4.0 Stable: 1.4.1 -> Update
-                        haveUpdate && !releaseName.contains(BuildConfig.VERSION_NAME)
-                    }
-                    runOnMainDispatcher {
-                        if (haveUpdate) {
-                            val context = requireContext()
-                            MaterialAlertDialogBuilder(context)
-                                .setTitle(R.string.update_dialog_title)
-                                .setMessage(
-                                    context.getString(
-                                        R.string.update_dialog_message,
-                                        SagerNet.appVersionNameForDisplay,
-                                        releaseName
-                                    )
-                                )
-                                .setPositiveButton(R.string.yes) { _, _ ->
-                                    val intent = Intent(Intent.ACTION_VIEW, releaseUrl.toUri())
-                                    context.startActivity(intent)
-                                }
-                                .setNegativeButton(R.string.no, null)
-                                .show()
-                        } else {
-                            Toast.makeText(app, R.string.check_update_no, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                } catch (e: Exception) {
-                    Logs.w(e)
-                    runOnMainDispatcher {
-                        Toast.makeText(app, e.readableMessage, Toast.LENGTH_SHORT).show()
-                    }
+                val abi = NyaBoxUpdateClient.primaryAbi()
+                val outcome = if (checkPreview) {
+                    NyaBoxUpdateClient.checkPreview(BuildConfig.PRE_VERSION_NAME, abi)
+                } else {
+                    NyaBoxUpdateClient.checkStable(BuildConfig.VERSION_NAME, abi)
+                }
+                if (!checkPreview && AppUpdate.rememberSuccessfulCheck(outcome)) {
+                    DataStore.appUpdateCheckedAt = System.currentTimeMillis()
+                }
+                runOnMainDispatcher {
+                    if (!isAdded) return@runOnMainDispatcher
+                    AppUpdatePrompt.show(requireContext(), outcome, manual = true)
                 }
             }
         }

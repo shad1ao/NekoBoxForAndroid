@@ -40,6 +40,7 @@ import io.nekohasekai.sagernet.fmt.KryoConverters
 import io.nekohasekai.sagernet.fmt.PluginEntry
 import io.nekohasekai.sagernet.group.GroupInterfaceAdapter
 import io.nekohasekai.sagernet.group.GroupUpdater
+import io.nekohasekai.sagernet.ktx.Logs
 import io.nekohasekai.sagernet.ktx.alert
 import io.nekohasekai.sagernet.ktx.isPlay
 import io.nekohasekai.sagernet.ktx.isPreview
@@ -48,6 +49,12 @@ import io.nekohasekai.sagernet.ktx.onMainDispatcher
 import io.nekohasekai.sagernet.ktx.parseProxies
 import io.nekohasekai.sagernet.ktx.readableMessage
 import io.nekohasekai.sagernet.ktx.runOnDefaultDispatcher
+import io.nekohasekai.sagernet.ktx.runOnIoDispatcher
+import io.nekohasekai.sagernet.ktx.runOnMainDispatcher
+import io.nekohasekai.sagernet.update.AppUpdate
+import io.nekohasekai.sagernet.update.AppUpdatePrompt
+import io.nekohasekai.sagernet.update.NyaBoxUpdateClient
+import io.nekohasekai.sagernet.update.UpdateOutcome
 import moe.matsuri.nb4a.utils.Util
 
 // Set true to show the drawer "推广" row on non-Play builds again.
@@ -126,6 +133,30 @@ class MainActivity : ThemedActivity(),
                 .setMessage(R.string.preview_version_hint)
                 .setPositiveButton(android.R.string.ok, null)
                 .show()
+        }
+
+        maybeCheckAppUpdate()
+    }
+
+    private fun maybeCheckAppUpdate() {
+        val now = System.currentTimeMillis()
+        if (!AppUpdate.shouldCheck(now, DataStore.appUpdateCheckedAt, manual = false)) return
+        val abi = NyaBoxUpdateClient.primaryAbi()
+        val current = BuildConfig.VERSION_NAME
+        runOnIoDispatcher {
+            val outcome = NyaBoxUpdateClient.checkStable(current, abi)
+            if (AppUpdate.rememberSuccessfulCheck(outcome)) {
+                DataStore.appUpdateCheckedAt = now
+            } else if (outcome is UpdateOutcome.Failed) {
+                Logs.w("automatic update check skipped: ${outcome.kind}")
+            }
+            if (outcome is UpdateOutcome.Available) {
+                runOnMainDispatcher {
+                    if (!isFinishing && !isDestroyed) {
+                        AppUpdatePrompt.show(this@MainActivity, outcome, manual = false)
+                    }
+                }
+            }
         }
     }
 
