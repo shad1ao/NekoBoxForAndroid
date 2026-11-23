@@ -169,7 +169,6 @@ jobs:
           gh release create "$tag" \
             --repo "${{ github.repository }}" \
             --target "${{ github.sha }}" \
-            --prerelease \
             --title "$tag" \
             --notes-file release-notes.md \
             apks/*.apk apks/SHA256SUMS
