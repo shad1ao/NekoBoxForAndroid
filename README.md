@@ -3,9 +3,7 @@
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
 [![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-orange.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-NyaBox 是 [MatsuriDayo/NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid) 的 Android 分支。启动器名称是 NyaBox，应用 ID 是 `moe.nyabox`。仓库是 [shad1ao/NyaBox](https://github.com/shad1ao/NyaBox)。本仓库不修改上游。
-
-运行时是 [enfein/mbox](https://github.com/enfein/mbox) `v1.12.23-m.3.28.0`（commit `2ced282af6a415fbd4b6cb62aa764e79a2450141`），其中的 mieru 库是 `github.com/enfein/mieru/v3` `v3.28.0`。应用自己的说明是 “The universal proxy toolchain for Android, written in Kotlin.”
+本项目包含 AI 辅助生成的代码和文档，可能存在 AI slop、错误或未经充分验证的实现，请自行审查并谨慎使用。
 
 ## 下载与安装
 
