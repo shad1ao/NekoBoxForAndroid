@@ -165,6 +165,9 @@ object DataStore : OnPreferenceDataStoreChangeListener {
 
     var yacdURL by configurationStore.string("yacdURL") { "http://127.0.0.1:9090/ui" }
 
+    /** Last automatic or manual stable-release check that reached GitHub. */
+    var appUpdateCheckedAt by configurationStore.long("appUpdateCheckedAt")
+
     // protocol
 
     var globalAllowInsecure by configurationStore.boolean(Key.GLOBAL_ALLOW_INSECURE) { false }

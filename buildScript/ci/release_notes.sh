@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Append the ABI inventory and SHA-256 sums to the prerelease notes.
+# GitHub release notes: version title, commits since the previous tag, ABI filenames, SHA-256.
 set -euo pipefail
 
 if [ "$#" -ne 2 ]; then
