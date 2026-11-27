@@ -8,7 +8,6 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.WindowCompat
 import com.google.android.material.color.DynamicColors
-import com.google.android.material.color.MaterialColors
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.ktx.app
@@ -69,13 +68,8 @@ object Theme {
         val night = activity.resources.configuration.uiMode and
             Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
         val lightBars = !night && DataStore.appTheme != BLACK
-        val surface = MaterialColors.getColor(
-            activity,
-            com.google.android.material.R.attr.colorSurface,
-            Color.BLACK,
-        )
-        activity.window.statusBarColor = surface
-        activity.window.navigationBarColor = surface
+        activity.window.statusBarColor = Color.TRANSPARENT
+        activity.window.navigationBarColor = Color.TRANSPARENT
         WindowCompat.getInsetsController(activity.window, activity.window.decorView).apply {
             isAppearanceLightStatusBars = lightBars
             isAppearanceLightNavigationBars = lightBars

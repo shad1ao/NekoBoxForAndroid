@@ -8,12 +8,18 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.RemoteException
+import android.view.Gravity
 import android.view.KeyEvent
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.addCallback
 import androidx.annotation.IdRes
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.preference.PreferenceDataStore
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
@@ -104,6 +110,12 @@ class MainActivity : ThemedActivity(),
         binding.stats.setOnClickListener { if (DataStore.serviceState.connected) binding.stats.testConnection() }
 
         setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.coordinator) { _, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            binding.fragmentHolder.updatePadding(bottom = bars.bottom)
+            placeConnectionButton()
+            insets
+        }
         changeState(BaseService.State.Idle)
         connection.connect(this, this)
         DataStore.configurationStore.registerChangeListener(this)
@@ -400,7 +412,35 @@ class MainActivity : ThemedActivity(),
 
         binding.fab.changeState(state, DataStore.serviceState, animate)
         binding.stats.changeState(state)
+        placeConnectionButton()
+        binding.fab.post {
+            placeConnectionButton()
+            (supportFragmentManager.findFragmentById(R.id.fragment_holder) as? ConfigurationFragment)
+                ?.getCurrentGroupFragment()
+                ?.applyChromeInsets()
+        }
         if (msg != null) snackbar(getString(R.string.vpn_error, msg)).show()
+    }
+
+    private fun placeConnectionButton() {
+        val fab = binding.fab
+        val lp = fab.layoutParams as? CoordinatorLayout.LayoutParams ?: return
+        val nav = ViewCompat.getRootWindowInsets(binding.coordinator)
+            ?.getInsets(WindowInsetsCompat.Type.systemBars())?.bottom ?: 0
+        val docked = DataStore.serviceState.connected && binding.stats.allowShow
+        if (docked) {
+            lp.anchorId = R.id.stats
+            lp.gravity = Gravity.NO_GRAVITY
+            lp.bottomMargin = 0
+            lp.marginEnd = 0
+        } else {
+            lp.anchorId = View.NO_ID
+            lp.gravity = Gravity.BOTTOM or Gravity.END
+            lp.bottomMargin = nav + (16 * resources.displayMetrics.density).toInt()
+            lp.marginEnd = (16 * resources.displayMetrics.density).toInt()
+            fab.translationY = 0f
+        }
+        fab.layoutParams = lp
     }
 
     override fun snackbarInternal(text: CharSequence): Snackbar {

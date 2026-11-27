@@ -8,7 +8,7 @@
         <item name="borderlessButtonStyle">@style/Widget.Material3.Button.TextButton</item>
         <item name="floatingActionButtonStyle">@style/Widget.Material3.FloatingActionButton.Primary</item>
         <item name="materialCardViewStyle">@style/Widget.SagerNet.Card</item>
-        <item name="tabStyle">@style/Widget.Material3.TabLayout</item>
+        <item name="tabStyle">@style/Widget.SagerNet.TabLayout</item>
         <item name="switchStyle">@style/Widget.Material3.CompoundButton.Switch</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
@@ -37,6 +37,7 @@
         <item name="fabColorBackground">?attr/colorPrimaryContainer</item>
         <item name="fabIconTint">?attr/colorOnPrimaryContainer</item>
         <item name="selectedColorPrimary">?attr/colorPrimary</item>
+        <item name="colorControlNormal">?attr/colorOnSurfaceVariant</item>
         <item name="actionBarTheme">@style/ThemeOverlay.Material3.Toolbar.Surface</item>
         <item name="tabTextColor">?attr/colorOnSurfaceVariant</item>
         <item name="tabSelectedTextColor">?attr/colorPrimary</item>
@@ -95,6 +96,7 @@
         <item name="fabColorBackground">?attr/colorPrimaryContainer</item>
         <item name="fabIconTint">?attr/colorOnPrimaryContainer</item>
         <item name="selectedColorPrimary">?attr/colorPrimary</item>
+        <item name="colorControlNormal">?attr/colorOnSurfaceVariant</item>
         <item name="actionBarTheme">@style/ThemeOverlay.Material3.Toolbar.Surface</item>
         <item name="tabTextColor">?attr/colorOnSurfaceVariant</item>
         <item name="tabSelectedTextColor">?attr/colorPrimary</item>
@@ -616,6 +618,7 @@
         <item name="colorSecondaryContainer">#333333</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorOnSurfaceVariant">#E0E0E0</item>
+        <item name="colorOnSecondaryContainer">@color/white</item>
         <item name="tabSelectedTextColor">@color/color_ng_black_accent</item>
         <item name="tabIndicatorColor">@color/color_ng_black_accent</item>
         <item name="tabRippleColor">@color/color_ng_black_accent</item>
@@ -657,6 +660,7 @@
         <item name="colorSecondaryContainer">#333333</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorOnSurfaceVariant">#E0E0E0</item>
+        <item name="colorOnSecondaryContainer">@color/white</item>
         <item name="tabSelectedTextColor">@color/color_ng_black_accent</item>
         <item name="tabIndicatorColor">@color/color_ng_black_accent</item>
         <item name="tabRippleColor">@color/color_ng_black_accent</item>
@@ -673,12 +677,59 @@
         <item name="cornerSize">16dp</item>
     </style>
 
-    <style name="Widget.SagerNet.Card" parent="Widget.Material3.CardView.Outlined">
+    <style name="Widget.SagerNet.AppBar" parent="Widget.Material3.AppBarLayout">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="liftOnScroll">true</item>
+        <item name="liftOnScrollColor">?attr/colorSurfaceContainer</item>
+        <item name="elevation">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+    <style name="Widget.SagerNet.Toolbar" parent="Widget.Material3.Toolbar.Surface">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="titleTextAppearance">@style/TextAppearance.Material3.TitleLarge</item>
+        <item name="titleTextColor">?attr/colorOnSurface</item>
+        <item name="navigationIconTint">?attr/colorOnSurface</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3.Toolbar.Surface</item>
+    </style>
+
+    <style name="Widget.SagerNet.TabLayout" parent="Widget.Material3.TabLayout">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="tabIndicator">@drawable/tab_indicator</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabIndicatorColor">?attr/colorPrimary</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabPaddingStart">16dp</item>
+        <item name="tabPaddingEnd">16dp</item>
+        <item name="tabRippleColor">?attr/colorPrimary</item>
+        <item name="tabSelectedTextColor">?attr/colorPrimary</item>
+        <item name="tabTextAppearance">@style/TextAppearance.Material3.LabelLarge</item>
+        <item name="tabTextColor">?attr/colorOnSurfaceVariant</item>
+        <item name="tabUnboundedRipple">false</item>
+    </style>
+
+    <style name="ThemeOverlay.SagerNet.NavigationView" parent="ThemeOverlay.Material3.NavigationView">
+        <item name="android:listDivider">?attr/colorOutlineVariant</item>
+    </style>
+
+    <style name="Widget.SagerNet.NavigationView" parent="Widget.Material3.NavigationView">
+        <item name="dividerInsetEnd">28dp</item>
+        <item name="dividerInsetStart">28dp</item>
+        <item name="itemHorizontalPadding">28dp</item>
+        <item name="itemIconTint">@color/navigation_icon</item>
+        <item name="itemShapeFillColor">@color/navigation_item</item>
+        <item name="itemTextColor">@color/navigation_icon</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.SagerNet.NavigationView</item>
+    </style>
+
+    <style name="Widget.SagerNet.Card" parent="Widget.Material3.CardView.Filled">
         <item name="cardElevation">0dp</item>
-        <item name="cardMaxElevation">1dp</item>
-        <item name="cardCornerRadius">16dp</item>
-        <item name="strokeWidth">1dp</item>
-        <item name="strokeColor">?attr/colorOutlineVariant</item>
+        <item name="cardMaxElevation">0dp</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
         <item name="cardBackgroundColor">?attr/colorSurfaceContainerLow</item>
     </style>
 

@@ -2,7 +2,6 @@ package io.nekohasekai.sagernet.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.SystemClock
 import android.provider.OpenableColumns
@@ -23,9 +22,12 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.size
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceDataStore
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -152,6 +154,16 @@ class ConfigurationFragment @JvmOverloads constructor(
                 DataStore.selectedGroup = adapter.groupList[position].id
             }
         }
+
+        override fun onPageSelected(position: Int) {
+            view?.post { getCurrentGroupFragment()?.applyChromeInsets() }
+        }
+    }
+
+    fun bindLiftTarget(list: RecyclerView) {
+        val appBar = view?.findViewById<com.google.android.material.appbar.AppBarLayout>(R.id.appbar)
+            ?: return
+        appBar.setLiftOnScrollTargetView(list)
     }
 
     override fun onQueryTextChange(query: String): Boolean {
@@ -1211,6 +1223,43 @@ class ConfigurationFragment @JvmOverloads constructor(
 
             }
 
+            configurationListView.clipToPadding = true
+            applyChromeInsets()
+            val activity = activity as? MainActivity
+            activity?.binding?.stats?.addOnLayoutChangeListener(statsLayoutListener)
+            ViewCompat.setOnApplyWindowInsetsListener(configurationListView) { _, insets ->
+                configurationListView.post { applyChromeInsets() }
+                insets
+            }
+        }
+
+        private val statsLayoutListener = View.OnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            if (::configurationListView.isInitialized) applyChromeInsets()
+        }
+
+        fun applyChromeInsets() {
+            if (!::configurationListView.isInitialized) return
+            val list = configurationListView
+            val host = activity as? MainActivity
+            val nav = ViewCompat.getRootWindowInsets(list)
+                ?.getInsets(WindowInsetsCompat.Type.systemBars())?.bottom ?: 0
+            val connected = host != null &&
+                DataStore.serviceState.connected &&
+                host.binding.stats.allowShow
+            val statsHeight = host?.binding?.stats?.height ?: 0
+            list.updatePadding(
+                bottom = if (connected && statsHeight > 0) {
+                    (statsHeight - nav).coerceAtLeast(dp2px(48)) + dp2px(8)
+                } else {
+                    dp2px(80)
+                }
+            )
+            (parentFragment as? ConfigurationFragment)?.bindLiftTarget(list)
+        }
+
+        override fun onDestroyView() {
+            (activity as? MainActivity)?.binding?.stats?.removeOnLayoutChangeListener(statsLayoutListener)
+            super.onDestroyView()
         }
 
         override fun onDestroy() {
@@ -1481,22 +1530,18 @@ class ConfigurationFragment @JvmOverloads constructor(
             val profileStatus: TextView = view.findViewById(R.id.profile_status)
 
             val trafficText: TextView = view.findViewById(R.id.traffic_text)
-            val selectedView: View = view.findViewById(R.id.selected_view)
             val editButton: ImageView = view.findViewById(R.id.edit)
             val shareLayout: LinearLayout = view.findViewById(R.id.share)
-            val shareLayer: LinearLayout = view.findViewById(R.id.share_layer)
             val shareButton: ImageView = view.findViewById(R.id.shareIcon)
             val removeButton: ImageView = view.findViewById(R.id.remove)
 
             fun applySelection(selected: Boolean) {
-                selectedView.visibility = if (selected) View.VISIBLE else View.INVISIBLE
                 val card = view as? MaterialCardView ?: return
                 val density = card.resources.displayMetrics.density
-                card.strokeWidth = ((if (selected) 2f else 1f) * density).toInt().coerceAtLeast(1)
+                card.strokeWidth = if (selected) (2f * density).toInt().coerceAtLeast(1) else 0
                 card.strokeColor = MaterialColors.getColor(
                     card,
-                    if (selected) androidx.appcompat.R.attr.colorPrimary
-                    else com.google.android.material.R.attr.colorOutlineVariant
+                    androidx.appcompat.R.attr.colorPrimary,
                 )
                 card.setCardBackgroundColor(
                     MaterialColors.getColor(
@@ -1677,9 +1722,13 @@ class ConfigurationFragment @JvmOverloads constructor(
 
                     if (!(select || proxyEntity.type == ProxyEntity.TYPE_CHAIN)) {
                         onMainDispatcher {
-                            shareLayer.setBackgroundColor(Color.TRANSPARENT)
                             shareButton.setImageResource(R.drawable.ic_social_share)
-                            shareButton.setColorFilter(Color.GRAY)
+                            shareButton.imageTintList = android.content.res.ColorStateList.valueOf(
+                                MaterialColors.getColor(
+                                    shareButton,
+                                    com.google.android.material.R.attr.colorOnSurfaceVariant,
+                                )
+                            )
                             shareButton.isVisible = true
 
                             shareLayout.setOnClickListener {
