@@ -33,6 +33,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -1479,12 +1481,31 @@ class ConfigurationFragment @JvmOverloads constructor(
             val profileStatus: TextView = view.findViewById(R.id.profile_status)
 
             val trafficText: TextView = view.findViewById(R.id.traffic_text)
-            val selectedView: LinearLayout = view.findViewById(R.id.selected_view)
+            val selectedView: View = view.findViewById(R.id.selected_view)
             val editButton: ImageView = view.findViewById(R.id.edit)
             val shareLayout: LinearLayout = view.findViewById(R.id.share)
             val shareLayer: LinearLayout = view.findViewById(R.id.share_layer)
             val shareButton: ImageView = view.findViewById(R.id.shareIcon)
             val removeButton: ImageView = view.findViewById(R.id.remove)
+
+            fun applySelection(selected: Boolean) {
+                selectedView.visibility = if (selected) View.VISIBLE else View.INVISIBLE
+                val card = view as? MaterialCardView ?: return
+                val density = card.resources.displayMetrics.density
+                card.strokeWidth = ((if (selected) 2f else 1f) * density).toInt().coerceAtLeast(1)
+                card.strokeColor = MaterialColors.getColor(
+                    card,
+                    if (selected) androidx.appcompat.R.attr.colorPrimary
+                    else com.google.android.material.R.attr.colorOutlineVariant
+                )
+                card.setCardBackgroundColor(
+                    MaterialColors.getColor(
+                        card,
+                        if (selected) com.google.android.material.R.attr.colorSecondaryContainer
+                        else com.google.android.material.R.attr.colorSurfaceContainerLow
+                    )
+                )
+            }
 
             fun bind(proxyEntity: ProxyEntity, trafficData: TrafficData? = null) {
                 val pf = parentFragment as? ConfigurationFragment ?: return
@@ -1505,7 +1526,7 @@ class ConfigurationFragment @JvmOverloads constructor(
                                 lastSelected = DataStore.selectedProxy
                                 DataStore.selectedProxy = proxyEntity.id
                                 onMainDispatcher {
-                                    selectedView.visibility = View.VISIBLE
+                                    applySelection(true)
                                 }
                             }
 
@@ -1623,7 +1644,7 @@ class ConfigurationFragment @JvmOverloads constructor(
                     onMainDispatcher {
                         editButton.isEnabled = !started
                         removeButton.isEnabled = !started
-                        selectedView.visibility = if (selected) View.VISIBLE else View.INVISIBLE
+                        applySelection(selected)
                     }
 
                     fun showShare(anchor: View) {

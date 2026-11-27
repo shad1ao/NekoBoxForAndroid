@@ -7,7 +7,7 @@
         <item name="materialButtonStyle">@style/Widget.Material3.Button</item>
         <item name="borderlessButtonStyle">@style/Widget.Material3.Button.TextButton</item>
         <item name="floatingActionButtonStyle">@style/Widget.Material3.FloatingActionButton.Primary</item>
-        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
+        <item name="materialCardViewStyle">@style/Widget.SagerNet.Card</item>
         <item name="tabStyle">@style/Widget.Material3.TabLayout</item>
         <item name="switchStyle">@style/Widget.Material3.CompoundButton.Switch</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
@@ -37,12 +37,13 @@
         <item name="primaryOrTextPrimary">?colorPrimary</item>
 
         <item name="fabColorBackground">?colorPrimary</item>
+        <item name="fabIconTint">?attr/colorOnPrimary</item>
         <item name="selectedColorPrimary">?colorPrimary</item>
         <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <item name="tabTextColor">#99FFFFFF</item>
-        <item name="tabSelectedTextColor">@color/white</item>
-        <item name="tabIndicatorColor">@color/white</item>
-        <item name="tabRippleColor">@color/white</item>
+        <item name="tabTextColor">@color/tab_text_on_primary</item>
+        <item name="tabSelectedTextColor">?attr/colorOnPrimary</item>
+        <item name="tabIndicatorColor">?attr/colorOnPrimary</item>
+        <item name="tabRippleColor">?attr/colorOnPrimary</item>
         <item name="whiteOrTextPrimary">@color/white</item>
 
         <item name="windowActionModeOverlay">true</item>
@@ -67,7 +68,7 @@
         <item name="materialButtonStyle">@style/Widget.Material3.Button</item>
         <item name="borderlessButtonStyle">@style/Widget.Material3.Button.TextButton</item>
         <item name="floatingActionButtonStyle">@style/Widget.Material3.FloatingActionButton.Primary</item>
-        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
+        <item name="materialCardViewStyle">@style/Widget.SagerNet.Card</item>
         <item name="switchStyle">@style/Widget.Material3.CompoundButton.Switch</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
@@ -96,12 +97,13 @@
         <item name="primaryOrTextPrimary">?colorPrimary</item>
 
         <item name="fabColorBackground">?colorPrimary</item>
+        <item name="fabIconTint">?attr/colorOnPrimary</item>
         <item name="selectedColorPrimary">?colorPrimary</item>
         <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <item name="tabTextColor">#99FFFFFF</item>
-        <item name="tabSelectedTextColor">@color/white</item>
-        <item name="tabIndicatorColor">@color/white</item>
-        <item name="tabRippleColor">@color/white</item>
+        <item name="tabTextColor">@color/tab_text_on_primary</item>
+        <item name="tabSelectedTextColor">?attr/colorOnPrimary</item>
+        <item name="tabIndicatorColor">?attr/colorOnPrimary</item>
+        <item name="tabRippleColor">?attr/colorOnPrimary</item>
         <item name="whiteOrTextPrimary">@color/white</item>
 
         <item name="windowActionModeOverlay">true</item>
@@ -154,13 +156,9 @@
         <item name="colorPrimary">@color/color_pink_ssr</item>
         <item name="colorPrimaryDark">@color/color_pink_ssr</item>
         <item name="colorAccent">@color/material_pink_accent_200</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_pink_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="itemShapeFillColor">@color/material_pink_accent_200</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="whiteOrTextPrimary">@color/black</item>
         <item name="colorMaterial100">@color/material_pink_accent_100</item>
         <item name="colorMaterial300">@color/color_pink_ssr</item>
     </style>
@@ -583,13 +581,9 @@
         <item name="colorPrimary">@color/color_pink_ssr</item>
         <item name="colorPrimaryDark">@color/color_pink_ssr</item>
         <item name="colorAccent">@color/material_pink_accent_200</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_pink_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="itemShapeFillColor">@color/material_pink_accent_200</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="whiteOrTextPrimary">@color/black</item>
         <item name="colorMaterial100">@color/material_pink_accent_100</item>
         <item name="colorMaterial300">@color/color_pink_ssr</item>
     </style>
@@ -632,6 +626,7 @@
 
         <item name="selectedColorPrimary">@color/color_ng_black_accent</item>
         <item name="fabColorBackground">@color/color_ng_black_accent</item>
+        <item name="fabIconTint">@color/black</item>
         <item name="itemShapeFillColor">@color/color_ng_black_accent</item>
 
         <item name="accentOrTextSecondary">?android:textColorSecondary</item>
@@ -664,6 +659,7 @@
 
         <item name="selectedColorPrimary">@color/color_ng_black_accent</item>
         <item name="fabColorBackground">@color/color_ng_black_accent</item>
+        <item name="fabIconTint">@color/black</item>
         <item name="itemShapeFillColor">@color/color_ng_black_accent</item>
 
         <item name="accentOrTextSecondary">?android:textColorSecondary</item>
@@ -682,6 +678,15 @@
         <item name="android:windowLightNavigationBar">false</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">#B3FFFFFF</item>
+    </style>
+
+    <style name="Widget.SagerNet.Card" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardElevation">0dp</item>
+        <item name="cardMaxElevation">1dp</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">?attr/colorOutlineVariant</item>
+        <item name="cardBackgroundColor">?attr/colorSurfaceContainerLow</item>
     </style>
 
     <style name="Theme.Start" parent="Theme.Material3.DayNight">

@@ -10,7 +10,7 @@
         <item name="materialButtonStyle">@style/Widget.Material3.Button</item>
         <item name="borderlessButtonStyle">@style/Widget.Material3.Button.TextButton</item>
         <item name="floatingActionButtonStyle">@style/Widget.Material3.FloatingActionButton.Primary</item>
-        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
+        <item name="materialCardViewStyle">@style/Widget.SagerNet.Card</item>
         <item name="tabStyle">@style/Widget.Material3.TabLayout</item>
         <item name="switchStyle">@style/Widget.Material3.CompoundButton.Switch</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
@@ -31,9 +31,10 @@
         <item name="primaryOrTextPrimary">?attr/colorPrimary</item>
         <item name="itemShapeFillColor">?attr/colorSecondary</item>
         <item name="fabColorBackground">?attr/colorPrimary</item>
+        <item name="fabIconTint">?attr/colorOnPrimary</item>
         <item name="selectedColorPrimary">?attr/colorPrimary</item>
         <item name="whiteOrTextPrimary">?attr/colorOnPrimary</item>
-        <item name="tabTextColor">?attr/colorOnPrimary</item>
+        <item name="tabTextColor">@color/tab_text_on_primary</item>
         <item name="tabSelectedTextColor">?attr/colorOnPrimary</item>
         <item name="tabIndicatorColor">?attr/colorOnPrimary</item>
         <item name="tabRippleColor">?attr/colorOnPrimary</item>
@@ -45,7 +46,7 @@
         <item name="materialButtonStyle">@style/Widget.Material3.Button</item>
         <item name="borderlessButtonStyle">@style/Widget.Material3.Button.TextButton</item>
         <item name="floatingActionButtonStyle">@style/Widget.Material3.FloatingActionButton.Primary</item>
-        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
+        <item name="materialCardViewStyle">@style/Widget.SagerNet.Card</item>
         <item name="switchStyle">@style/Widget.Material3.CompoundButton.Switch</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
@@ -66,6 +67,7 @@
         <item name="primaryOrTextPrimary">?attr/colorPrimary</item>
         <item name="itemShapeFillColor">?attr/colorSecondary</item>
         <item name="fabColorBackground">?attr/colorPrimary</item>
+        <item name="fabIconTint">?attr/colorOnPrimary</item>
         <item name="selectedColorPrimary">?attr/colorPrimary</item>
         <item name="whiteOrTextPrimary">?attr/colorOnPrimary</item>
     </style>

@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
-    android:elevation="4dp">
+    android:elevation="0dp"
+    android:stateListAnimator="@null"
+    app:elevation="0dp">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -14,6 +16,8 @@
         android:background="?attr/colorPrimary"
         android:theme="?actionBarTheme"
         android:touchscreenBlocksFocus="false"
+        app:navigationIconTint="?attr/colorOnPrimary"
         app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
-        app:title="@string/app_name" />
+        app:title="@string/app_name"
+        app:titleTextColor="?attr/colorOnPrimary" />
 </com.google.android.material.appbar.AppBarLayout>
