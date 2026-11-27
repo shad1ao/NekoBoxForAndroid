@@ -21,6 +21,7 @@ runs:
     - uses: actions/setup-go@v5
       with:
         go-version: "1.26.11"
+        cache-dependency-path: libcore/go.sum
     - name: Install Android SDK and NDK 25.0.8775105
       shell: bash
       run: bash buildScript/ci/setup_android_sdk.sh
