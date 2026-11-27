@@ -29,6 +29,7 @@
         <item name="accentOrTextPrimary">?attr/colorSecondary</item>
         <item name="primaryOrTextSecondary">?attr/colorPrimary</item>
         <item name="primaryOrTextPrimary">?attr/colorPrimary</item>
+        <item name="itemShapeFillColor">?attr/colorSecondary</item>
         <item name="fabColorBackground">?attr/colorPrimary</item>
         <item name="selectedColorPrimary">?attr/colorPrimary</item>
         <item name="whiteOrTextPrimary">?attr/colorOnPrimary</item>
@@ -63,6 +64,7 @@
         <item name="accentOrTextPrimary">?attr/colorSecondary</item>
         <item name="primaryOrTextSecondary">?attr/colorPrimary</item>
         <item name="primaryOrTextPrimary">?attr/colorPrimary</item>
+        <item name="itemShapeFillColor">?attr/colorSecondary</item>
         <item name="fabColorBackground">?attr/colorPrimary</item>
         <item name="selectedColorPrimary">?attr/colorPrimary</item>
         <item name="whiteOrTextPrimary">?attr/colorOnPrimary</item>
