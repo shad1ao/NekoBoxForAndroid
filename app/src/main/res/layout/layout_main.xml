@@ -18,19 +18,66 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <!-- We double trackThickness as half of it will be invisible -->
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/fabProgress"
-            android:layout_width="wrap_content"
+        <io.nekohasekai.sagernet.widget.StatsBar
+            android:id="@+id/stats"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:max="1"
-            android:visibility="invisible"
-            app:indicatorColor="?colorMaterial100"
-            app:layout_anchor="@+id/fab"
-            app:layout_anchorGravity="center"
-            app:layout_behavior="io.nekohasekai.sagernet.widget.FabProgressBehavior"
-            app:trackCornerRadius="@dimen/mtrl_progress_track_thickness"
-            app:trackThickness="8dp" />
+            android:layout_gravity="bottom"
+            android:nextFocusUp="@+id/fab"
+            app:backgroundTint="?attr/colorSurfaceContainer"
+            app:contentInsetEnd="0dp"
+            app:contentInsetStart="0dp"
+            app:fabAlignmentMode="end"
+            app:fabAnchorMode="embed"
+            app:fabCradleMargin="0dp"
+            app:fabCradleRoundedCornerRadius="0dp"
+            app:fabCradleVerticalOffset="0dp"
+            app:hideOnScroll="true"
+            app:paddingBottomSystemWindowInsets="true"
+            app:paddingTopSystemWindowInsets="false"
+            app:removeEmbeddedFabElevation="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="88dp"
+                android:paddingBottom="12dp">
+
+                <TextView
+                    android:id="@+id/tx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/rx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp"
+                    tools:text="@string/connection_test_available" />
+
+            </LinearLayout>
+
+        </io.nekohasekai.sagernet.widget.StatsBar>
 
         <io.nekohasekai.sagernet.widget.ServiceButton
             android:id="@+id/fab"
@@ -38,66 +85,29 @@
             android:layout_height="wrap_content"
             android:elevation="6dp"
             android:nextFocusDown="@+id/stats"
-            app:backgroundTint="?fabColorBackground"
-            app:tint="?attr/fabIconTint"
+            app:backgroundTint="?attr/fabColorBackground"
+            app:elevation="6dp"
+            app:fabCustomSize="56dp"
             app:layout_anchor="@id/stats"
+            app:maxImageSize="24dp"
             app:pressedTranslationZ="6dp"
-            app:srcCompat="@drawable/ic_service_idle" />
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.SagerNet.Fab"
+            app:srcCompat="@drawable/ic_service_idle"
+            app:tint="?attr/fabIconTint" />
 
-        <io.nekohasekai.sagernet.widget.StatsBar
-            android:id="@+id/stats"
-            android:layout_width="match_parent"
+        <!-- We double trackThickness as half of it will be invisible -->
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/fabProgress"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:nextFocusUp="@+id/fab"
-            app:backgroundTint="?colorMaterial300"
-            app:contentInsetStart="0dp"
-            app:hideOnScroll="true"
-            app:layout_scrollFlags="enterAlways|scroll">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/tx"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_gravity="fill_horizontal"
-                    android:ellipsize="marquee"
-                    android:singleLine="true"
-                    android:textColor="?whiteOrTextPrimary"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/rx"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:layout_gravity="fill_horizontal"
-                    android:ellipsize="marquee"
-                    android:singleLine="true"
-                    android:textColor="?whiteOrTextPrimary"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="fill_horizontal"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="?whiteOrTextPrimary"
-                    android:textSize="16sp"
-                    tools:text="@string/connection_test_available" />
-
-            </LinearLayout>
-
-        </io.nekohasekai.sagernet.widget.StatsBar>
+            android:max="1"
+            android:visibility="invisible"
+            app:indicatorColor="?attr/colorPrimary"
+            app:layout_anchor="@+id/fab"
+            app:layout_anchorGravity="center"
+            app:layout_behavior="io.nekohasekai.sagernet.widget.FabProgressBehavior"
+            app:trackCornerRadius="@dimen/mtrl_progress_track_thickness"
+            app:trackThickness="8dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

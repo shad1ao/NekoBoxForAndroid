@@ -14,10 +14,8 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <item name="actionModeCloseDrawable">@drawable/ic_navigation_close</item>
         <item name="colorButtonNormal">?colorAccent</item>
-        <item name="android:statusBarColor">?attr/colorPrimaryDark</item>
-        <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
         <item name="colorPrimary">@color/material_pink_500</item>
         <item name="colorPrimaryDark">@color/material_pink_700</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -36,14 +34,14 @@
         <item name="primaryOrTextSecondary">?colorPrimary</item>
         <item name="primaryOrTextPrimary">?colorPrimary</item>
 
-        <item name="fabColorBackground">?colorPrimary</item>
-        <item name="fabIconTint">?attr/colorOnPrimary</item>
-        <item name="selectedColorPrimary">?colorPrimary</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <item name="tabTextColor">@color/tab_text_on_primary</item>
-        <item name="tabSelectedTextColor">?attr/colorOnPrimary</item>
-        <item name="tabIndicatorColor">?attr/colorOnPrimary</item>
-        <item name="tabRippleColor">?attr/colorOnPrimary</item>
+        <item name="fabColorBackground">?attr/colorPrimaryContainer</item>
+        <item name="fabIconTint">?attr/colorOnPrimaryContainer</item>
+        <item name="selectedColorPrimary">?attr/colorPrimary</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.Material3.Toolbar.Surface</item>
+        <item name="tabTextColor">?attr/colorOnSurfaceVariant</item>
+        <item name="tabSelectedTextColor">?attr/colorPrimary</item>
+        <item name="tabIndicatorColor">?attr/colorPrimary</item>
+        <item name="tabRippleColor">?attr/colorPrimary</item>
         <item name="whiteOrTextPrimary">@color/white</item>
 
         <item name="windowActionModeOverlay">true</item>
@@ -74,10 +72,8 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <item name="actionModeCloseDrawable">@drawable/ic_navigation_close</item>
         <item name="colorButtonNormal">?colorAccent</item>
-        <item name="android:statusBarColor">?attr/colorPrimaryDark</item>
-        <item name="android:navigationBarColor">?attr/colorPrimaryDark</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
         <item name="colorPrimary">@color/material_pink_500</item>
         <item name="colorPrimaryDark">@color/material_pink_700</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -96,14 +92,14 @@
         <item name="primaryOrTextSecondary">?colorPrimary</item>
         <item name="primaryOrTextPrimary">?colorPrimary</item>
 
-        <item name="fabColorBackground">?colorPrimary</item>
-        <item name="fabIconTint">?attr/colorOnPrimary</item>
-        <item name="selectedColorPrimary">?colorPrimary</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <item name="tabTextColor">@color/tab_text_on_primary</item>
-        <item name="tabSelectedTextColor">?attr/colorOnPrimary</item>
-        <item name="tabIndicatorColor">?attr/colorOnPrimary</item>
-        <item name="tabRippleColor">?attr/colorOnPrimary</item>
+        <item name="fabColorBackground">?attr/colorPrimaryContainer</item>
+        <item name="fabIconTint">?attr/colorOnPrimaryContainer</item>
+        <item name="selectedColorPrimary">?attr/colorPrimary</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.Material3.Toolbar.Surface</item>
+        <item name="tabTextColor">?attr/colorOnSurfaceVariant</item>
+        <item name="tabSelectedTextColor">?attr/colorPrimary</item>
+        <item name="tabIndicatorColor">?attr/colorPrimary</item>
+        <item name="tabRippleColor">?attr/colorPrimary</item>
         <item name="whiteOrTextPrimary">@color/white</item>
 
         <item name="windowActionModeOverlay">true</item>
@@ -168,10 +164,8 @@
         <item name="colorPrimaryDark">@color/material_amber_700</item>
         <item name="colorAccent">@color/material_amber_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_amber_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="android:windowLightStatusBar">true</item>
         <item name="whiteOrTextPrimary">@color/black</item>
         <item name="colorMaterial100">@color/material_amber_100</item>
         <item name="colorMaterial300">@color/material_amber_300</item>
@@ -215,7 +209,6 @@
         <item name="colorPrimaryDark">@color/material_cyan_700</item>
         <item name="colorAccent">@color/material_cyan_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_cyan_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="whiteOrTextPrimary">@color/black</item>
@@ -250,7 +243,6 @@
         <item name="colorPrimaryDark">@color/material_green_700</item>
         <item name="colorAccent">@color/material_green_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_green_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="whiteOrTextPrimary">@color/black</item>
@@ -263,7 +255,6 @@
         <item name="colorPrimaryDark">@color/material_grey_700</item>
         <item name="colorAccent">@color/material_grey_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_grey_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="whiteOrTextPrimary">@color/black</item>
@@ -287,7 +278,6 @@
         <item name="colorPrimaryDark">@color/material_light_blue_700</item>
         <item name="colorAccent">@color/material_light_blue_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_light_blue_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="whiteOrTextPrimary">@color/black</item>
@@ -300,7 +290,6 @@
         <item name="colorPrimaryDark">@color/material_light_green_700</item>
         <item name="colorAccent">@color/material_light_green_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_light_green_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="whiteOrTextPrimary">@color/black</item>
@@ -313,10 +302,8 @@
         <item name="colorPrimaryDark">@color/material_lime_700</item>
         <item name="colorAccent">@color/material_lime_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_lime_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="android:windowLightStatusBar">true</item>
         <item name="whiteOrTextPrimary">@color/black</item>
         <item name="colorMaterial100">@color/material_lime_100</item>
         <item name="colorMaterial300">@color/material_lime_300</item>
@@ -327,7 +314,6 @@
         <item name="colorPrimaryDark">@color/material_orange_700</item>
         <item name="colorAccent">@color/material_orange_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_orange_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="whiteOrTextPrimary">@color/black</item>
@@ -373,10 +359,8 @@
         <item name="colorPrimaryDark">@color/material_yellow_700</item>
         <item name="colorAccent">@color/material_yellow_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_yellow_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="android:windowLightStatusBar">true</item>
         <item name="whiteOrTextPrimary">@color/black</item>
         <item name="colorMaterial100">@color/material_yellow_100</item>
         <item name="colorMaterial300">@color/material_yellow_300</item>
@@ -388,10 +372,8 @@
         <item name="colorPrimaryDark">@color/material_amber_700</item>
         <item name="colorAccent">@color/material_amber_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_amber_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="android:windowLightStatusBar">true</item>
         <item name="whiteOrTextPrimary">@color/black</item>
         <item name="colorMaterial100">@color/material_amber_100</item>
         <item name="colorMaterial300">@color/material_amber_300</item>
@@ -435,7 +417,6 @@
         <item name="colorPrimaryDark">@color/material_cyan_700</item>
         <item name="colorAccent">@color/material_cyan_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_cyan_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="whiteOrTextPrimary">@color/black</item>
@@ -470,7 +451,6 @@
         <item name="colorPrimaryDark">@color/material_green_700</item>
         <item name="colorAccent">@color/material_green_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_green_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="whiteOrTextPrimary">@color/black</item>
@@ -483,7 +463,6 @@
         <item name="colorPrimaryDark">@color/material_grey_700</item>
         <item name="colorAccent">@color/material_grey_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_grey_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="whiteOrTextPrimary">@color/black</item>
@@ -507,7 +486,6 @@
         <item name="colorPrimaryDark">@color/material_light_blue_700</item>
         <item name="colorAccent">@color/material_light_blue_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_light_blue_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="whiteOrTextPrimary">@color/black</item>
@@ -520,7 +498,6 @@
         <item name="colorPrimaryDark">@color/material_light_green_700</item>
         <item name="colorAccent">@color/material_light_green_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_light_green_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="whiteOrTextPrimary">@color/black</item>
@@ -533,10 +510,8 @@
         <item name="colorPrimaryDark">@color/material_lime_700</item>
         <item name="colorAccent">@color/material_lime_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_lime_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="android:windowLightStatusBar">true</item>
         <item name="whiteOrTextPrimary">@color/black</item>
         <item name="colorMaterial100">@color/material_lime_100</item>
         <item name="colorMaterial300">@color/material_lime_300</item>
@@ -547,7 +522,6 @@
         <item name="colorPrimaryDark">@color/material_orange_700</item>
         <item name="colorAccent">@color/material_orange_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_orange_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="whiteOrTextPrimary">@color/black</item>
@@ -604,10 +578,8 @@
         <item name="colorPrimaryDark">@color/material_yellow_700</item>
         <item name="colorAccent">@color/material_yellow_accent_200</item>
         <item name="colorOnPrimary">@color/black</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="colorSecondary">@color/material_yellow_accent_200</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="android:windowLightStatusBar">true</item>
         <item name="whiteOrTextPrimary">@color/black</item>
         <item name="colorMaterial100">@color/material_yellow_100</item>
         <item name="colorMaterial300">@color/material_yellow_300</item>
@@ -615,10 +587,10 @@
     </style>
 
     <style name="Theme.SagerNet.Black">
-        <item name="colorPrimary">@color/color_ng_black_primary</item>
+        <item name="colorPrimary">@color/color_ng_black_accent</item>
         <item name="colorPrimaryDark">@color/color_ng_black_primary</item>
         <item name="colorAccent">@color/color_ng_black_accent</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
         <item name="colorSecondary">@color/color_ng_black_accent</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="colorMaterial100">@color/color_ng_black_primary</item>
@@ -637,8 +609,16 @@
         <item name="android:colorBackground">@android:color/black</item>
         <item name="colorSurface">@android:color/black</item>
         <item name="colorSurfaceVariant">#121212</item>
+        <item name="colorSurfaceContainer">#1E1E1E</item>
+        <item name="colorSurfaceContainerLow">#121212</item>
+        <item name="colorSurfaceContainerHigh">#2A2A2A</item>
+        <item name="colorOutlineVariant">#3D3D3D</item>
+        <item name="colorSecondaryContainer">#333333</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorOnSurfaceVariant">#E0E0E0</item>
+        <item name="tabSelectedTextColor">@color/color_ng_black_accent</item>
+        <item name="tabIndicatorColor">@color/color_ng_black_accent</item>
+        <item name="tabRippleColor">@color/color_ng_black_accent</item>
         <item name="android:statusBarColor">@android:color/black</item>
         <item name="android:navigationBarColor">@android:color/black</item>
         <item name="android:windowLightStatusBar">false</item>
@@ -648,10 +628,10 @@
     </style>
 
     <style name="Theme.SagerNet.Dialog.Black">
-        <item name="colorPrimary">@color/color_ng_black_primary</item>
+        <item name="colorPrimary">@color/color_ng_black_accent</item>
         <item name="colorPrimaryDark">@color/color_ng_black_primary</item>
         <item name="colorAccent">@color/color_ng_black_accent</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
         <item name="colorSecondary">@color/color_ng_black_accent</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="colorMaterial100">@color/color_ng_black_primary</item>
@@ -670,14 +650,27 @@
         <item name="android:colorBackground">@android:color/black</item>
         <item name="colorSurface">@android:color/black</item>
         <item name="colorSurfaceVariant">#121212</item>
+        <item name="colorSurfaceContainer">#1E1E1E</item>
+        <item name="colorSurfaceContainerLow">#121212</item>
+        <item name="colorSurfaceContainerHigh">#2A2A2A</item>
+        <item name="colorOutlineVariant">#3D3D3D</item>
+        <item name="colorSecondaryContainer">#333333</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorOnSurfaceVariant">#E0E0E0</item>
+        <item name="tabSelectedTextColor">@color/color_ng_black_accent</item>
+        <item name="tabIndicatorColor">@color/color_ng_black_accent</item>
+        <item name="tabRippleColor">@color/color_ng_black_accent</item>
         <item name="android:statusBarColor">@android:color/black</item>
         <item name="android:navigationBarColor">@android:color/black</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorSecondary">#B3FFFFFF</item>
+    </style>
+
+    <style name="ShapeAppearance.SagerNet.Fab" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
     </style>
 
     <style name="Widget.SagerNet.Card" parent="Widget.Material3.CardView.Outlined">

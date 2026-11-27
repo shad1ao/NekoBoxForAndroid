@@ -1550,7 +1550,9 @@ class ConfigurationFragment @JvmOverloads constructor(
 
                 profileName.text = proxyEntity.displayName()
                 profileType.text = proxyEntity.displayType()
-                profileType.setTextColor(requireContext().getProtocolColor(proxyEntity.type))
+                profileType.setTextColor(
+                    MaterialColors.getColor(profileType, androidx.appcompat.R.attr.colorPrimary)
+                )
 
                 var rx = proxyEntity.rx
                 var tx = proxyEntity.tx

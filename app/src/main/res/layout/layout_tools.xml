@@ -16,7 +16,7 @@
         android:id="@+id/tools_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorPrimary"
+        android:background="?attr/colorSurface"
         android:elevation="0dp"
         app:tabIndicator="@drawable/tab_indicator"
         app:tabIndicatorColor="?tabIndicatorColor"
@@ -28,6 +28,11 @@
         app:tabSelectedTextColor="?tabSelectedTextColor"
         app:tabTextColor="?tabTextColor"
         app:tabUnboundedRipple="false" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorOutlineVariant" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/tools_pager"

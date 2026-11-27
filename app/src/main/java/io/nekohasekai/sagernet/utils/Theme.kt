@@ -8,10 +8,10 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.WindowCompat
 import com.google.android.material.color.DynamicColors
+import com.google.android.material.color.MaterialColors
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.database.DataStore
 import io.nekohasekai.sagernet.ktx.app
-import io.nekohasekai.sagernet.ktx.getColorAttr
 
 object Theme {
 
@@ -62,20 +62,24 @@ object Theme {
     }
 
     /**
-     * The app bar is the status-bar backdrop. Match its color and icon contrast
-     * to the wallpaper primary. Call after [Activity.onCreate].
+     * The top app bar is a surface, so status and navigation icons follow light and dark
+     * mode. The black theme keeps dark surfaces in both modes. Call after [Activity.onCreate].
      */
-    fun applyDynamicSystemBars(activity: Activity) {
-        if (!dynamicColorAvailable() || DataStore.appTheme != DYNAMIC) return
-        val primary = activity.getColorAttr(R.attr.colorPrimary)
-        activity.window.statusBarColor = primary
-        WindowCompat.getInsetsController(activity.window, activity.window.decorView)
-            .isAppearanceLightStatusBars = isLightColor(primary)
-    }
-
-    private fun isLightColor(color: Int): Boolean {
-        val luminance = (Color.red(color) * 299 + Color.green(color) * 587 + Color.blue(color) * 114) / 1000
-        return luminance >= 160
+    fun applySystemBars(activity: Activity) {
+        val night = activity.resources.configuration.uiMode and
+            Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+        val lightBars = !night && DataStore.appTheme != BLACK
+        val surface = MaterialColors.getColor(
+            activity,
+            com.google.android.material.R.attr.colorSurface,
+            Color.BLACK,
+        )
+        activity.window.statusBarColor = surface
+        activity.window.navigationBarColor = surface
+        WindowCompat.getInsetsController(activity.window, activity.window.decorView).apply {
+            isAppearanceLightStatusBars = lightBars
+            isAppearanceLightNavigationBars = lightBars
+        }
     }
 
     fun getTheme(): Int {

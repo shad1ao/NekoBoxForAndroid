@@ -6,7 +6,9 @@
         <item name="actionBarStyle">@style/Widget.Material3.ActionBar.Solid</item>
         <item name="toolbarStyle">@style/Widget.Material3.Toolbar</item>
         <item name="navigationViewStyle">@style/Widget.Material3.NavigationView</item>
-        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.Material3.Toolbar.Surface</item>
         <item name="materialButtonStyle">@style/Widget.Material3.Button</item>
         <item name="borderlessButtonStyle">@style/Widget.Material3.Button.TextButton</item>
         <item name="floatingActionButtonStyle">@style/Widget.Material3.FloatingActionButton.Primary</item>
@@ -30,14 +32,14 @@
         <item name="primaryOrTextSecondary">?attr/colorPrimary</item>
         <item name="primaryOrTextPrimary">?attr/colorPrimary</item>
         <item name="itemShapeFillColor">?attr/colorSecondary</item>
-        <item name="fabColorBackground">?attr/colorPrimary</item>
-        <item name="fabIconTint">?attr/colorOnPrimary</item>
+        <item name="fabColorBackground">?attr/colorPrimaryContainer</item>
+        <item name="fabIconTint">?attr/colorOnPrimaryContainer</item>
         <item name="selectedColorPrimary">?attr/colorPrimary</item>
-        <item name="whiteOrTextPrimary">?attr/colorOnPrimary</item>
-        <item name="tabTextColor">@color/tab_text_on_primary</item>
-        <item name="tabSelectedTextColor">?attr/colorOnPrimary</item>
-        <item name="tabIndicatorColor">?attr/colorOnPrimary</item>
-        <item name="tabRippleColor">?attr/colorOnPrimary</item>
+        <item name="whiteOrTextPrimary">?attr/colorOnSurface</item>
+        <item name="tabTextColor">?attr/colorOnSurfaceVariant</item>
+        <item name="tabSelectedTextColor">?attr/colorPrimary</item>
+        <item name="tabIndicatorColor">?attr/colorPrimary</item>
+        <item name="tabRippleColor">?attr/colorPrimary</item>
     </style>
 
     <style name="Theme.SagerNet.Dialog.Dynamic" parent="Theme.Material3.DayNight.Dialog.Alert">
@@ -66,10 +68,11 @@
         <item name="primaryOrTextSecondary">?attr/colorPrimary</item>
         <item name="primaryOrTextPrimary">?attr/colorPrimary</item>
         <item name="itemShapeFillColor">?attr/colorSecondary</item>
-        <item name="fabColorBackground">?attr/colorPrimary</item>
-        <item name="fabIconTint">?attr/colorOnPrimary</item>
+        <item name="fabColorBackground">?attr/colorPrimaryContainer</item>
+        <item name="fabIconTint">?attr/colorOnPrimaryContainer</item>
         <item name="selectedColorPrimary">?attr/colorPrimary</item>
-        <item name="whiteOrTextPrimary">?attr/colorOnPrimary</item>
+        <item name="whiteOrTextPrimary">?attr/colorOnSurface</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.Material3.Toolbar.Surface</item>
     </style>
 
 </resources>
