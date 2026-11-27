@@ -32,6 +32,7 @@ abstract class ThemedActivity : AppCompatActivity {
         Theme.applyNightTheme()
 
         super.onCreate(savedInstanceState)
+        Theme.applyDynamicSystemBars(this)
 
         uiMode = resources.configuration.uiMode
 
