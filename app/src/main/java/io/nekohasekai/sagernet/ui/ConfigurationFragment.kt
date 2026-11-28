@@ -18,10 +18,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
+import androidx.core.view.MenuCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
@@ -191,6 +193,10 @@ class ConfigurationFragment @JvmOverloads constructor(
 
         if (!select) {
             toolbar.inflateMenu(R.menu.add_profile_menu)
+            MenuCompat.setGroupDividerEnabled(toolbar.menu, true)
+            toolbar.menu.findItem(R.id.action_misc)?.subMenu?.let {
+                MenuCompat.setGroupDividerEnabled(it, true)
+            }
             toolbar.setOnMenuItemClickListener(this)
         } else {
             toolbar.setTitle(titleRes)
@@ -1537,12 +1543,7 @@ class ConfigurationFragment @JvmOverloads constructor(
 
             fun applySelection(selected: Boolean) {
                 val card = view as? MaterialCardView ?: return
-                val density = card.resources.displayMetrics.density
-                card.strokeWidth = if (selected) (2f * density).toInt().coerceAtLeast(1) else 0
-                card.strokeColor = MaterialColors.getColor(
-                    card,
-                    androidx.appcompat.R.attr.colorPrimary,
-                )
+                card.strokeWidth = 0
                 card.setCardBackgroundColor(
                     MaterialColors.getColor(
                         card,
@@ -1695,8 +1696,12 @@ class ConfigurationFragment @JvmOverloads constructor(
                     }
 
                     fun showShare(anchor: View) {
-                        val popup = PopupMenu(requireContext(), anchor)
+                        val popup = PopupMenu(
+                            ContextThemeWrapper(requireContext(), R.style.ThemeOverlay_SagerNet_PopupMenu),
+                            anchor,
+                        )
                         popup.menuInflater.inflate(R.menu.profile_share_menu, popup.menu)
+                        MenuCompat.setGroupDividerEnabled(popup.menu, true)
 
                         when {
                             !proxyEntity.haveStandardLink() -> {

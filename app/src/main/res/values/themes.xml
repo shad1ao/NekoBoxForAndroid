@@ -710,6 +710,21 @@
         <item name="tabUnboundedRipple">false</item>
     </style>
 
+    <style name="ThemeOverlay.SagerNet.PopupMenu" parent="ThemeOverlay.Material3">
+        <item name="actionOverflowMenuStyle">@style/Widget.Material3.PopupMenu.Overflow</item>
+        <item name="android:listDivider">?attr/colorOutlineVariant</item>
+        <item name="android:listPreferredItemHeightSmall">48dp</item>
+        <item name="android:listPreferredItemPaddingEnd">12dp</item>
+        <item name="android:listPreferredItemPaddingStart">12dp</item>
+        <item name="android:textColorPrimary">?attr/colorOnSurface</item>
+        <item name="colorControlNormal">?attr/colorOnSurfaceVariant</item>
+        <item name="listPopupWindowStyle">@style/Widget.Material3.PopupMenu.ListPopupWindow</item>
+        <item name="popupMenuBackground">@drawable/m3_popupmenu_background_overlay</item>
+        <item name="popupMenuStyle">@style/Widget.Material3.PopupMenu</item>
+        <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Material3.BodyLarge</item>
+        <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.Material3.BodyLarge</item>
+    </style>
+
     <style name="ThemeOverlay.SagerNet.NavigationView" parent="ThemeOverlay.Material3.NavigationView">
         <item name="android:listDivider">?attr/colorOutlineVariant</item>
     </style>
