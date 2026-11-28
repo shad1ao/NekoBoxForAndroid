@@ -428,7 +428,9 @@ class MainActivity : ThemedActivity(),
      * Keeps the connection button in the Material 3 end slot.
      *
      * Disconnected, it floats 16dp above the navigation bar. Connected, it sits in the
-     * stats bar's content area, 16dp from the end, and follows that bar while it hides.
+     * stats bar's content area, 16dp from the end. The bar may slide away on scroll, but
+     * the button stays: copying the bar's translationY carried the paper-plane icon off
+     * screen, and that hide state is shared across group tabs.
      * It is not anchored to the bar: [com.google.android.material.bottomappbar.BottomAppBar]
      * then translates a dependent button from the center, which shifts the paper-plane
      * icon once the connection is on.
@@ -461,7 +463,7 @@ class MainActivity : ThemedActivity(),
         lp.marginEnd = end
         lp.bottomMargin = bottom
         fab.translationX = 0f
-        fab.translationY = if (docked) binding.stats.translationY else 0f
+        fab.translationY = 0f
         if (changed) fab.layoutParams = lp
     }
 

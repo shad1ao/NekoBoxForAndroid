@@ -75,10 +75,8 @@ class StatsBar @JvmOverloads constructor(
 
     override fun setTranslationY(translationY: Float) {
         super.setTranslationY(translationY)
-        val host = context.findContext<MainActivity>() ?: return
-        if (allowShow && DataStore.serviceState.connected) {
-            host.binding.fab.translationY = translationY
-        }
+        // Hide-on-scroll moves only this bar. The connection button stays on screen.
+        context.findContext<MainActivity>()?.binding?.fab?.translationY = 0f
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
