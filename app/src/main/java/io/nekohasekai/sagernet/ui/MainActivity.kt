@@ -422,25 +422,45 @@ class MainActivity : ThemedActivity(),
         if (msg != null) snackbar(getString(R.string.vpn_error, msg)).show()
     }
 
-    private fun placeConnectionButton() {
+    /**
+     * Keeps the connection button in the Material 3 end slot.
+     *
+     * Disconnected, it floats 16dp above the navigation bar. Connected, it sits in the
+     * stats bar's content area, 16dp from the end, and follows that bar while it hides.
+     * It is not anchored to the bar: [com.google.android.material.bottomappbar.BottomAppBar]
+     * then translates a dependent button from the center, which shifts the paper-plane
+     * icon once the connection is on.
+     */
+    internal fun placeConnectionButton() {
         val fab = binding.fab
         val lp = fab.layoutParams as? CoordinatorLayout.LayoutParams ?: return
+        val density = resources.displayMetrics.density
         val nav = ViewCompat.getRootWindowInsets(binding.coordinator)
             ?.getInsets(WindowInsetsCompat.Type.systemBars())?.bottom ?: 0
-        val docked = DataStore.serviceState.connected && binding.stats.allowShow
-        if (docked) {
-            lp.anchorId = R.id.stats
-            lp.gravity = Gravity.NO_GRAVITY
-            lp.bottomMargin = 0
-            lp.marginEnd = 0
+        val end = (16 * density).toInt()
+        val bar = binding.stats
+        val docked = DataStore.serviceState.connected && bar.allowShow
+        val bottom = if (docked && bar.height > 0) {
+            val fabSize = fab.height.takeIf { it > 0 } ?: (56 * density).toInt()
+            (bar.height + bar.paddingBottom - fabSize) / 2
         } else {
-            lp.anchorId = View.NO_ID
-            lp.gravity = Gravity.BOTTOM or Gravity.END
-            lp.bottomMargin = nav + (16 * resources.displayMetrics.density).toInt()
-            lp.marginEnd = (16 * resources.displayMetrics.density).toInt()
-            fab.translationY = 0f
+            nav + end
         }
-        fab.layoutParams = lp
+        val changed = lp.anchorId != View.NO_ID ||
+            lp.gravity != (Gravity.BOTTOM or Gravity.END) ||
+            lp.bottomMargin != bottom ||
+            lp.marginEnd != end ||
+            lp.marginStart != 0
+        lp.anchorId = View.NO_ID
+        lp.anchorGravity = Gravity.NO_GRAVITY
+        lp.gravity = Gravity.BOTTOM or Gravity.END
+        lp.topMargin = 0
+        lp.marginStart = 0
+        lp.marginEnd = end
+        lp.bottomMargin = bottom
+        fab.translationX = 0f
+        fab.translationY = if (docked) binding.stats.translationY else 0f
+        if (changed) fab.layoutParams = lp
     }
 
     override fun snackbarInternal(text: CharSequence): Snackbar {

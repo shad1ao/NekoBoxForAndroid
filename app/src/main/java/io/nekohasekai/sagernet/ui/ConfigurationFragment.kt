@@ -1548,7 +1548,7 @@ class ConfigurationFragment @JvmOverloads constructor(
                     MaterialColors.getColor(
                         card,
                         if (selected) com.google.android.material.R.attr.colorSecondaryContainer
-                        else com.google.android.material.R.attr.colorSurfaceContainerLow
+                        else com.google.android.material.R.attr.colorSurfaceContainerHighest
                     )
                 )
             }

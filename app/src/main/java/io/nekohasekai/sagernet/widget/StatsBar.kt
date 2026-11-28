@@ -68,6 +68,19 @@ class StatsBar @JvmOverloads constructor(
     }
 
 
+    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+        super.onLayout(changed, l, t, r, b)
+        (context.findContext<MainActivity>())?.placeConnectionButton()
+    }
+
+    override fun setTranslationY(translationY: Float) {
+        super.setTranslationY(translationY)
+        val host = context.findContext<MainActivity>() ?: return
+        if (allowShow && DataStore.serviceState.connected) {
+            host.binding.fab.translationY = translationY
+        }
+    }
+
     override fun setOnClickListener(l: OnClickListener?) {
         statusText = findViewById(R.id.status)
         txText = findViewById(R.id.tx)
