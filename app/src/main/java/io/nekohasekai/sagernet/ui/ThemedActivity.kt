@@ -10,10 +10,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import android.view.View
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.utils.Theme
+import io.nekohasekai.sagernet.widget.installTonalNavigationButton
 
 abstract class ThemedActivity : AppCompatActivity {
     constructor() : super()
@@ -48,6 +50,16 @@ abstract class ThemedActivity : AppCompatActivity {
                 insets
             }
         }
+    }
+
+    override fun setContentView(layoutResID: Int) {
+        super.setContentView(layoutResID)
+        findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)?.installTonalNavigationButton()
+    }
+
+    override fun setContentView(view: View?) {
+        super.setContentView(view)
+        findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)?.installTonalNavigationButton()
     }
 
     override fun setTheme(resId: Int) {

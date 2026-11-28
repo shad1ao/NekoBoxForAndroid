@@ -11,11 +11,13 @@
         <item name="tabStyle">@style/Widget.SagerNet.TabLayout</item>
         <item name="switchStyle">@style/Widget.Material3.CompoundButton.Switch</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.SagerNet</item>
         <item name="actionModeCloseDrawable">@drawable/ic_navigation_close</item>
         <item name="colorButtonNormal">?colorAccent</item>
-        <item name="android:statusBarColor">?attr/colorSurface</item>
-        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:colorBackground">?attr/colorSurfaceContainer</item>
+        <item name="android:windowBackground">?attr/colorSurfaceContainer</item>
+        <item name="android:statusBarColor">?attr/colorSurfaceContainer</item>
+        <item name="android:navigationBarColor">?attr/colorSurfaceContainer</item>
         <item name="colorPrimary">@color/material_pink_500</item>
         <item name="colorPrimaryDark">@color/material_pink_700</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -70,7 +72,7 @@
         <item name="materialCardViewStyle">@style/Widget.SagerNet.Card</item>
         <item name="switchStyle">@style/Widget.Material3.CompoundButton.Switch</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.SagerNet</item>
         <item name="actionModeCloseDrawable">@drawable/ic_navigation_close</item>
         <item name="colorButtonNormal">?colorAccent</item>
         <item name="android:statusBarColor">?attr/colorSurface</item>
@@ -609,6 +611,8 @@
         <item name="primaryOrTextPrimary">?android:textColorPrimary</item>
 
         <item name="android:colorBackground">@android:color/black</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="colorSurfaceContainerLowest">#1C1C1C</item>
         <item name="colorSurface">@android:color/black</item>
         <item name="colorSurfaceVariant">#121212</item>
         <item name="colorSurfaceContainer">#1E1E1E</item>
@@ -652,6 +656,8 @@
         <item name="primaryOrTextPrimary">?android:textColorPrimary</item>
 
         <item name="android:colorBackground">@android:color/black</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="colorSurfaceContainerLowest">#1C1C1C</item>
         <item name="colorSurface">@android:color/black</item>
         <item name="colorSurfaceVariant">#121212</item>
         <item name="colorSurfaceContainer">#1E1E1E</item>
@@ -679,10 +685,15 @@
         <item name="cornerSize">16dp</item>
     </style>
 
+    <style name="PreferenceThemeOverlay.SagerNet" parent="PreferenceThemeOverlay">
+        <item name="android:textAppearanceListItem">@style/TextAppearance.Material3.BodyLarge</item>
+        <item name="android:textColorSecondary">?attr/colorOnSurfaceVariant</item>
+    </style>
+
     <style name="Widget.SagerNet.AppBar" parent="Widget.Material3.AppBarLayout">
-        <item name="android:background">?attr/colorSurface</item>
+        <item name="android:background">?attr/colorSurfaceContainer</item>
         <item name="liftOnScroll">true</item>
-        <item name="liftOnScrollColor">?attr/colorSurfaceContainer</item>
+        <item name="liftOnScrollColor">?attr/colorSurfaceContainerHigh</item>
         <item name="elevation">0dp</item>
         <item name="android:stateListAnimator">@null</item>
     </style>
@@ -742,10 +753,10 @@
     <style name="Widget.SagerNet.Card" parent="Widget.Material3.CardView.Filled">
         <item name="cardElevation">0dp</item>
         <item name="cardMaxElevation">0dp</item>
-        <item name="cardCornerRadius">12dp</item>
+        <item name="cardCornerRadius">20dp</item>
         <item name="strokeWidth">0dp</item>
         <item name="strokeColor">?attr/colorPrimary</item>
-        <item name="cardBackgroundColor">?attr/colorSurfaceContainerHighest</item>
+        <item name="cardBackgroundColor">?attr/colorSurfaceContainerLowest</item>
     </style>
 
     <style name="Theme.Start" parent="Theme.Material3.DayNight">

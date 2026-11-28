@@ -6,8 +6,10 @@
         <item name="actionBarStyle">@style/Widget.Material3.ActionBar.Solid</item>
         <item name="toolbarStyle">@style/Widget.Material3.Toolbar</item>
         <item name="navigationViewStyle">@style/Widget.Material3.NavigationView</item>
-        <item name="android:statusBarColor">?attr/colorSurface</item>
-        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:colorBackground">?attr/colorSurfaceContainer</item>
+        <item name="android:windowBackground">?attr/colorSurfaceContainer</item>
+        <item name="android:statusBarColor">?attr/colorSurfaceContainer</item>
+        <item name="android:navigationBarColor">?attr/colorSurfaceContainer</item>
         <item name="actionBarTheme">@style/ThemeOverlay.Material3.Toolbar.Surface</item>
         <item name="materialButtonStyle">@style/Widget.Material3.Button</item>
         <item name="borderlessButtonStyle">@style/Widget.Material3.Button.TextButton</item>
@@ -16,7 +18,7 @@
         <item name="tabStyle">@style/Widget.Material3.TabLayout</item>
         <item name="switchStyle">@style/Widget.Material3.CompoundButton.Switch</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.SagerNet</item>
         <item name="actionModeCloseDrawable">@drawable/ic_navigation_close</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBar">false</item>
@@ -51,7 +53,7 @@
         <item name="materialCardViewStyle">@style/Widget.SagerNet.Card</item>
         <item name="switchStyle">@style/Widget.Material3.CompoundButton.Switch</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Material3.BottomSheetDialog</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.SagerNet</item>
         <item name="actionModeCloseDrawable">@drawable/ic_navigation_close</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="windowActionBar">false</item>

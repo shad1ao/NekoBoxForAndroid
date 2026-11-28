@@ -15,6 +15,7 @@ import androidx.activity.result.component2
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
+import io.nekohasekai.sagernet.widget.Material3GroupedListDecoration
 import com.danielstone.materialaboutlibrary.MaterialAboutFragment
 import com.danielstone.materialaboutlibrary.items.MaterialAboutActionItem
 import com.danielstone.materialaboutlibrary.model.MaterialAboutCard
@@ -107,7 +108,7 @@ class AboutFragment : ToolbarFragment(R.layout.layout_about) {
                             MaterialAboutActionItem.Builder()
                                 .icon(R.drawable.ic_baseline_layers_24)
                                 .text(getString(R.string.version_x, "sing-box"))
-                                .subText(Libcore.versionBox())
+                                .subText(Libcore.versionBox().replace(",", ",\u200B"))
                                 .setOnClickAction { }
                                 .build())
                         .apply {
@@ -214,6 +215,21 @@ class AboutFragment : ToolbarFragment(R.layout.layout_about) {
 
             view.findViewById<RecyclerView>(R.id.mal_recyclerview).apply {
                 overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+                addOnChildAttachStateChangeListener(object : RecyclerView.OnChildAttachStateChangeListener {
+                    override fun onChildViewAttachedToWindow(child: View) {
+                        val rows = child.findViewById<RecyclerView>(R.id.mal_card_recyclerview) ?: return
+                        if ((0 until rows.itemDecorationCount).none {
+                                rows.getItemDecorationAt(it) is Material3GroupedListDecoration
+                            }
+                        ) {
+                            rows.addItemDecoration(
+                                Material3GroupedListDecoration(rows) { _, _ -> false }
+                            )
+                        }
+                    }
+
+                    override fun onChildViewDetachedFromWindow(child: View) {}
+                })
             }
         }
 
