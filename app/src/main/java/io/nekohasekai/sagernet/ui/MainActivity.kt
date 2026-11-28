@@ -59,6 +59,7 @@ import io.nekohasekai.sagernet.ktx.runOnIoDispatcher
 import io.nekohasekai.sagernet.ktx.runOnMainDispatcher
 import io.nekohasekai.sagernet.update.AppUpdate
 import io.nekohasekai.sagernet.update.AppUpdatePrompt
+import io.nekohasekai.sagernet.widget.installModalDrawerContainer
 import io.nekohasekai.sagernet.update.NyaBoxUpdateClient
 import io.nekohasekai.sagernet.update.UpdateOutcome
 import moe.matsuri.nb4a.utils.Util
@@ -89,6 +90,7 @@ class MainActivity : ThemedActivity(),
             navigation = binding.navViewBlack
             binding.drawerLayout.removeView(binding.navView)
         }
+        navigation.installModalDrawerContainer()
         navigation.setNavigationItemSelectedListener(this)
 
         if (savedInstanceState == null) {

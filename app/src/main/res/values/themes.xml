@@ -3,7 +3,7 @@
     <style name="Theme.SagerNet" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="actionBarStyle">@style/Widget.Material3.ActionBar.Solid</item>
         <item name="toolbarStyle">@style/Widget.Material3.Toolbar</item>
-        <item name="navigationViewStyle">@style/Widget.Material3.NavigationView</item>
+        <item name="navigationViewStyle">@style/Widget.SagerNet.NavigationView</item>
         <item name="materialButtonStyle">@style/Widget.Material3.Button</item>
         <item name="borderlessButtonStyle">@style/Widget.Material3.Button.TextButton</item>
         <item name="floatingActionButtonStyle">@style/Widget.Material3.FloatingActionButton.Primary</item>
@@ -721,33 +721,66 @@
         <item name="tabUnboundedRipple">false</item>
     </style>
 
+    <style name="Widget.SagerNet.PopupMenu" parent="Widget.Material3.PopupMenu">
+        <item name="android:popupElevation">3dp</item>
+        <item name="android:popupBackground">@drawable/m3_popupmenu_background_overlay</item>
+    </style>
+
+    <style name="Widget.SagerNet.PopupMenu.Overflow" parent="Widget.Material3.PopupMenu.Overflow">
+        <item name="android:popupElevation">3dp</item>
+        <item name="android:popupBackground">@drawable/m3_popupmenu_background_overlay</item>
+    </style>
+
+    <style name="Widget.SagerNet.PopupMenu.ListPopupWindow" parent="Widget.Material3.PopupMenu.ListPopupWindow">
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="android:popupElevation">3dp</item>
+    </style>
+
     <style name="ThemeOverlay.SagerNet.PopupMenu" parent="ThemeOverlay.Material3">
-        <item name="actionOverflowMenuStyle">@style/Widget.Material3.PopupMenu.Overflow</item>
-        <item name="android:listDivider">?attr/colorOutlineVariant</item>
+        <item name="actionOverflowMenuStyle">@style/Widget.SagerNet.PopupMenu.Overflow</item>
+        <item name="android:listDivider">@null</item>
         <item name="android:listPreferredItemHeightSmall">48dp</item>
         <item name="android:listPreferredItemPaddingEnd">12dp</item>
         <item name="android:listPreferredItemPaddingStart">12dp</item>
         <item name="android:textColorPrimary">?attr/colorOnSurface</item>
         <item name="colorControlNormal">?attr/colorOnSurfaceVariant</item>
-        <item name="listPopupWindowStyle">@style/Widget.Material3.PopupMenu.ListPopupWindow</item>
+        <item name="dropdownListPreferredItemHeight">48dp</item>
+        <item name="listPopupWindowStyle">@style/Widget.SagerNet.PopupMenu.ListPopupWindow</item>
         <item name="popupMenuBackground">@drawable/m3_popupmenu_background_overlay</item>
-        <item name="popupMenuStyle">@style/Widget.Material3.PopupMenu</item>
+        <item name="popupMenuStyle">@style/Widget.SagerNet.PopupMenu</item>
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Material3.BodyLarge</item>
         <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.Material3.BodyLarge</item>
     </style>
 
     <style name="ThemeOverlay.SagerNet.NavigationView" parent="ThemeOverlay.Material3.NavigationView">
         <item name="android:listDivider">?attr/colorOutlineVariant</item>
+        <item name="android:listPreferredItemHeightSmall">56dp</item>
     </style>
 
     <style name="Widget.SagerNet.NavigationView" parent="Widget.Material3.NavigationView">
+        <item name="android:background">?attr/colorSurfaceContainerLow</item>
+        <item name="android:elevation">1dp</item>
+        <item name="bottomInsetScrimEnabled">false</item>
         <item name="dividerInsetEnd">28dp</item>
         <item name="dividerInsetStart">28dp</item>
+        <item name="drawerLayoutCornerSize">16dp</item>
+        <item name="elevation">1dp</item>
+        <item name="endInsetScrimEnabled">false</item>
         <item name="itemHorizontalPadding">28dp</item>
+        <item name="itemIconPadding">12dp</item>
+        <item name="itemIconSize">24dp</item>
         <item name="itemIconTint">@color/navigation_icon</item>
+        <item name="itemShapeAppearance">@style/ShapeAppearance.Material3.Corner.Full</item>
         <item name="itemShapeFillColor">@color/navigation_item</item>
+        <item name="itemShapeInsetEnd">12dp</item>
+        <item name="itemShapeInsetStart">12dp</item>
+        <item name="itemTextAppearance">@style/TextAppearance.Material3.LabelLarge</item>
         <item name="itemTextColor">@color/navigation_icon</item>
+        <item name="itemVerticalPadding">0dp</item>
         <item name="materialThemeOverlay">@style/ThemeOverlay.SagerNet.NavigationView</item>
+        <item name="startInsetScrimEnabled">false</item>
+        <item name="topInsetScrimEnabled">false</item>
     </style>
 
     <style name="Widget.SagerNet.Card" parent="Widget.Material3.CardView.Filled">

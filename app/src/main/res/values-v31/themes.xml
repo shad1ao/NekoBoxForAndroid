@@ -5,7 +5,7 @@
     <style name="Theme.SagerNet.Dynamic" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
         <item name="actionBarStyle">@style/Widget.Material3.ActionBar.Solid</item>
         <item name="toolbarStyle">@style/Widget.Material3.Toolbar</item>
-        <item name="navigationViewStyle">@style/Widget.Material3.NavigationView</item>
+        <item name="navigationViewStyle">@style/Widget.SagerNet.NavigationView</item>
         <item name="android:colorBackground">?attr/colorSurfaceContainer</item>
         <item name="android:windowBackground">?attr/colorSurfaceContainer</item>
         <item name="android:statusBarColor">?attr/colorSurfaceContainer</item>
