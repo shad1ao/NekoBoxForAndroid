@@ -68,6 +68,17 @@ class StatsBar @JvmOverloads constructor(
     }
 
 
+    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+        super.onLayout(changed, l, t, r, b)
+        (context.findContext<MainActivity>())?.placeConnectionButton()
+    }
+
+    override fun setTranslationY(translationY: Float) {
+        super.setTranslationY(translationY)
+        // Hide-on-scroll moves only this bar. The connection button stays on screen.
+        context.findContext<MainActivity>()?.binding?.fab?.translationY = 0f
+    }
+
     override fun setOnClickListener(l: OnClickListener?) {
         statusText = findViewById(R.id.status)
         txText = findViewById(R.id.tx)
@@ -81,7 +92,7 @@ class StatsBar @JvmOverloads constructor(
     }
 
     fun changeState(state: BaseService.State) {
-        val activity = context as MainActivity
+        val activity = context.findContext<MainActivity>() ?: return
         fun postWhenStarted(what: () -> Unit) = activity.lifecycleScope.launch(Dispatchers.Main) {
             delay(100L)
             activity.whenStarted { what() }
@@ -123,7 +134,7 @@ class StatsBar @JvmOverloads constructor(
     }
 
     fun testConnection() {
-        val activity = context as MainActivity
+        val activity = context.findContext<MainActivity>() ?: return
         isEnabled = false
         setStatus(app.getText(R.string.connection_test_testing))
         runOnDefaultDispatcher {
